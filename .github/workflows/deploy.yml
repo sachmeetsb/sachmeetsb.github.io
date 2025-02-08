@@ -23,7 +23,7 @@ jobs:
       - name: Build project 
         run: |
             npm install
-            npm run build
+            vite build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4
