@@ -23,6 +23,7 @@ jobs:
       - name: Build project 
         run: |
             npm install
+            npm build
             vite build
 
       - name: Upload production-ready build files
