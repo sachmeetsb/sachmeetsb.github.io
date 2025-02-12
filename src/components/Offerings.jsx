@@ -22,7 +22,7 @@ function Offerings() {
           <animated.div style={fadeIn} className="p-6 bg-black text-secondary rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
             <FaBrain className="text-4xl text-secondary mb-4 mx-auto" alt="Brain Icon" />
             <h3 className="text-xl font-semibold mb-2">Adhyayan</h3>
-            <p className="text-secondary">We understand your existing processes and streamline your workflows with AI, reducing manual work. Improve efficiency with AI-driven solutions.</p>
+            <p className="text-secondary">We understand your existing processes and streamline your workflows with AI, reducing manual work. Improve efficiency with multi-modal AI-driven solutions.</p>
           </animated.div>
           <animated.div style={fadeIn} className="p-6 bg-black text-secondary rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
             <FaHandHoldingUsd className="text-4xl text-secondary mb-4 mx-auto" alt="Hand Holding USD Icon" />

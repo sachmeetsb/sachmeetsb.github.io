@@ -5,6 +5,9 @@ import Offerings from './components/Offerings';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import AboutUs from './components/AboutUs';
+import Team from './components/Team';
+import Testimonials from './components/Testimonials';
+import CaseStudies from './components/CaseStudies';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -17,10 +20,12 @@ function App() {
             <>
               <Header />
               <Offerings />
+              <CaseStudies />
+              <Testimonials />
               <ContactForm />
             </>
           } />
-          <Route path="/about" element={<AboutUs />} />
+          <Route path="/about" element={<><AboutUs /><Team /></>} />
         </Routes>
         <Footer />
       </div>
