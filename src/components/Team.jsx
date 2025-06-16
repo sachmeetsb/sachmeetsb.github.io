@@ -11,22 +11,22 @@ function Team() {
   const teamMembers = [
     {
       name: 'Sachmeet Singh Bhatia',
-      role: 'CEO & Founder',
+      role: 'CEO & Co-Founder',
       description: 'Data Science Consultant | MBA, IIT Roorkee 2023',
       location: 'Indore / Bangalore',
       image: '/sachmeet.jpg'
     },
     {
       name: 'Yashwardhan Sable',
-      role: 'CTO',
-      description: 'B. Tech - Physics IIT BHU | Robotics and AI',
+      role: 'CTO & Co-Founder',
+      description: 'B. Tech - Physics IIT BHU | Published in Royal Astronomical Society',
       location: 'Indore / Varanasi',
       image: '/yash.jpg'
     }
   ];
 
   return (
-    <animated.div style={fadeIn} className="py-12 bg-secondary text-primary">
+    <animated.div style={fadeIn} className="py-12 bg-black/90 text-primary">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">Our Team</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

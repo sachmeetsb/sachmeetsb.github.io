@@ -52,7 +52,7 @@ function ContactForm() {
   return (
     <section id="contact" className="py-12 bg-primary">
       <div className="container mx-auto">
-        <animated.h2 style={fadeIn} className="text-3xl font-bold text-center mb-8 text-secondary">So, what are we building?</animated.h2>
+        <animated.h2 style={fadeIn} className="text-3xl font-bold text-center mb-8 text-tertiary"><em>So, what are we building?</em></animated.h2>
         <animated.form onSubmit={handleSubmit} style={fadeIn} className="max-w-lg mx-auto bg-black rounded-lg shadow-md p-8">
           <div className="mb-4">
             <label htmlFor="name" className="block text-secondary text-sm font-bold mb-2">Name:</label>

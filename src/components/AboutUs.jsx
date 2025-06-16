@@ -9,11 +9,11 @@ function AboutUs() {
   });
 
   return (
-    <animated.div style={fadeIn} className="py-16 bg-primary text-secondary">
+    <animated.div style={fadeIn} className="py-16 text-tertiary bg-primary/10">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Transforming Businesses Through AI Innovation</h2>
+        <h2 className="text-4xl font-bold text-center mb-12 rounded-lg">Transforming Businesses Through AI Innovation</h2>
         
-        <div className="grid md:grid-cols-2 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 gap-12 mb-12 text-tertiary bg-black/30 rounded-lg p-5">
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold mb-4">Our Vision</h3>
             <p className="text-lg leading-relaxed">
@@ -50,16 +50,16 @@ function AboutUs() {
           </div>
         </div>
 
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <h3 className="text-2xl font-semibold mb-6">Ready to Transform Your Business?</h3>
           <p className="text-lg mb-8">
             Let's discuss how we can help you leverage AI to achieve your business goals. Our team is ready to understand 
             your challenges and propose innovative solutions.
           </p>
-        </div>
+        </div> */}
 
-        <div className="bg-secondary/10 p-8 rounded-lg">
-          <h3 className="text-2xl font-semibold mb-6 text-center">Get in Touch</h3>
+        <div className="bg-black/40 p-8 rounded-lg">
+          <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <p className="font-semibold">Kartar AI</p>

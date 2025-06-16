@@ -4,6 +4,6 @@
 
 /* Add this to your index.css or a separate CSS file */
 a.active {
-  color: #fad02c; /* Change to your active link color */
+  color: white; /* Change to your active link color */
   font-weight: bold;
 }

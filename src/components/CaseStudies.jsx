@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
-import { FaChartLine, FaRocket, FaCogs, FaArrowRight } from 'react-icons/fa';
+import { FaChartLine, FaRocket, FaCogs, FaArrowRight, FaBriefcase, FaPhotoVideo } from 'react-icons/fa';
 
 function CaseStudies() {
   const fadeIn = useSpring({
@@ -16,44 +16,42 @@ function CaseStudies() {
       challenge: "Manual quality control process with 85% accuracy",
       solution: "Implemented computer vision AI for automated quality inspection",
       results: [
-        "99.2% inspection accuracy",
+        "78% inspection accuracy",
         "73% reduction in quality control time",
-        "₹45 lakhs annual cost savings"
+        "30% annual cost savings"
       ],
       icon: <FaCogs className="text-4xl mb-4" />
     },
     {
-      title: "Financial Innovation",
-      industry: "Banking",
-      challenge: "4-day average loan processing time",
-      solution: "AI-powered loan processing automation system",
+      title: "Rendering On-Demand Media Generation at Scale",
+      industry: "Marketing / Architecture",
+      challenge: "Self-hosted method for Multimodal Media Generation including renders, advertisement material, audio clips and 3D artifacts",
+      solution: "AI-powered Generative Frameworks including Diffusion and Audio Models via PyTorch",
       results: [
-        "90% reduction in processing time",
-        "65% decrease in operational costs",
-        "3x increase in loan processing capacity"
+        "90% reduction in processing time for media generation",
       ],
-      icon: <FaChartLine className="text-4xl mb-4" />
+      icon: <FaPhotoVideo className="text-4xl mb-4" />
     },
     {
-      title: "Retail Transformation",
-      industry: "E-commerce",
-      challenge: "Basic recommendation system with 12% conversion",
-      solution: "Advanced AI recommendation engine",
+      title: "Scaling Legal",
+      industry: "Legal",
+      challenge: "Creating a scalable process for SMEs and individuals to send legal notices at fractional costs",
+      solution: "Innovative End to End Solution for Filing and Sending Notices",
       results: [
-        "42% increase in conversion rate",
-        "58% higher average order value",
-        "2.3x revenue growth in 6 months"
+        "87% lower in charges",
+        "30% time savings for lawyers",
+        "2.3x revenue growth due to scaling number of clients"
       ],
-      icon: <FaRocket className="text-4xl mb-4" />
+      icon: <FaBriefcase className="text-4xl mb-4" />
     }
   ];
 
   return (
-    <section className="py-16 bg-secondary">
+    <section className="py-16 bg-black/70">
       <div className="container mx-auto px-4">
         <animated.div style={fadeIn}>
           <h2 className="text-3xl font-bold text-center mb-4 text-primary">Success Stories</h2>
-          <p className="text-lg text-center mb-12 text-primary/80">
+          <p className="text-lg text-center mb-12 text-secondary">
             Real results from real businesses transforming with AI
           </p>
 
@@ -61,22 +59,22 @@ function CaseStudies() {
             {caseStudies.map((study, index) => (
               <div 
                 key={index}
-                className="bg-primary text-secondary p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                className="bg-secondary text-tertiary p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
               >
-                <div className="text-secondary flex justify-center">
+                <div className="text-primary flex justify-center">
                   {study.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-2 text-center">{study.title}</h3>
-                <p className="text-sm text-secondary/80 mb-4 text-center">{study.industry}</p>
+                <p className="text-sm text-tertiary/80 mb-4 text-center">{study.industry}</p>
                 
                 <div className="mb-4">
                   <h4 className="font-semibold mb-1">Challenge:</h4>
-                  <p className="text-sm text-secondary/90">{study.challenge}</p>
+                  <p className="text-sm text-tertiary/90">{study.challenge}</p>
                 </div>
                 
                 <div className="mb-4">
                   <h4 className="font-semibold mb-1">Solution:</h4>
-                  <p className="text-sm text-secondary/90">{study.solution}</p>
+                  <p className="text-sm text-tertiary/90">{study.solution}</p>
                 </div>
                 
                 <div>
@@ -84,7 +82,7 @@ function CaseStudies() {
                   <ul className="text-sm space-y-1">
                     {study.results.map((result, idx) => (
                       <li key={idx} className="flex items-center">
-                        <span className="text-secondary/90">• {result}</span>
+                        <span className="text-tertiary/90">• {result}</span>
                       </li>
                     ))}
                   </ul>

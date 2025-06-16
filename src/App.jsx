@@ -12,8 +12,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <div className="App">
+    <Router>
+      <div className="App" basename={process.env.PUBLIC_URL}>
         <Navbar />
         <Routes>
           <Route path="/" element={

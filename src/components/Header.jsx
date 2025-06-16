@@ -8,7 +8,7 @@ function Header() {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Kartar AI Labs",
-      "description": "Leading AI consulting firm in India specializing in generative AI solutions and business process automation",
+      "description": "Leading AI consulting firm specializing in generative AI solutions and business process automation",
       "url": "https://kartar.ai",
       "logo": "/kartar logo 2.png",
       "sameAs": [
@@ -38,33 +38,33 @@ function Header() {
   });
 
   return (
-    <header id="header" className="py-20 relative overflow-hidden" role="banner" aria-label="Main header section">
+    <header id="header" className="py-48 relative overflow-hidden" role="banner" aria-label="Main header section">
       <div className="container mx-auto text-center relative z-10 bg-cover bg-center">
         <animated.h1 style={fadeIn} className="text-5xl font-bold mb-4 text-tertiary italic">
-          AI Transformation for Indian Businesses
+          Transform with AI
         </animated.h1>
-        <animated.p style={fadeIn} className="text-xl text-primary">
-          Empowering SMEs and Enterprises with Custom Generative AI Solutions
+        <animated.p style={fadeIn} className="text-xl text-tertiary">
+          Custom Generative AI Solutions by Kartar
         </animated.p>
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <animated.div style={fadeIn} className="bg-white/90 p-6 rounded-lg shadow-lg" role="article" aria-labelledby="mission-heading">
             <h2 id="mission-heading" className="text-2xl font-bold text-tertiary mb-3">Our Mission</h2>
             <p className="text-gray-700">
-              To revolutionize Indian businesses through strategic AI implementation, delivering custom generative AI solutions that enhance operational efficiency, drive innovation, and ensure sustainable growth in the digital economy.
+              To revolutionize core businesses through strategic AI implementation, delivering custom generative AI solutions that enhance operational efficiency, drive innovation, and ensure sustainable growth in the digital economy.
             </p>
           </animated.div>
           
           <animated.div style={fadeIn} className="bg-white/90 p-6 rounded-lg shadow-lg" role="article" aria-labelledby="vision-heading">
             <h2 id="vision-heading" className="text-2xl font-bold text-tertiary mb-3">Our Vision</h2>
             <p className="text-gray-700">
-              To emerge as India's premier AI transformation partner, democratizing artificial intelligence for businesses of all sizes. We aim to catalyze the adoption of generative AI technologies, making them accessible and impactful for every Indian enterprise.
+              To emerge as India's premier AI transformation partner, democratizing artificial intelligence for businesses of all sizes. We aim to catalyze the adoption of generative AI technologies, making them accessible and impactful for every enterprise.
             </p>
           </animated.div>
         </div>
       </div>
-      <div className="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30" >
-        <img src="/tiger.jpg" className='w-full h-full object-cover' alt="Abstract business background" />
+      <div className="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-50" >
+        <img src="/CZx.gif" className='w-full h-full object-cover' alt="Abstract business background" />
       </div>
     </header>
   );

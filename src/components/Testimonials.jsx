@@ -4,16 +4,16 @@ import { useSpring, animated } from 'react-spring';
 function Testimonials() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "CEO, Tech Solutions",
+      name: "Yogesh Shinde",
+      role: "Advisor - Carimus, Greater Boston Area",
       text: "Kartar AI has transformed our business operations with their innovative AI solutions. Their expertise in data science and machine learning is unmatched.",
-      image: "/testimonial1.jpg"
+      image: "/yogesh.jpeg"
     },
     {
-      name: "Raj Patel",
-      role: "Director of Innovation, Future Corp",
-      text: "Working with Kartar AI was a game-changer for our company. Their AI implementations have significantly improved our efficiency and decision-making processes.",
-      image: "/testimonial2.jpg"
+      name: "Rajat Agrawal",
+      role: "Director of Innovation - IIT Roorkee",
+      text: "Working with Kartar AI was a game-changer for our institution. Their AI implementations have significantly improved our efficiency and decision-making processes.",
+      image: "/rajat.jpeg"
     },
     {
       name: "YOU (hopefully)",
@@ -84,9 +84,9 @@ function Testimonials() {
               <blockquote className="text-lg text-center italic mb-6">
                 "{testimonials[currentIndex].text}"
               </blockquote>
-              <div className="text-center">
+              <div className="text-center text-tertiary">
                 <p className="font-semibold">{testimonials[currentIndex].name}</p>
-                <p className="text-primary/70">{testimonials[currentIndex].role}</p>
+                <p className="text-tertiary/70">{testimonials[currentIndex].role}</p>
               </div>
             </div>
           </animated.div>
