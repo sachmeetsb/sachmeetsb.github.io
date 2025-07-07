@@ -12,8 +12,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <div className="App relative min-h-screen">
+    <Router>
+      <div
+        className="App relative min-h-screen"
+        basename={process.env.PUBLIC_URL}
+      >
         <Navbar />
 
         {/* Main content with proper spacing for fixed navbar */}
