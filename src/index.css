@@ -1,9 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Add this to your index.css or a separate CSS file */
+/* Base styles */
+* {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply font-sans antialiased;
+  font-display: swap;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-primary-400 to-secondary-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-primary-500 to-secondary-500;
+}
+
+/* Active link styling */
 a.active {
-  color: white; /* Change to your active link color */
-  font-weight: bold;
+  @apply text-white font-bold;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 bg-clip-text text-transparent;
+}
+
+/* Glass morphism effect */
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+}
+
+/* Animated gradient background */
+.animated-gradient {
+  @apply bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 animate-gradient-xy;
+}
+
+/* Floating animation */
+.float-animation {
+  @apply animate-float;
+}
+
+/* Hover scale effect */
+.hover-scale {
+  @apply transform transition-all duration-300 hover:scale-105;
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 transform transition-all duration-300 hover:scale-105 hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply px-8 py-3 rounded-full font-semibold text-primary-600 bg-white border-2 border-primary-500 hover:bg-primary-500 hover:text-white transform transition-all duration-300 hover:scale-105 hover:shadow-lg;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:-translate-y-2;
+}
+
+/* Blob animations */
+.blob {
+  @apply absolute rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse-slow;
+}
+
+/* Custom focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-4 focus:ring-primary-200 focus:ring-opacity-50;
+}
+
+/* Text shadow */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive text sizing */
+.text-responsive {
+  @apply text-sm sm:text-base md:text-lg lg:text-xl;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full border-4 border-primary-200 border-t-primary-600;
 }
