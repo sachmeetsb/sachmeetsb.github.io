@@ -13,13 +13,10 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
-    "github-pages": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
-    "react-router-dom": "^7.1.5",
-    "react-scroll": "^1.9.0",
-    "react-spring": "^9.7.3"
+    "react-scroll": "^1.9.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
@@ -33,6 +30,6 @@
     "gh-pages": "^6.3.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.1.4"
+    "vite": "^7.1.12"
   }
 }

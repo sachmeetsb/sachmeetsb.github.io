@@ -1,172 +1,136 @@
 import React from "react";
-import {
-  FaHeart,
-  FaLinkedin,
-  FaTwitter,
-  FaGithub,
-  FaInstagram,
-  FaArrowUp,
-} from "react-icons/fa";
+import { Link as ScrollLink } from "react-scroll";
+import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import Logo from "./Logo";
 
-function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+const navLinks = [
+  { to: "services", label: "Services" },
+  { to: "case-studies", label: "Case Studies" },
+  { to: "process", label: "Process" },
+  { to: "team", label: "Team" },
+  { to: "contact", label: "Contact" },
+];
 
+const socialLinks = [
+  { href: "#", icon: FaLinkedin, label: "LinkedIn" },
+  { href: "#", icon: FaTwitter, label: "Twitter" },
+  { href: "#", icon: FaGithub, label: "GitHub" },
+];
+
+export default function Footer() {
   return (
-    <footer className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900">
-        {/* Floating elements */}
-        <div className="absolute top-10 left-10 w-64 h-64 bg-primary-400/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div
-          className="absolute bottom-10 right-10 w-80 h-80 bg-secondary-400/10 rounded-full blur-3xl animate-pulse-slow"
-          style={{ animationDelay: "2s" }}
-        ></div>
+    <footer className="bg-void pt-20 pb-10">
+      <div className="max-w-container mx-auto px-8 lg:px-16">
+        {/* Top section */}
+        <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
+          {/* Logo + tagline */}
+          <div className="max-w-sm">
+            <Logo size="md" variant="on-dark" />
+            <p className="mt-5 text-white/[0.4] text-[16px] leading-relaxed">
+              Empowering businesses with Agentic AI and Software 3.0 -at
+              lightning speed.
+            </p>
+          </div>
 
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-              backgroundSize: "30px 30px",
-            }}
-          ></div>
-        </div>
-      </div>
-
-      <div className="relative z-10 py-16">
-        <div className="container mx-auto px-4">
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <img
-                  src="/kartar logo.png"
-                  alt="Kartar AI Labs Logo"
-                  className="h-12 w-auto object-contain rounded-lg shadow-lg"
-                />
-                <div>
-                  <h3 className="text-xl font-bold gradient-text bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-                    Kartar AI Labs
-                  </h3>
-                  <p className="text-white/60 text-sm">
-                    AI Transformation for Indian Businesses
-                  </p>
-                </div>
-              </div>
-              <p className="text-white/80 leading-relaxed mb-6 max-w-md">
-                Revolutionizing businesses through strategic AI implementation.
-                We deliver custom generative AI solutions that enhance
-                efficiency, drive innovation, and ensure sustainable growth.
-              </p>
-
-              {/* Social Links */}
-              <div className="flex space-x-4">
-                {[
-                  { icon: FaLinkedin, href: "#", label: "LinkedIn" },
-                  { icon: FaTwitter, href: "#", label: "Twitter" },
-                  { icon: FaGithub, href: "#", label: "GitHub" },
-                  { icon: FaInstagram, href: "#", label: "Instagram" },
-                ].map((social, index) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm border border-white/10 hover:border-white/30"
-                    aria-label={social.label}
+          {/* Nav links */}
+          <div>
+            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
+              Navigation
+            </h4>
+            <ul className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <ScrollLink
+                    to={link.to}
+                    smooth
+                    offset={-80}
+                    duration={500}
+                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium cursor-pointer transition-colors"
                   >
-                    <social.icon className="text-sm" />
-                  </a>
-                ))}
-              </div>
-            </div>
+                    {link.label}
+                  </ScrollLink>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-lg font-semibold text-white mb-6">
-                Quick Links
-              </h4>
-              <ul className="space-y-3">
-                {[
-                  { name: "Home", href: "/" },
-                  { name: "About Us", href: "/about" },
-                  { name: "Our Offerings", href: "#offerings" },
-                  { name: "Case Studies", href: "#case-studies" },
-                  { name: "Contact", href: "#contact" },
-                ].map((link, index) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-white/60 hover:text-white transition-colors duration-300 hover:translate-x-1 transform inline-block"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Contact */}
+          <div>
+            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
+              Contact
+            </h4>
+            <ul className="flex flex-col gap-3">
+              <li>
+                <a
+                  href="mailto:hello@kartar.ai"
+                  className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
+                >
+                  hello@kartar.ai
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://calendly.com/sachmeet-kartar/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
+                >
+                  Book a Call
+                </a>
+              </li>
+            </ul>
 
-            {/* Contact Info */}
-            <div>
-              <h4 className="text-lg font-semibold text-white mb-6">
-                Get In Touch
-              </h4>
-              <div className="space-y-4">
-                <div className="text-white/80">
-                  <p className="font-medium mb-1">Email</p>
-                  <a
-                    href="mailto:info@kartar.ai"
-                    className="text-white/60 hover:text-primary-400 transition-colors duration-300"
-                  >
-                    info@kartar.ai
-                  </a>
-                </div>
-                <div className="text-white/80">
-                  <p className="font-medium mb-1">Location</p>
-                  <p className="text-white/60">Indore, India</p>
-                </div>
-                <div className="text-white/80">
-                  <p className="font-medium mb-1">Business Hours</p>
-                  <p className="text-white/60">
-                    Mon - Fri: 9:00 AM - 6:00 PM IST
-                  </p>
-                </div>
-              </div>
+            {/* Social */}
+            <div className="flex gap-3 mt-6">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center text-white/[0.4] hover:text-white hover:border-white/[0.3] transition-colors"
+                >
+                  <social.icon size={16} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-white/10 pt-8">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              {/* Copyright */}
-              <div className="text-center md:text-left">
-                <p className="text-white/60">
-                  &copy; {new Date().getFullYear()} Kartar AI Labs. All rights
-                  reserved.
-                </p>
-                <p className="text-white/40 flex items-center justify-center md:justify-start space-x-1 mt-1">
-                  <span>Made with</span>
-                  <FaHeart className="text-red-400 animate-pulse" />
-                  <span>in Indore, India</span>
-                </p>
-              </div>
-
-              {/* Scroll to Top */}
+          {/* Newsletter */}
+          <div>
+            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
+              Updates
+            </h4>
+            <p className="text-white/[0.4] text-[15px] mb-4">
+              Get updates. No spam. Just builds.
+            </p>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex gap-2"
+            >
+              <input
+                type="email"
+                placeholder="you@company.com"
+                className="bg-white/[0.06] border border-white/[0.1] rounded-lg px-4 py-2.5 text-white text-[15px] placeholder:text-white/[0.2] focus:outline-none focus:border-saffron/40 transition-colors w-full max-w-[220px]"
+              />
               <button
-                onClick={scrollToTop}
-                className="group flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white/60 hover:text-white px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/10 hover:border-white/30"
+                type="submit"
+                className="px-5 py-2.5 bg-saffron hover:bg-saffron-light text-white font-display text-[14px] font-semibold rounded-lg transition-colors flex-shrink-0"
               >
-                <span className="text-sm font-medium">Back to Top</span>
-                <FaArrowUp className="text-xs group-hover:-translate-y-1 transition-transform duration-300" />
+                Subscribe
               </button>
-            </div>
+            </form>
           </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-white/[0.06] pt-7">
+          <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/[0.2] text-center">
+            &copy; 2026 Kartar AI Labs. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   );
 }
-
-export default Footer;
