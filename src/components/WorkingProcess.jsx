@@ -1,5 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { HiPlus, HiMinus } from "react-icons/hi";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SectionHeader } from "./motion/Section";
+import {
+  prefersReducedMotion,
+  isMobileViewport,
+} from "../lib/useReducedMotion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
@@ -30,19 +39,41 @@ const steps = [
 
 export default function WorkingProcess() {
   const [openIndex, setOpenIndex] = useState(0);
+  const sectionRef = useRef(null);
+
+  // Pinned scrollytelling: scroll advances the active stage. Falls back to a
+  // plain clickable accordion on reduced-motion / mobile.
+  useEffect(() => {
+    if (prefersReducedMotion() || isMobileViewport()) return;
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * (steps.length - 1)}`,
+        pin: true,
+        scrub: true,
+        onUpdate: (self) => {
+          const idx = Math.min(
+            steps.length - 1,
+            Math.floor(self.progress * steps.length)
+          );
+          setOpenIndex(idx);
+        },
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="process" className="pt-10 md:pt-14 pb-24 md:pb-32">
-      <div className="max-w-container mx-auto px-8 lg:px-16">
-        {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-12 mb-14">
-          <span className="inline-block self-start bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] whitespace-nowrap">
-            Our Process
-          </span>
-          <p className="text-text-muted text-[18px] max-w-2xl leading-relaxed">
-            Four stages. Each one earns the next.
-          </p>
-        </div>
+    <section
+      ref={sectionRef}
+      id="process"
+      className="relative min-h-screen flex flex-col justify-center pt-10 md:pt-14 pb-24 md:pb-32"
+    >
+      <div className="relative z-10 max-w-container mx-auto w-full px-8 lg:px-16">
+        <SectionHeader label="Our Process">
+          Four stages. Each one earns the next.
+        </SectionHeader>
 
         {/* Accordion */}
         <div className="flex flex-col gap-6">
@@ -51,10 +82,10 @@ export default function WorkingProcess() {
             return (
               <div
                 key={step.num}
-                className={`border-2 rounded-card p-8 md:p-10 transition-all duration-300 ${
+                className={`border rounded-card p-8 md:p-10 transition-all duration-500 ${
                   isOpen
-                    ? "border-text-dark bg-saffron/[0.03] shadow-md"
-                    : "border-black/[0.08] bg-white hover:border-black/[0.15]"
+                    ? "border-saffron/60 bg-white/[0.05] shadow-glow-saffron"
+                    : "border-white/10 bg-white/[0.02] hover:border-white/25"
                 }`}
               >
                 <button
@@ -62,25 +93,31 @@ export default function WorkingProcess() {
                   className="w-full flex items-center justify-between gap-6"
                 >
                   <div className="flex items-center gap-6 md:gap-10">
-                    <span className="font-display font-extrabold text-[42px] md:text-[56px] text-text-dark leading-none">
+                    <span
+                      className={`font-display font-extrabold text-[42px] md:text-[56px] leading-none transition-colors ${
+                        isOpen ? "autonomous-gradient" : "text-white/30"
+                      }`}
+                    >
                       {step.num}
                     </span>
-                    <h3 className="font-display font-bold text-[20px] md:text-[26px] text-text-dark text-left">
+                    <h3 className="font-display font-bold text-[20px] md:text-[26px] text-white text-left">
                       {step.title}
                     </h3>
                   </div>
-                  <span className="flex-shrink-0 w-12 h-12 rounded-full border-2 border-text-dark flex items-center justify-center text-text-dark text-xl">
+                  <span className="flex-shrink-0 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white text-xl">
                     {isOpen ? <HiMinus /> : <HiPlus />}
                   </span>
                 </button>
 
                 {/* Expandable content */}
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-40 mt-7 pt-7 border-t border-black/[0.08]" : "max-h-0"
+                  className={`overflow-hidden transition-all duration-500 ${
+                    isOpen
+                      ? "max-h-40 mt-7 pt-7 border-t border-white/10"
+                      : "max-h-0"
                   }`}
                 >
-                  <p className="text-text-body text-[17px] leading-relaxed max-w-3xl">
+                  <p className="text-white/65 text-[17px] leading-relaxed max-w-3xl">
                     {step.description}
                   </p>
                 </div>

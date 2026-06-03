@@ -1,41 +1,43 @@
 import React, { useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
+import Section, { SectionHeader } from "./motion/Section";
+import { Stagger, StaggerItem } from "./motion/Reveal";
 
 const ROLE_STYLES = {
   Founder: {
-    badge: "bg-saffron/15 text-saffron border-saffron/30",
+    badge: "bg-saffron/15 text-saffron-core border-saffron/30",
     ring: "ring-saffron/40",
-    accent: "from-saffron/20 to-saffron/5",
+    accent: "from-saffron/25 to-transparent",
   },
   Builder: {
-    badge: "bg-blue-500/15 text-blue-700 border-blue-500/30",
+    badge: "bg-blue-500/15 text-blue-300 border-blue-500/30",
     ring: "ring-blue-500/40",
-    accent: "from-blue-500/20 to-blue-500/5",
+    accent: "from-blue-500/25 to-transparent",
   },
   Patron: {
-    badge: "bg-orange-500/15 text-orange-700 border-orange-500/30",
+    badge: "bg-orange-500/15 text-orange-300 border-orange-500/30",
     ring: "ring-orange-500/40",
-    accent: "from-orange-500/20 to-orange-500/5",
+    accent: "from-orange-500/25 to-transparent",
   },
   "Domain Expert": {
-    badge: "bg-purple-500/15 text-purple-700 border-purple-500/30",
+    badge: "bg-purple-500/15 text-purple-300 border-purple-500/30",
     ring: "ring-purple-500/40",
-    accent: "from-purple-500/20 to-purple-500/5",
+    accent: "from-purple-500/25 to-transparent",
   },
   "Technical Expert": {
-    badge: "bg-emerald-500/15 text-emerald-700 border-emerald-500/30",
+    badge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
     ring: "ring-emerald-500/40",
-    accent: "from-emerald-500/20 to-emerald-500/5",
+    accent: "from-emerald-500/25 to-transparent",
   },
   Research: {
-    badge: "bg-cyan-500/15 text-cyan-700 border-cyan-500/30",
+    badge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
     ring: "ring-cyan-500/40",
-    accent: "from-cyan-500/20 to-cyan-500/5",
+    accent: "from-cyan-500/25 to-transparent",
   },
   SRE: {
-    badge: "bg-rose-500/15 text-rose-700 border-rose-500/30",
+    badge: "bg-rose-500/15 text-rose-300 border-rose-500/30",
     ring: "ring-rose-500/40",
-    accent: "from-rose-500/20 to-rose-500/5",
+    accent: "from-rose-500/25 to-transparent",
   },
 };
 
@@ -179,7 +181,7 @@ function TeamCard({ member }) {
     : member.category;
 
   return (
-    <div className="group relative border border-black/[0.07] rounded-card bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-200 overflow-hidden">
+    <div className="group relative h-full border border-white/10 rounded-card bg-white/[0.04] backdrop-blur-sm hover:border-white/20 hover:shadow-card-dark hover:-translate-y-1 transition-all duration-300 overflow-hidden">
       {/* Color accent gradient at top */}
       <div
         className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${style.accent} pointer-events-none`}
@@ -188,7 +190,7 @@ function TeamCard({ member }) {
       <div className="relative p-8 flex flex-col items-center text-center">
         {/* Avatar */}
         <div
-          className={`w-[110px] h-[110px] rounded-full bg-white ring-4 ${style.ring} flex items-center justify-center mb-5 overflow-hidden shadow-md`}
+          className={`w-[110px] h-[110px] rounded-full bg-surface-mid ring-4 ${style.ring} flex items-center justify-center mb-5 overflow-hidden shadow-md`}
         >
           {!imgFailed ? (
             <img
@@ -198,14 +200,14 @@ function TeamCard({ member }) {
               onError={() => setImgFailed(true)}
             />
           ) : (
-            <span className="font-display font-bold text-[32px] text-indigo-mid">
+            <span className="font-display font-bold text-[32px] text-white/80">
               {initials(member.name)}
             </span>
           )}
         </div>
 
         {/* Name */}
-        <h3 className="font-display font-bold text-[20px] text-text-dark mb-3 leading-tight">
+        <h3 className="font-display font-bold text-[20px] text-white mb-3 leading-tight">
           {member.name}
         </h3>
 
@@ -222,7 +224,7 @@ function TeamCard({ member }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${member.name} on LinkedIn`}
-          className="inline-flex items-center gap-2 text-text-muted hover:text-[#0A66C2] transition-colors"
+          className="inline-flex items-center gap-2 text-white/50 hover:text-[#4aa3ff] transition-colors"
         >
           <FaLinkedin size={22} />
           <span className="font-mono text-[12px] tracking-[0.08em] uppercase">
@@ -236,26 +238,23 @@ function TeamCard({ member }) {
 
 export default function Team() {
   return (
-    <section id="team" className="py-24 md:py-32 bg-white">
-      <div className="max-w-container mx-auto px-8 lg:px-16">
-        {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-12 mb-14">
-          <span className="inline-block self-start bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] whitespace-nowrap">
-            Team
-          </span>
-          <p className="text-text-muted text-[18px] max-w-2xl leading-relaxed">
-            Small, intentional, no sales layer. When you work with Kartar AI,
-            you work with the people who write the code.
-          </p>
-        </div>
+    <Section id="team" className="py-24 md:py-32">
+      <SectionHeader label="Team">
+        Small, intentional, no sales layer. When you work with Kartar AI, you
+        work with the people who write the code.
+      </SectionHeader>
 
-        {/* Team grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {team.map((member) => (
-            <TeamCard key={member.slug} member={member} />
-          ))}
-        </div>
-      </div>
-    </section>
+      {/* Team grid */}
+      <Stagger
+        stagger={0.05}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        {team.map((member) => (
+          <StaggerItem key={member.slug} className="h-full">
+            <TeamCard member={member} />
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </Section>
   );
 }

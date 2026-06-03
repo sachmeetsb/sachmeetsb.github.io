@@ -44,12 +44,21 @@ export default {
       maxWidth: {
         'container': '1440px',
       },
+      boxShadow: {
+        'glow-saffron': '0 0 60px rgba(255,94,14,0.25)',
+        'glow-saffron-lg': '0 0 120px rgba(255,94,14,0.35)',
+        'glow-indigo': '0 0 80px rgba(74,47,154,0.4)',
+        'card-dark': '0 24px 70px -24px rgba(0,0,0,0.65)',
+      },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out forwards',
         'slide-up': 'slideUp 0.6s ease-out forwards',
         'marquee': 'marquee 30s linear infinite',
         'pulse-slow': 'pulseSlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'orb-float': 'orbFloat 6s ease-in-out infinite',
+        'aurora': 'aurora 18s ease-in-out infinite',
+        'border-beam': 'borderBeam 4s linear infinite',
+        'shimmer': 'shimmer 2.5s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -71,6 +80,18 @@ export default {
         orbFloat: {
           '0%, 100%': { transform: 'translateY(0) scale(1)' },
           '50%': { transform: 'translateY(-8px) scale(1.05)' },
+        },
+        aurora: {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)', opacity: '0.6' },
+          '50%': { transform: 'translate3d(3%, -4%, 0) scale(1.12)', opacity: '0.85' },
+        },
+        borderBeam: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '100%': { backgroundPosition: '200% 50%' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
       },
     },

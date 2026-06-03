@@ -10,6 +10,10 @@ import {
   HiCode,
   HiStar,
 } from "react-icons/hi";
+import Section from "./motion/Section";
+import Reveal, { Stagger, StaggerItem } from "./motion/Reveal";
+import SpotlightCard from "./motion/SpotlightCard";
+import CountUp from "./motion/CountUp";
 
 const agents = [
   {
@@ -124,52 +128,62 @@ const agents = [
 
 const accentStyles = {
   saffron: {
-    statBg: "bg-saffron/[0.1] text-saffron",
-    resultText: "text-saffron",
+    statBg: "bg-saffron/[0.15] text-saffron-core",
+    resultText: "text-saffron-core",
     bar: "bg-saffron",
+    glow: "rgba(255,94,14,0.18)",
   },
   indigo: {
-    statBg: "bg-indigo/[0.08] text-indigo-mid",
-    resultText: "text-indigo-mid",
-    bar: "bg-indigo-mid",
+    statBg: "bg-indigo-mid/[0.35] text-[#b9a8ff]",
+    resultText: "text-[#b9a8ff]",
+    bar: "bg-[#7c5cff]",
+    glow: "rgba(124,92,255,0.2)",
   },
   teal: {
-    statBg: "bg-teal/[0.1] text-teal-deep",
-    resultText: "text-teal-deep",
+    statBg: "bg-teal/[0.15] text-teal",
+    resultText: "text-teal",
     bar: "bg-teal",
+    glow: "rgba(0,191,165,0.18)",
   },
 };
 
 export default function IndustrySolutions() {
   return (
-    <section id="industry-solutions" className="pt-24 md:pt-32 pb-10 md:pb-14">
-      <div className="max-w-container mx-auto px-8 lg:px-16">
-        {/* Section header */}
-        <div className="mb-16">
-          <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6">
-            Industry Solutions
-          </span>
-          <h2
-            className="font-display font-extrabold text-[36px] md:text-[48px] text-text-dark leading-tight max-w-2xl mb-5"
-            style={{ letterSpacing: "-1px" }}
-          >
-            Agentic AI across{" "}
-            <span className="autonomous-gradient">every vertical</span>
-          </h2>
-          <p className="text-text-muted text-[18px] max-w-2xl leading-relaxed">
-            Purpose-built autonomous agents for India's most complex industries
-            - each delivering measurable, explainable outcomes from day one.
-          </p>
-        </div>
+    <Section
+      id="industry-solutions"
+      className="pt-24 md:pt-32 pb-10 md:pb-14"
+      glow={{
+        className: "w-[40rem] h-[40rem] -right-40 top-20 opacity-30",
+        style: { background: "rgba(74,47,154,0.5)" },
+      }}
+    >
+      {/* Section header */}
+      <Reveal className="mb-16">
+        <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6 shadow-glow-saffron">
+          Industry Solutions
+        </span>
+        <h2
+          className="font-display font-extrabold text-[36px] md:text-[48px] text-white leading-tight max-w-2xl mb-5"
+          style={{ letterSpacing: "-1px" }}
+        >
+          Agentic AI across{" "}
+          <span className="autonomous-gradient">every vertical</span>
+        </h2>
+        <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
+          Purpose-built autonomous agents for India's most complex industries
+          - each delivering measurable, explainable outcomes from day one.
+        </p>
+      </Reveal>
 
-        {/* Agent cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {agents.map((agent, i) => {
-            const style = accentStyles[agent.accent];
-            return (
-              <div
-                key={i}
-                className="border border-black/[0.07] rounded-card bg-white p-9 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+      {/* Agent cards grid */}
+      <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        {agents.map((agent, i) => {
+          const style = accentStyles[agent.accent];
+          return (
+            <StaggerItem key={i} className="h-full">
+              <SpotlightCard
+                glowColor={style.glow}
+                className="p-9 flex flex-col h-full"
               >
                 {/* Icon + Stat row */}
                 <div className="flex items-center gap-3 mb-5">
@@ -181,26 +195,26 @@ export default function IndustrySolutions() {
                   <span
                     className={`font-mono text-[11px] tracking-[0.06em] uppercase font-medium px-3 py-1.5 rounded-pill ${style.statBg}`}
                   >
-                    {agent.stat}
+                    <CountUp value={agent.stat} />
                   </span>
                 </div>
 
                 {/* Industry name */}
-                <h3 className="font-display font-bold text-[22px] text-text-dark mb-1 leading-tight">
+                <h3 className="font-display font-bold text-[22px] text-white mb-1 leading-tight">
                   {agent.industry}
                 </h3>
 
                 {/* Subtitle */}
-                <p className="font-display font-medium text-[14px] text-text-muted mb-6">
+                <p className="font-display font-medium text-[14px] text-white/45 mb-6">
                   {agent.subtitle}
                 </p>
 
                 {/* Before */}
                 <div className="mb-5">
-                  <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-text-muted/60 block mb-2">
+                  <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-white/35 block mb-2">
                     Before
                   </span>
-                  <p className="text-text-muted text-[14px] leading-relaxed">
+                  <p className="text-white/50 text-[14px] leading-relaxed">
                     {agent.before}
                   </p>
                 </div>
@@ -210,23 +224,23 @@ export default function IndustrySolutions() {
 
                 {/* After */}
                 <div>
-                  <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-text-muted/60 block mb-2">
+                  <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-white/35 block mb-2">
                     After Kartar AI
                   </span>
                   <p
                     className={`font-display font-bold text-[18px] mb-2 ${style.resultText}`}
                   >
-                    {agent.result}
+                    <CountUp value={agent.result} />
                   </p>
-                  <p className="text-text-body text-[14px] leading-relaxed">
+                  <p className="text-white/65 text-[14px] leading-relaxed">
                     {agent.after}
                   </p>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+              </SpotlightCard>
+            </StaggerItem>
+          );
+        })}
+      </Stagger>
+    </Section>
   );
 }

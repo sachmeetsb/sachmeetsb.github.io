@@ -1,15 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Fonts are loaded in index.html to avoid build-time network hangs */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply scroll-smooth;
+/* Lenis smooth-scroll: native scroll-behavior must be off so Lenis can drive it.
+   When reduced-motion is preferred we don't init Lenis, so re-enable native. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  @apply font-sans antialiased bg-surface-light text-text-dark;
+  font-family: Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0F0A1E;
+  color: rgba(255, 255, 255, 0.82);
   font-display: swap;
   line-height: 1.7;
 }
@@ -20,15 +41,60 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-surface-light;
+  background: #0F0A1E;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-indigo rounded-full;
+  background: #4A2F9A;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-indigo-mid;
+  background: #FF5E0E;
+}
+
+/* ---- Dark cinematic atmosphere ---- */
+
+/* Global film-grain overlay (mounted once in App). */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Hide the native cursor while the custom cursor is active (added by
+   CustomCursor on desktop / no-reduced-motion). The custom ball replaces it. */
+html.hide-cursor,
+html.hide-cursor * {
+  cursor: none !important;
+}
+
+/* Radial section glow helper. */
+.section-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-overlay {
+    display: none;
+  }
+  /* Blanket safety net: neutralize long/looping animations & transitions. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Tag / label component */
@@ -77,4 +143,35 @@ body {
   0% { background-position: 0% center; }
   50% { background-position: 100% center; }
   100% { background-position: 0% center; }
+}
+
+/* Animated conic-gradient border beam. Apply to a relatively-positioned el. */
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 94, 14, 0.8) 45%,
+    rgba(255, 160, 112, 0.9) 50%,
+    rgba(255, 94, 14, 0.8) 55%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-beam::before,
+  .autonomous-gradient {
+    animation: none;
+  }
 }

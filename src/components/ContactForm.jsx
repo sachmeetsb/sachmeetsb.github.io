@@ -38,7 +38,7 @@ export default function Contact() {
           <span className="inline-block self-start bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] whitespace-nowrap">
             Get in Touch
           </span>
-          <p className="text-text-muted text-[18px] max-w-2xl leading-relaxed">
+          <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
             Tell us what's broken. We'll tell you if AI is the fix.
           </p>
         </div>

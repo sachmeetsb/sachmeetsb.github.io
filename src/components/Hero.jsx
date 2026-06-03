@@ -1,13 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import SplitText from "./motion/SplitText";
+import MagneticButton from "./motion/MagneticButton";
+import {
+  useReducedMotion,
+  isMobileViewport,
+} from "../lib/useReducedMotion";
+import { EASE_OUT } from "../lib/motion";
+
+const HeroCanvas = lazy(() => import("./hero/HeroCanvas"));
+
+function supportsWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
+}
+
+/** CSS orb — fallback when WebGL is unavailable / reduced-motion / mobile. */
+function OrbFallback() {
+  return (
+    <div className="relative animate-orb-float">
+      <div
+        className="w-[280px] h-[280px] rounded-full animate-pulse-slow"
+        style={{
+          background:
+            "radial-gradient(circle at 40% 38%, #FFAA70 0%, #FF7A35 40%, #FF5E0E 100%)",
+          boxShadow:
+            "0 0 80px rgba(255,94,14,0.4), 0 0 160px rgba(255,94,14,0.15), 0 0 240px rgba(255,94,14,0.05)",
+        }}
+      />
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%)",
+        }}
+      />
+    </div>
+  );
+}
 
 export default function Hero() {
-  const [scrolled, setScrolled] = useState(false);
+  const reduced = useReducedMotion();
+  const [useCanvas, setUseCanvas] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 100);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    if (!reduced && !isMobileViewport() && supportsWebGL()) {
+      setUseCanvas(true);
+    }
+  }, [reduced]);
 
   return (
     <section
@@ -31,94 +78,100 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating gradient orb */}
-      <div className="absolute right-[10%] top-1/2 -translate-y-1/2 hidden lg:block">
-        <div className="relative animate-orb-float">
-          <div
-            className="w-[280px] h-[280px] rounded-full animate-pulse-slow"
-            style={{
-              background:
-                "radial-gradient(circle at 40% 38%, #FFAA70 0%, #FF7A35 40%, #FF5E0E 100%)",
-              boxShadow:
-                "0 0 80px rgba(255,94,14,0.4), 0 0 160px rgba(255,94,14,0.15), 0 0 240px rgba(255,94,14,0.05)",
-            }}
-          />
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%)",
-            }}
-          />
-        </div>
+      {/* Orb — WebGL canvas with CSS fallback */}
+      <div className="absolute right-[6%] top-1/2 -translate-y-1/2 hidden lg:block w-[480px] h-[480px]">
+        {useCanvas ? (
+          <Suspense
+            fallback={
+              <div className="absolute inset-0 flex items-center justify-center">
+                <OrbFallback />
+              </div>
+            }
+          >
+            <HeroCanvas />
+          </Suspense>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <OrbFallback />
+          </div>
+        )}
       </div>
 
       <div className="relative z-10 max-w-container mx-auto px-8 lg:px-16 py-36 md:py-44">
         {/* Animated tagline */}
-        <div className="mb-12">
-          <h2
-            className={`font-display font-extrabold text-white transition-all duration-700 ease-out ${
-              scrolled
-                ? "text-[32px] md:text-[40px] tracking-tight"
-                : "text-[56px] md:text-[84px] tracking-[-2px]"
-            }`}
-          >
-            <span
-              className={`transition-all duration-700 ${
-                scrolled ? "hidden" : "inline"
-              }`}
-            >
-              All Is.{" "}
-            </span>
-            <span
-              className={`transition-all duration-700 ${
-                scrolled ? "inline" : "hidden"
-              }`}
-            >
-              AI.{" "}
-            </span>
-            <span className="autonomous-gradient">Now</span>
+        <motion.div
+          className="mb-12"
+          initial={reduced ? false : { opacity: 0, y: 24 }}
+          animate={reduced ? {} : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 0.1 }}
+        >
+          <h2 className="font-display font-extrabold text-white text-[56px] md:text-[84px] tracking-[-2px]">
+            All Is. <span className="autonomous-gradient">Now</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Main headline */}
         <h1
           className="font-display font-extrabold text-white text-[clamp(38px,5vw,64px)] leading-[1.1] max-w-[800px] mb-6"
           style={{ letterSpacing: "-1.5px" }}
         >
-          Some industries haven't changed in 30 years.{" "}
-          <span className="autonomous-gradient">
-            We're changing them now.
-          </span>
+          <SplitText
+            text="Some industries haven't changed in 30 years."
+            stagger={0.03}
+            delay={0.25}
+          />{" "}
+          <SplitText
+            text="We're changing them now."
+            className="autonomous-gradient"
+            stagger={0.03}
+            delay={0.7}
+          />
         </h1>
 
         {/* Subtitle */}
-        <p className="text-[19px] text-white/[0.58] max-w-[580px] mb-12 leading-relaxed">
+        <motion.p
+          className="text-[19px] text-white/[0.58] max-w-[580px] mb-12 leading-relaxed"
+          initial={reduced ? false : { opacity: 0, y: 16 }}
+          animate={reduced ? {} : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.0 }}
+        >
           Agentic AI systems for Indian businesses. AI-native products for
           industries ready to be rebuilt from scratch. Two modes. One team. No
           fluff.
-        </p>
+        </motion.p>
 
         {/* CTAs */}
-        <div className="flex flex-wrap gap-4 mb-16">
-          <a
+        <motion.div
+          className="flex flex-wrap gap-4 mb-16"
+          initial={reduced ? false : { opacity: 0, y: 16 }}
+          animate={reduced ? {} : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.15 }}
+        >
+          <MagneticButton
+            as="a"
             href="https://calendly.com/sachmeet-kartar/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-semibold text-[17px] rounded-pill transition-all hover:shadow-[0_0_30px_rgba(255,94,14,0.3)]"
+            className="inline-block px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-semibold text-[17px] rounded-pill transition-all hover:shadow-glow-saffron"
           >
             Book a Call
-          </a>
-          <a
+          </MagneticButton>
+          <MagneticButton
+            as="a"
             href="#process"
-            className="px-8 py-4 border-2 border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display font-semibold text-[17px] rounded-pill transition-colors"
+            className="inline-block px-8 py-4 border-2 border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display font-semibold text-[17px] rounded-pill transition-colors"
           >
             See how we work
-          </a>
-        </div>
+          </MagneticButton>
+        </motion.div>
 
         {/* Trust bar */}
-        <div className="flex gap-10 flex-wrap">
+        <motion.div
+          className="flex gap-10 flex-wrap"
+          initial={reduced ? false : { opacity: 0 }}
+          animate={reduced ? {} : { opacity: 1 }}
+          transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.35 }}
+        >
           {[
             { label: "Timeline", value: "Pilot to production in weeks" },
             { label: "What we build", value: "Services + Products" },
@@ -133,7 +186,7 @@ export default function Hero() {
               </span>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

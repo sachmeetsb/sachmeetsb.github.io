@@ -1,7 +1,7 @@
 import React from "react";
-import { Link as ScrollLink } from "react-scroll";
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 import Logo from "./Logo";
+import { useLenis } from "../lib/SmoothScroll";
 
 const navLinks = [
   { to: "services", label: "Services" },
@@ -18,6 +18,17 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const lenis = useLenis();
+  const scrollTo = (target) => {
+    const el = document.getElementById(target);
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset: -80 });
+    else
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: "smooth",
+      });
+  };
   return (
     <footer className="bg-void pt-20 pb-10">
       <div className="max-w-container mx-auto px-8 lg:px-16">
@@ -40,15 +51,13 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <li key={link.to}>
-                  <ScrollLink
-                    to={link.to}
-                    smooth
-                    offset={-80}
-                    duration={500}
-                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium cursor-pointer transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => scrollTo(link.to)}
+                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium cursor-pointer transition-colors bg-transparent border-0 p-0"
                   >
                     {link.label}
-                  </ScrollLink>
+                  </button>
                 </li>
               ))}
             </ul>
