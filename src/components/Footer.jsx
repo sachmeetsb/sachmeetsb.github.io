@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import Logo from "./Logo";
 
 const navLinks = [
@@ -12,12 +12,42 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", icon: FaLinkedin, label: "LinkedIn" },
-  { href: "#", icon: FaTwitter, label: "Twitter" },
-  { href: "#", icon: FaGithub, label: "GitHub" },
+  {
+    href: "https://www.linkedin.com/company/kartar-ai/",
+    icon: FaLinkedin,
+    label: "LinkedIn",
+  },
 ];
 
+const SENDER_FORM_ID = "axkAXn";
+
 export default function Footer() {
+  // Sender's universal script runs with ?explicit=true, so it does not
+  // auto-render forms on load (which fails in an SPA since the form div
+  // mounts after the scan). We render it manually once this component is
+  // mounted, polling until the Sender script has finished loading.
+  useEffect(() => {
+    let cancelled = false;
+
+    const tryRender = (attempt = 0) => {
+      if (cancelled) return;
+      if (window.senderForms && typeof window.senderForms.render === "function") {
+        window.senderForms.render(SENDER_FORM_ID);
+      } else if (attempt < 50) {
+        setTimeout(() => tryRender(attempt + 1), 100);
+      }
+    };
+
+    tryRender();
+
+    return () => {
+      cancelled = true;
+      if (window.senderForms && typeof window.senderForms.destroy === "function") {
+        window.senderForms.destroy(SENDER_FORM_ID);
+      }
+    };
+  }, []);
+
   return (
     <footer className="bg-void pt-20 pb-10">
       <div className="max-w-container mx-auto px-8 lg:px-16">
@@ -98,29 +128,19 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div id="newsletter">
             <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
               Updates
             </h4>
             <p className="text-white/[0.4] text-[15px] mb-4">
               Get updates. No spam. Just builds.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex gap-2"
-            >
-              <input
-                type="email"
-                placeholder="you@company.com"
-                className="bg-white/[0.06] border border-white/[0.1] rounded-lg px-4 py-2.5 text-white text-[15px] placeholder:text-white/[0.2] focus:outline-none focus:border-saffron/40 transition-colors w-full max-w-[220px]"
-              />
-              <button
-                type="submit"
-                className="px-5 py-2.5 bg-saffron hover:bg-saffron-light text-white font-display text-[14px] font-semibold rounded-lg transition-colors flex-shrink-0"
-              >
-                Subscribe
-              </button>
-            </form>
+            {/* Sender.net embedded signup form */}
+            <div
+              style={{ textAlign: "left" }}
+              className="sender-form-field"
+              data-sender-form-id="axkAXn"
+            />
           </div>
         </div>
 

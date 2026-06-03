@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as ScrollLink } from "react-scroll";
 import { HiShieldCheck, HiLightBulb, HiLockOpen } from "react-icons/hi";
 
 export default function CtaBanner() {
@@ -29,23 +30,18 @@ export default function CtaBanner() {
             one.
           </p>
 
-          {/* Email form */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto mb-10"
-          >
-            <input
-              type="email"
-              placeholder="Enter your work email"
-              className="bg-white/[0.08] border border-white/[0.12] rounded-pill px-6 py-4 text-white text-[16px] placeholder:text-white/[0.3] focus:outline-none focus:border-saffron/50 transition-colors flex-1"
-            />
-            <button
-              type="submit"
-              className="flex-shrink-0 px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors"
+          {/* CTA button -> scrolls to the newsletter signup in the footer */}
+          <div className="flex justify-center mb-10">
+            <ScrollLink
+              to="newsletter"
+              smooth
+              offset={-80}
+              duration={500}
+              className="cursor-pointer px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors"
             >
               Deploy Your First Agent
-            </button>
-          </form>
+            </ScrollLink>
+          </div>
 
           {/* Trust badges */}
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
