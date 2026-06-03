@@ -5,19 +5,16 @@ const testimonials = [
   {
     quote:
       "They didn't just build us an AI tool -they understood our workflow first. The agent handles 70% of our triage now. We didn't expect it to work this fast.",
-    name: "Client Name",
     role: "CTO, Fintech Startup",
   },
   {
     quote:
       "Most vendors showed us slide decks. Kartar showed us a working prototype in the first meeting. That's when we knew they were different.",
-    name: "Client Name",
     role: "Operations Head, Logistics Co.",
   },
   {
     quote:
       "Honest about what AI can and can't do. They actually scoped our project down because the original ask didn't need AI. Saved us months.",
-    name: "Client Name",
     role: "Founder, Legal Tech Startup",
   },
 ];
@@ -65,10 +62,7 @@ export default function Testimonials() {
             </div>
 
             {/* Attribution */}
-            <p className="font-display font-bold text-[18px] text-white mb-1">
-              {testimonials[current].name}
-            </p>
-            <p className="font-mono text-[12px] tracking-[0.08em] uppercase text-white/[0.4]">
+            <p className="font-mono text-[13px] tracking-[0.08em] uppercase text-white/[0.55]">
               {testimonials[current].role}
             </p>
           </div>

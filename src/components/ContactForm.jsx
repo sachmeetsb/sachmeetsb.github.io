@@ -1,6 +1,12 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
+// EmailJS configuration. Service ID and Public Key are safe to expose
+// client-side (EmailJS uses domain allow-listing for security).
+const EMAILJS_SERVICE_ID = "service_gtn59h8";
+const EMAILJS_TEMPLATE_ID = "template_2l3bp6f";
+const EMAILJS_PUBLIC_KEY = "kmCIQtGGQzq1RfE0w";
+
 export default function Contact() {
   const formRef = useRef();
   const [sending, setSending] = useState(false);
@@ -14,17 +20,18 @@ export default function Contact() {
 
     emailjs
       .sendForm(
-        "service_id",
-        "template_id",
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         formRef.current,
-        "public_key"
+        EMAILJS_PUBLIC_KEY
       )
       .then(() => {
         setSent(true);
         setSending(false);
         formRef.current.reset();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("EmailJS send failed:", err?.status, err?.text, err);
         setError(true);
         setSending(false);
       });
@@ -60,7 +67,7 @@ export default function Contact() {
               </label>
               <input
                 type="text"
-                name="user_name"
+                name="from_name"
                 required
                 className="w-full bg-white/[0.08] border border-white/[0.12] rounded-xl px-5 py-3.5 text-white text-[16px] placeholder:text-white/[0.25] focus:outline-none focus:border-saffron/50 transition-colors"
                 placeholder="Your name"
@@ -73,10 +80,35 @@ export default function Contact() {
               </label>
               <input
                 type="email"
-                name="user_email"
+                name="from_email"
                 required
                 className="w-full bg-white/[0.08] border border-white/[0.12] rounded-xl px-5 py-3.5 text-white text-[16px] placeholder:text-white/[0.25] focus:outline-none focus:border-saffron/50 transition-colors"
                 placeholder="you@company.com"
+              />
+            </div>
+
+            <div>
+              <label className="block font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.4] mb-2">
+                Phone
+              </label>
+              <input
+                type="tel"
+                name="from_phone"
+                className="w-full bg-white/[0.08] border border-white/[0.12] rounded-xl px-5 py-3.5 text-white text-[16px] placeholder:text-white/[0.25] focus:outline-none focus:border-saffron/50 transition-colors"
+                placeholder="+91 98765 43210"
+              />
+            </div>
+
+            <div>
+              <label className="block font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.4] mb-2">
+                Message
+              </label>
+              <textarea
+                name="message"
+                required
+                rows={4}
+                className="w-full bg-white/[0.08] border border-white/[0.12] rounded-xl px-5 py-3.5 text-white text-[16px] placeholder:text-white/[0.25] focus:outline-none focus:border-saffron/50 transition-colors resize-none"
+                placeholder="Tell us what you're building or what's broken."
               />
             </div>
 
