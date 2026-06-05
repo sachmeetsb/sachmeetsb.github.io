@@ -44,7 +44,7 @@
     linear-gradient(180deg, var(--bg0), var(--bg1));
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 4vh, 48px) clamp(20px, 5vw, 72px);
+  padding: clamp(16px, 3vh, 36px) clamp(20px, 5vw, 72px);
 }
 /* faint grid */
 .scrub-pipeline .stage:before {
@@ -80,7 +80,7 @@
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.04em;
-  font-size: clamp(56px, 11vw, 140px);
+  font-size: clamp(40px, 6vw, 84px);
   background: linear-gradient(180deg, #fff, #cfc9ff);
   -webkit-background-clip: text;
   background-clip: text;
@@ -168,14 +168,15 @@
 
 /* LIVE STAGE */
 .scrub-pipeline .live {
-  flex: 1;
+  flex: 0 0 auto;
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(20px, 3vw, 48px);
   margin-top: clamp(16px, 3vh, 32px);
-  min-height: 0;
+  /* Fixed box height sized to hold the full trace (19 lines) + bar. */
+  height: 430px;
 }
 .scrub-pipeline .panel {
   border: 1px solid var(--line);
@@ -219,8 +220,8 @@
   padding: 16px 18px;
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
-  line-height: 1.85;
-  overflow: hidden;
+  line-height: 1.45;
+  overflow: visible;
   flex: 1;
 }
 .scrub-pipeline .ln {
@@ -244,8 +245,11 @@
 .scrub-pipeline .graph {
   flex: 1;
   position: relative;
+  min-height: 0;
 }
 .scrub-pipeline .graph svg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
@@ -282,8 +286,8 @@
 .scrub-pipeline .caption {
   position: relative;
   z-index: 2;
-  margin-top: clamp(14px, 2.5vh, 24px);
-  max-width: 760px;
+  margin-top: clamp(12px, 2vh, 20px);
+  max-width: 920px;
 }
 .scrub-pipeline .caption .tag {
   font-family: "JetBrains Mono", monospace;
@@ -295,62 +299,13 @@
 .scrub-pipeline .caption h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
-  line-height: 1.04;
-  font-size: clamp(26px, 4.4vw, 46px);
-  margin-top: 10px;
+  line-height: 1.1;
+  font-size: clamp(18px, 2.4vw, 28px);
+  margin-top: 8px;
 }
 .scrub-pipeline .caption h2 em {
   font-style: normal;
   color: var(--accent);
-}
-
-.scrub-pipeline .hint {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-transform: uppercase;
-}
-.scrub-pipeline .mouse {
-  width: 24px;
-  height: 38px;
-  border: 1.5px solid var(--muted);
-  border-radius: 14px;
-  position: relative;
-}
-.scrub-pipeline .mouse:after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 7px;
-  border-radius: 2px;
-  background: var(--muted);
-  animation: scrub-mouse 1.6s infinite;
-}
-@keyframes scrub-mouse {
-  0% {
-    opacity: 0;
-    top: 7px;
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0;
-    top: 16px;
-  }
 }
 
 @media (max-width: 760px) {
@@ -370,12 +325,4 @@
 }
 .scrub-pipeline.no-scrub .stage {
   position: relative;
-}
-.scrub-pipeline.no-scrub .hint {
-  display: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .scrub-pipeline .mouse:after {
-    animation: none;
-  }
 }

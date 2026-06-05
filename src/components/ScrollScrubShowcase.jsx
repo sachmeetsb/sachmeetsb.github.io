@@ -280,11 +280,6 @@ export default function ScrollScrubShowcase() {
               {steps[0].cap[1]} <em>{steps[0].cap[2]}</em>
             </h2>
           </div>
-
-          <div className="hint">
-            <div className="mouse" />
-            Scroll
-          </div>
         </div>
       </div>
     </section>
