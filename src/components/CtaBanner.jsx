@@ -1,8 +1,20 @@
 import React from "react";
-import { Link as ScrollLink } from "react-scroll";
 import { HiShieldCheck, HiLightBulb, HiLockOpen } from "react-icons/hi";
+import { useLenis } from "../lib/SmoothScroll";
 
 export default function CtaBanner() {
+  const lenis = useLenis();
+  const scrollToNewsletter = () => {
+    const el = document.getElementById("newsletter");
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset: -80 });
+    else
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: "smooth",
+      });
+  };
+
   return (
     <section className="py-8 md:py-12">
       <div className="max-w-container mx-auto px-8 lg:px-16">
@@ -32,15 +44,13 @@ export default function CtaBanner() {
 
           {/* CTA button -> scrolls to the newsletter signup in the footer */}
           <div className="flex justify-center mb-10">
-            <ScrollLink
-              to="newsletter"
-              smooth
-              offset={-80}
-              duration={500}
-              className="cursor-pointer px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors"
+            <button
+              type="button"
+              onClick={scrollToNewsletter}
+              className="cursor-pointer px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors border-0"
             >
               Deploy Your First Agent
-            </ScrollLink>
+            </button>
           </div>
 
           {/* Trust badges */}

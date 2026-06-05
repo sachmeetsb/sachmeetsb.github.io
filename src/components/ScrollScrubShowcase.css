@@ -1,0 +1,381 @@
+/*
+ * Scroll-to-scrub agent pipeline (CustomsIQ).
+ * All selectors are scoped under `.scrub-pipeline` so the snippet's resets and
+ * `body`/`html` rules never leak into the rest of the site. Colours and fonts
+ * are mapped to the Kartar brand tokens (saffron #FF5E0E, Plus Jakarta Sans,
+ * JetBrains Mono).
+ */
+.scrub-pipeline {
+  --bg0: #0f0a1e;
+  --bg1: #1e1535;
+  --ink: #f4f2ff;
+  --muted: #8b86b8;
+  --line: #2a2750;
+  --accent: #ff5e0e;
+  --accent2: #ff9058;
+  --graph-dim: #2f2b5e;
+
+  background: var(--bg0);
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.scrub-pipeline * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.scrub-pipeline .scroll-wrap {
+  height: 480vh;
+  position: relative;
+}
+.scrub-pipeline .stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(
+      1200px 700px at 70% -10%,
+      #20194f 0%,
+      transparent 55%
+    ),
+    radial-gradient(900px 600px at 10% 110%, #1a1640 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 4vh, 48px) clamp(20px, 5vw, 72px);
+}
+/* faint grid */
+.scrub-pipeline .stage:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.1;
+  mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 0%, transparent 80%);
+}
+
+/* HEADER */
+.scrub-pipeline .head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.scrub-pipeline .eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.scrub-pipeline .pct {
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-size: clamp(56px, 11vw, 140px);
+  background: linear-gradient(180deg, #fff, #cfc9ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* PIPELINE */
+.scrub-pipeline .pipe {
+  position: relative;
+  z-index: 2;
+  margin: clamp(8px, 3vh, 28px) auto 0;
+  width: min(1100px, 92%);
+}
+.scrub-pipeline .track {
+  position: relative;
+  height: 18px;
+  display: flex;
+  align-items: center;
+}
+.scrub-pipeline .rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+}
+.scrub-pipeline .rail-fill {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%;
+  box-shadow: 0 0 18px rgba(255, 94, 14, 0.6);
+  transition: width 0.08s linear;
+}
+.scrub-pipeline .nodes {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.scrub-pipeline .node {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--graph-dim);
+  border: 2px solid #3a356e;
+  transition: all 0.25s ease;
+  flex: 0 0 auto;
+}
+.scrub-pipeline .node.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 6px rgba(255, 94, 14, 0.18), 0 0 24px rgba(255, 94, 14, 0.7);
+  transform: scale(1.25);
+}
+.scrub-pipeline .node.done {
+  background: var(--accent2);
+  border-color: var(--accent2);
+}
+.scrub-pipeline .labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+.scrub-pipeline .labels span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  width: 0;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: color 0.25s;
+}
+.scrub-pipeline .labels span.on {
+  color: var(--ink);
+}
+.scrub-pipeline .labels span:first-child {
+  transform: translateX(0);
+}
+.scrub-pipeline .labels span:last-child {
+  transform: translateX(-100%);
+}
+
+/* LIVE STAGE */
+.scrub-pipeline .live {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(20px, 3vw, 48px);
+  margin-top: clamp(16px, 3vh, 32px);
+  min-height: 0;
+}
+.scrub-pipeline .panel {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(10, 8, 30, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.scrub-pipeline .panel-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.scrub-pipeline .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.scrub-pipeline .dot.r {
+  background: #ff5f56;
+}
+.scrub-pipeline .dot.y {
+  background: #ffbd2e;
+}
+.scrub-pipeline .dot.g {
+  background: #27c93f;
+}
+
+/* trace */
+.scrub-pipeline .trace {
+  padding: 16px 18px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.85;
+  overflow: hidden;
+  flex: 1;
+}
+.scrub-pipeline .ln {
+  opacity: 0.12;
+  transition: opacity 0.3s ease;
+}
+.scrub-pipeline .ln.show {
+  opacity: 1;
+}
+.scrub-pipeline .ln .k {
+  color: var(--accent);
+}
+.scrub-pipeline .ln .m {
+  color: var(--muted);
+}
+.scrub-pipeline .ln .ok {
+  color: #52e0a0;
+}
+
+/* graph */
+.scrub-pipeline .graph {
+  flex: 1;
+  position: relative;
+}
+.scrub-pipeline .graph svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.scrub-pipeline .gn circle {
+  transition: all 0.3s ease;
+}
+.scrub-pipeline .gn text {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  fill: var(--muted);
+  transition: fill 0.3s;
+}
+.scrub-pipeline .gn.on circle {
+  fill: var(--accent);
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 8px rgba(255, 94, 14, 0.8));
+}
+.scrub-pipeline .gn.on text {
+  fill: var(--ink);
+}
+.scrub-pipeline .edge {
+  stroke: var(--line);
+  stroke-width: 1.4;
+  transition: stroke 0.3s, opacity 0.3s;
+  opacity: 0.4;
+}
+.scrub-pipeline .edge.on {
+  stroke: var(--accent);
+  opacity: 0.9;
+}
+
+/* CAPTION */
+.scrub-pipeline .caption {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(14px, 2.5vh, 24px);
+  max-width: 760px;
+}
+.scrub-pipeline .caption .tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.scrub-pipeline .caption h2 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  font-size: clamp(26px, 4.4vw, 46px);
+  margin-top: 10px;
+}
+.scrub-pipeline .caption h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.scrub-pipeline .hint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+}
+.scrub-pipeline .mouse {
+  width: 24px;
+  height: 38px;
+  border: 1.5px solid var(--muted);
+  border-radius: 14px;
+  position: relative;
+}
+.scrub-pipeline .mouse:after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--muted);
+  animation: scrub-mouse 1.6s infinite;
+}
+@keyframes scrub-mouse {
+  0% {
+    opacity: 0;
+    top: 7px;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+    top: 16px;
+  }
+}
+
+@media (max-width: 760px) {
+  .scrub-pipeline .live {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .scrub-pipeline .labels span {
+    font-size: 11px;
+  }
+}
+
+/* Reduced-motion / no-scrub fallback: collapse the tall scroll track and show
+   the completed pipeline in a single screen. */
+.scrub-pipeline.no-scrub .scroll-wrap {
+  height: 100vh;
+}
+.scrub-pipeline.no-scrub .stage {
+  position: relative;
+}
+.scrub-pipeline.no-scrub .hint {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrub-pipeline .mouse:after {
+    animation: none;
+  }
+}
