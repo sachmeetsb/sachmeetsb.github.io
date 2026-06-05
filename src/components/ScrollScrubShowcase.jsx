@@ -235,8 +235,7 @@ export default function ScrollScrubShowcase() {
       <div className="scroll-wrap">
         <div className="stage">
           <div className="head">
-            <div className="eyebrow">CustomsIQ&nbsp;—&nbsp;Scroll to scrub</div>
-            <div className="pct">0%</div>
+            <div className="eyebrow">CustomsIQ&nbsp;—&nbsp;Project Demo</div>
           </div>
 
           <div className="pipe">
@@ -274,11 +273,14 @@ export default function ScrollScrubShowcase() {
             </div>
           </div>
 
-          <div className="caption">
-            <div className="tag">{steps[0].cap[0]}</div>
-            <h2>
-              {steps[0].cap[1]} <em>{steps[0].cap[2]}</em>
-            </h2>
+          <div className="caption-row">
+            <div className="caption">
+              <div className="tag">{steps[0].cap[0]}</div>
+              <h2>
+                {steps[0].cap[1]} <em>{steps[0].cap[2]}</em>
+              </h2>
+            </div>
+            <div className="pct">0%</div>
           </div>
         </div>
       </div>
