@@ -1,0 +1,35 @@
+2026-06-11 21:42:24 | === PREFLIGHT ===
+2026-06-11 21:42:24 | claude version: 2.1.173 (min 2.1.170)
+2026-06-11 21:42:24 | model smoke test: claude-fable-5
+2026-06-11 21:42:36 | model smoke test OK
+2026-06-11 21:42:36 | on branch: feat/rebuild-2026
+2026-06-11 21:42:36 | node_modules fresh — skipping install
+2026-06-11 21:42:36 | baseline build ...
+2026-06-11 21:42:38 | === PREFLIGHT OK ===
+2026-06-11 21:42:38 | === CHAIN START === branch=feat/rebuild-2026 model=claude-fable-5 sprints_dir=/Users/prynq/Desktop/kartar/sachmeetsb.github.io/plans/sprints
+2026-06-11 21:42:38 | sprint-01: already PASS/SKIPPED — skipping (resume)
+2026-06-11 21:42:38 | sprint-02: already PASS/SKIPPED — skipping (resume)
+2026-06-11 21:42:38 | sprint-03: START (sprint-03-motion-core) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 84408 Terminated: 15          sleep "$secs"
+2026-06-11 21:51:42 | sprint-03: attempt 1 exit=0 marker=PASS
+2026-06-11 21:51:42 | sprint-03: PASS
+2026-06-11 21:51:42 | sprint-04: START (sprint-04-primitives) timeout=5400s budget=25
+2026-06-11 22:20:21 | sprint-04: attempt 1 exit=0 marker=PASS
+2026-06-11 22:20:21 | sprint-04: PASS
+2026-06-11 22:20:21 | sprint-05: START (sprint-05-chrome) timeout=5400s budget=25
+2026-06-11 22:23:50 | sprint-05: rate-limited — sleeping 600s (rl 1/3)
+plans/run-sprints.sh: line 62: 94459 Terminated: 15          sleep "$secs"
+2026-06-11 23:13:33 | sprint-05: attempt 1 exit=0 marker=PASS
+2026-06-11 23:13:33 | sprint-05: PASS
+2026-06-11 23:13:33 | sprint-06: START (sprint-06-home) timeout=5400s budget=25
+plans/run-sprints.sh: line 62:  1729 Terminated: 15          sleep "$secs"
+2026-06-11 23:53:46 | sprint-06: attempt 1 exit=1 marker=PASS
+2026-06-11 23:53:46 | sprint-06: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62:  8645 Terminated: 15          sleep "$secs"
+2026-06-11 23:58:30 | sprint-06: attempt 2 exit=0 marker=PASS
+2026-06-11 23:58:30 | sprint-06: PASS
+2026-06-11 23:58:30 | sprint-07: START (sprint-07-work) timeout=5400s budget=25
+plans/run-sprints.sh: line 62:  9557 Terminated: 15          sleep "$secs"
+2026-06-12 00:37:04 | sprint-07: attempt 1 exit=0 marker=PASS
+2026-06-12 00:37:04 | sprint-07: PASS
+2026-06-12 00:37:04 | sprint-08: START (sprint-08-studio) timeout=5400s budget=25

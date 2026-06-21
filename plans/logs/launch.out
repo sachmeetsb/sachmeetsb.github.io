@@ -1,0 +1,264 @@
+2026-06-11 19:46:34 | === PREFLIGHT ===
+2026-06-11 19:46:34 | claude version: 2.1.173 (min 2.1.170)
+2026-06-11 19:46:34 | model smoke test: claude-fable-5
+2026-06-11 19:46:43 | model smoke test OK
+2026-06-11 19:46:43 | on branch: feat/rebuild-2026
+2026-06-11 19:46:43 | node_modules fresh — skipping install
+2026-06-11 19:46:43 | baseline build ...
+2026-06-11 19:46:46 | === PREFLIGHT OK ===
+2026-06-11 19:46:46 | === CHAIN START === branch=feat/rebuild-2026 model=claude-fable-5 sprints_dir=/Users/prynq/Desktop/kartar/sachmeetsb.github.io/plans/sprints
+2026-06-11 19:46:46 | sprint-01: START (sprint-01-direction) timeout=5400s budget=25
+2026-06-11 20:02:13 | sprint-01: attempt 1 exit=0 marker=PASS
+2026-06-11 20:02:13 | sprint-01: PASS
+2026-06-11 20:02:13 | sprint-02: START (sprint-02-scaffold) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 61129 Terminated: 15          sleep "$secs"
+2026-06-11 20:39:35 | sprint-02: attempt 1 exit=1 marker=PASS
+2026-06-11 20:39:35 | sprint-02: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 73300 Terminated: 15          sleep "$secs"
+2026-06-11 20:49:29 | sprint-02: attempt 2 exit=0 marker=PASS
+2026-06-11 20:49:29 | sprint-02: PASS
+2026-06-11 20:49:29 | sprint-03: START (sprint-03-motion-core) timeout=5400s budget=25
+2026-06-11 21:06:05 | sprint-03: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:05 | reaping stale :5173 listeners: 77559
+2026-06-11 21:06:08 | sprint-03: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 79077 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:11 | sprint-03: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:11 | sprint-03: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 79137 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:13 | sprint-03: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:13 | sprint-03: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 79201 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:15 | sprint-03: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:15 | sprint-03: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:15 | sprint-03: fallback commit done
+2026-06-11 21:06:15 | sprint-03: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:15 | sprint-04: START (sprint-04-primitives) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 79287 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:17 | sprint-04: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:17 | sprint-04: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 79356 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:19 | sprint-04: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:19 | sprint-04: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 79415 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:21 | sprint-04: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:21 | sprint-04: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 79485 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:23 | sprint-04: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:23 | sprint-04: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:23 | sprint-04: fallback commit done
+2026-06-11 21:06:23 | sprint-04: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:23 | sprint-05: START (sprint-05-chrome) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 79570 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:26 | sprint-05: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:26 | sprint-05: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 79634 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:28 | sprint-05: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:28 | sprint-05: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 79692 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:29 | sprint-05: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:30 | sprint-05: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 79758 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:31 | sprint-05: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:31 | sprint-05: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:31 | sprint-05: fallback commit done
+2026-06-11 21:06:31 | sprint-05: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:31 | sprint-06: START (sprint-06-home) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 79844 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:33 | sprint-06: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:33 | sprint-06: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 79907 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:35 | sprint-06: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:35 | sprint-06: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 79966 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:37 | sprint-06: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:37 | sprint-06: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 80032 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:39 | sprint-06: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:39 | sprint-06: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:39 | sprint-06: fallback commit done
+2026-06-11 21:06:39 | sprint-06: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:39 | sprint-07: START (sprint-07-work) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 80117 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:41 | sprint-07: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:41 | sprint-07: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 80181 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:44 | sprint-07: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:44 | sprint-07: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 80239 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:46 | sprint-07: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:46 | sprint-07: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 80302 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:48 | sprint-07: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:48 | sprint-07: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:48 | sprint-07: fallback commit done
+2026-06-11 21:06:48 | sprint-07: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:48 | sprint-08: START (sprint-08-studio) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 80387 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:50 | sprint-08: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:50 | sprint-08: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 80451 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:52 | sprint-08: attempt 2 exit=1 marker=NONE
+2026-06-11 21:06:52 | sprint-08: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 80517 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:54 | sprint-08: FIXER 1 did not pass (rc=1)
+2026-06-11 21:06:54 | sprint-08: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 80578 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:56 | sprint-08: FIXER 2 did not pass (rc=1)
+2026-06-11 21:06:56 | sprint-08: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:06:56 | sprint-08: fallback commit done
+2026-06-11 21:06:56 | sprint-08: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:06:56 | sprint-09: START (sprint-09-contact) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 80664 Terminated: 15          sleep "$secs"
+2026-06-11 21:06:58 | sprint-09: attempt 1 exit=1 marker=NONE
+2026-06-11 21:06:58 | sprint-09: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 80727 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:00 | sprint-09: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:00 | sprint-09: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 80785 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:02 | sprint-09: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:02 | sprint-09: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 80847 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:04 | sprint-09: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:04 | sprint-09: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:04 | sprint-09: fallback commit done
+2026-06-11 21:07:04 | sprint-09: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:04 | sprint-10: START (sprint-10-gl-hero) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 80932 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:07 | sprint-10: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:07 | sprint-10: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 80996 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:09 | sprint-10: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:09 | sprint-10: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 81057 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:11 | sprint-10: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:11 | sprint-10: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 81119 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:13 | sprint-10: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:13 | sprint-10: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:13 | sprint-10: fallback commit done
+2026-06-11 21:07:13 | sprint-10: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:13 | sprint-11: START (sprint-11-gl-pipeline) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 81205 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:15 | sprint-11: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:15 | sprint-11: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 81268 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:17 | sprint-11: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:17 | sprint-11: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 81329 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:19 | sprint-11: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:19 | sprint-11: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 81390 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:22 | sprint-11: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:22 | sprint-11: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:22 | sprint-11: fallback commit done
+2026-06-11 21:07:22 | sprint-11: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:22 | sprint-12: START (sprint-12-gl-three) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 81476 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:24 | sprint-12: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:24 | sprint-12: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 81546 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:26 | sprint-12: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:26 | sprint-12: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 81604 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:28 | sprint-12: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:28 | sprint-12: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 81666 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:30 | sprint-12: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:30 | sprint-12: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:30 | sprint-12: fallback commit done
+2026-06-11 21:07:30 | sprint-12: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:30 | sprint-13: START (sprint-13-transitions) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 81751 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:32 | sprint-13: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:32 | sprint-13: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 81817 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:34 | sprint-13: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:34 | sprint-13: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 81877 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:36 | sprint-13: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:36 | sprint-13: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 81937 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:38 | sprint-13: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:38 | sprint-13: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:38 | sprint-13: fallback commit done
+2026-06-11 21:07:38 | sprint-13: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:38 | sprint-14: START (sprint-14-seo) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 82023 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:40 | sprint-14: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:40 | sprint-14: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 82092 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:41 | sprint-14: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:41 | sprint-14: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 82150 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:43 | sprint-14: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:43 | sprint-14: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 82213 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:45 | sprint-14: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:45 | sprint-14: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:45 | sprint-14: fallback commit done
+2026-06-11 21:07:45 | sprint-14: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:45 | sprint-15: START (sprint-15-hardening) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 82297 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:47 | sprint-15: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:47 | sprint-15: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 82361 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:49 | sprint-15: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:49 | sprint-15: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 82421 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:51 | sprint-15: FIXER 1 did not pass (rc=1)
+2026-06-11 21:07:51 | sprint-15: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 82482 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:53 | sprint-15: FIXER 2 did not pass (rc=1)
+2026-06-11 21:07:53 | sprint-15: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:07:53 | sprint-15: fallback commit done
+2026-06-11 21:07:53 | sprint-15: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:07:53 | sprint-16: START (sprint-16-ux-audit) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 82572 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:55 | sprint-16: attempt 1 exit=1 marker=NONE
+2026-06-11 21:07:55 | sprint-16: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 82635 Terminated: 15          sleep "$secs"
+2026-06-11 21:07:58 | sprint-16: attempt 2 exit=1 marker=NONE
+2026-06-11 21:07:58 | sprint-16: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 82695 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:00 | sprint-16: FIXER 1 did not pass (rc=1)
+2026-06-11 21:08:00 | sprint-16: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 82755 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:02 | sprint-16: FIXER 2 did not pass (rc=1)
+2026-06-11 21:08:02 | sprint-16: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:08:02 | sprint-16: fallback commit done
+2026-06-11 21:08:02 | sprint-16: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:08:02 | sprint-17: START (sprint-17-report) timeout=5400s budget=25
+plans/run-sprints.sh: line 62: 82843 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:04 | sprint-17: attempt 1 exit=1 marker=NONE
+2026-06-11 21:08:04 | sprint-17: RETRY (attempt 2) with failure tail injected
+plans/run-sprints.sh: line 62: 82906 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:06 | sprint-17: attempt 2 exit=1 marker=NONE
+2026-06-11 21:08:06 | sprint-17: spawning FIXER 1/2
+plans/run-sprints.sh: line 62: 82966 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:08 | sprint-17: FIXER 1 did not pass (rc=1)
+2026-06-11 21:08:08 | sprint-17: spawning FIXER 2/2
+plans/run-sprints.sh: line 62: 83028 Terminated: 15          sleep "$secs"
+2026-06-11 21:08:10 | sprint-17: FIXER 2 did not pass (rc=1)
+2026-06-11 21:08:10 | sprint-17: uncommitted work found — orchestrator fallback commit
+2026-06-11 21:08:10 | sprint-17: fallback commit done
+2026-06-11 21:08:10 | sprint-17: SKIPPED after retry + 2 fixers — continuing chain
+2026-06-11 21:08:10 | === CHAIN END ===
+2026-06-11 21:08:10 | STATUS DIGEST:
+2026-06-11 21:08:10 |   PASS     sprint-01
+2026-06-11 21:08:10 |   PASS     sprint-02
+2026-06-11 21:08:10 |   SKIPPED  sprint-03
+2026-06-11 21:08:10 |   SKIPPED  sprint-04
+2026-06-11 21:08:10 |   SKIPPED  sprint-05
+2026-06-11 21:08:10 |   SKIPPED  sprint-06
+2026-06-11 21:08:10 |   SKIPPED  sprint-07
+2026-06-11 21:08:10 |   SKIPPED  sprint-08
+2026-06-11 21:08:10 |   SKIPPED  sprint-09
+2026-06-11 21:08:10 |   SKIPPED  sprint-10
+2026-06-11 21:08:10 |   SKIPPED  sprint-11
+2026-06-11 21:08:10 |   SKIPPED  sprint-12
+2026-06-11 21:08:10 |   SKIPPED  sprint-13
+2026-06-11 21:08:10 |   SKIPPED  sprint-14
+2026-06-11 21:08:10 |   SKIPPED  sprint-15
+2026-06-11 21:08:10 |   SKIPPED  sprint-16
+2026-06-11 21:08:10 |   SKIPPED  sprint-17
+2026-06-11 21:08:10 | chain finished — see digest above

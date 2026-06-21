@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { useLenis } from "../lib/SmoothScroll";
 import { EASE_IN_OUT } from "../lib/motion";
+import { ShaderAnimation } from "./ui/ShaderAnimation";
 
 /**
  * Branded intro loader: a counter races 0 → 100, then the panel wipes up to
@@ -55,7 +56,10 @@ export default function Preloader() {
           exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: EASE_IN_OUT }}
         >
-          <div className="flex flex-col items-center gap-6">
+          {/* Animated GLSL shader behind the loader content */}
+          <ShaderAnimation className="absolute inset-0 w-full h-full opacity-60" />
+          <div className="absolute inset-0 bg-void/40" />
+          <div className="relative z-10 flex flex-col items-center gap-6">
             <motion.div
               className="font-display font-extrabold text-white text-[40px] tracking-tight"
               initial={{ opacity: 0, y: 12 }}
