@@ -6,6 +6,7 @@
  * JetBrains Mono).
  */
 .scrub-pipeline {
+  --nav-h: 80px;
   --bg0: #0f0a1e;
   --bg1: #1e1535;
   --ink: #f4f2ff;
@@ -32,8 +33,8 @@
 }
 .scrub-pipeline .stage {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
   overflow: hidden;
   background: radial-gradient(
       1200px 700px at 70% -10%,

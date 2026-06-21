@@ -17,7 +17,7 @@ export default function StickyStack({
   children,
   topBase = 110,
   topStep = 18,
-  gap = "55vh",
+  gap = "34vh",
   className = "",
 }) {
   const ref = useRef(null);
@@ -27,7 +27,11 @@ export default function StickyStack({
     if (prefersReducedMotion() || isMobileViewport()) return;
     const ctx = gsap.context(() => {
       const cards = gsap.utils.toArray(".sticky-card");
-      const gapPx = () => window.innerHeight * 0.55; // matches `gap`
+      // Scrub distance in px, derived from `gap` so the two can't drift.
+      const gapPx = () => {
+        const m = /([\d.]+)vh/.exec(gap);
+        return window.innerHeight * (m ? parseFloat(m[1]) / 100 : 0.34);
+      };
       cards.forEach((card, i) => {
         if (i === cards.length - 1) return;
         // Drive the recede from THIS card's own pin progress, not the next
@@ -53,7 +57,7 @@ export default function StickyStack({
       ScrollTrigger.refresh();
     }, ref);
     return () => ctx.revert();
-  }, [topBase, topStep]);
+  }, [topBase, topStep, gap]);
 
   const reduced =
     typeof window !== "undefined" &&

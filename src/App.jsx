@@ -4,8 +4,8 @@ import Hero from "./components/Hero";
 import ScrollScrubShowcase from "./components/ScrollScrubShowcase";
 import LogoBar from "./components/LogoBar";
 import Services from "./components/Services";
+import Portfolio from "./components/Portfolio";
 import CtaBanner from "./components/CtaBanner";
-import CaseStudies from "./components/CaseStudies";
 import IndustrySolutions from "./components/IndustrySolutions";
 import WorkingProcess from "./components/WorkingProcess";
 import Team from "./components/Team";
@@ -27,7 +27,7 @@ function App() {
         <ScrollScrubShowcase />
         <LogoBar />
         <Services />
-        <CaseStudies />
+        <Portfolio />
         <IndustrySolutions />
         <CtaBanner />
         <WorkingProcess />

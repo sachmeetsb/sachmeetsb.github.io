@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
   HiEye,
   HiScale,
@@ -9,9 +9,11 @@ import {
   HiUserGroup,
   HiCode,
   HiStar,
+  HiChevronLeft,
+  HiChevronRight,
 } from "react-icons/hi";
 import Section from "./motion/Section";
-import Reveal, { Stagger, StaggerItem } from "./motion/Reveal";
+import Reveal from "./motion/Reveal";
 import SpotlightCard from "./motion/SpotlightCard";
 import CountUp from "./motion/CountUp";
 
@@ -148,6 +150,35 @@ const accentStyles = {
 };
 
 export default function IndustrySolutions() {
+  const trackRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  const updateState = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+    setAtStart(el.scrollLeft <= 2);
+    setAtEnd(el.scrollLeft >= max - 2);
+  }, []);
+
+  useEffect(() => {
+    updateState();
+    window.addEventListener("resize", updateState);
+    return () => window.removeEventListener("resize", updateState);
+  }, [updateState]);
+
+  const scrollByCard = (dir) => {
+    const el = trackRef.current;
+    if (!el) return;
+    // one card width + the flex gap (28px ≈ gap-7)
+    const card = el.querySelector("[data-card]");
+    const step = card ? card.offsetWidth + 28 : el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
   return (
     <Section
       id="industry-solutions"
@@ -158,29 +189,62 @@ export default function IndustrySolutions() {
       }}
     >
       {/* Section header */}
-      <Reveal className="mb-16">
-        <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6 shadow-glow-saffron">
-          Industry Solutions
-        </span>
-        <h2
-          className="font-display font-extrabold text-[36px] md:text-[48px] text-white leading-tight max-w-2xl mb-5"
-          style={{ letterSpacing: "-1px" }}
-        >
-          Agentic AI across{" "}
-          <span className="autonomous-gradient">every vertical</span>
-        </h2>
-        <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
-          Purpose-built autonomous agents for India's most complex industries
-          - each delivering measurable, explainable outcomes from day one.
-        </p>
+      <Reveal className="mb-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6 shadow-glow-saffron">
+              Industry Solutions
+            </span>
+            <h2
+              className="font-display font-extrabold text-[36px] md:text-[48px] text-white leading-tight max-w-2xl mb-5"
+              style={{ letterSpacing: "-1px" }}
+            >
+              Agentic AI across{" "}
+              <span className="autonomous-gradient">every vertical</span>
+            </h2>
+            <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
+              Purpose-built autonomous agents for India's most complex
+              industries - each delivering measurable, explainable outcomes
+              from day one.
+            </p>
+          </div>
+
+          {/* Carousel arrows */}
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            <button
+              onClick={() => scrollByCard(-1)}
+              disabled={atStart}
+              aria-label="Previous"
+              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white transition-all hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <HiChevronLeft size={22} />
+            </button>
+            <button
+              onClick={() => scrollByCard(1)}
+              disabled={atEnd}
+              aria-label="Next"
+              className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white transition-all hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <HiChevronRight size={22} />
+            </button>
+          </div>
+        </div>
       </Reveal>
 
-      {/* Agent cards grid */}
-      <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      {/* Agent cards carousel */}
+      <div
+        ref={trackRef}
+        onScroll={updateState}
+        className="flex gap-7 overflow-x-auto snap-x snap-mandatory pb-2 -mx-8 px-8 lg:-mx-16 lg:px-16 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+      >
         {agents.map((agent, i) => {
           const style = accentStyles[agent.accent];
           return (
-            <StaggerItem key={i} className="h-full">
+            <div
+              key={i}
+              data-card
+              className="snap-start flex-shrink-0 w-[85vw] sm:w-[360px]"
+            >
               <SpotlightCard
                 glowColor={style.glow}
                 className="p-9 flex flex-col h-full"
@@ -237,10 +301,18 @@ export default function IndustrySolutions() {
                   </p>
                 </div>
               </SpotlightCard>
-            </StaggerItem>
+            </div>
           );
         })}
-      </Stagger>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mt-8 h-[3px] w-full max-w-xs mx-auto rounded-full bg-white/10 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-saffron transition-[width] duration-150"
+          style={{ width: `${Math.max(12, progress * 100)}%` }}
+        />
+      </div>
     </Section>
   );
 }

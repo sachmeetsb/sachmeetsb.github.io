@@ -2,11 +2,12 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 /**
- * Full-bleed animated GLSL shader (concentric light streaks). Renders into a
- * fill container; pass `className` to position it (e.g. absolute inset-0).
- * Adapted from 21st.dev shader-animation for this Vite/JSX project.
+ * Full-bleed GLSL shader backdrop — concentric light-lines radiating from
+ * centre, tinted to the Kartar saffron palette and animated over time. Used
+ * behind the Preloader intro. Fills its positioned parent (defaults to
+ * absolute inset-0).
  */
-export function ShaderAnimation({ className = "w-full h-full" }) {
+export function ShaderAnimation({ className = "absolute inset-0" }) {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
 
@@ -34,14 +35,22 @@ export function ShaderAnimation({ className = "w-full h-full" }) {
         float t = time*0.05;
         float lineWidth = 0.002;
 
-        vec3 color = vec3(0.0);
+        // Accumulate three time-offset layers of glow intensity.
+        vec3 layers = vec3(0.0);
         for(int j = 0; j < 3; j++){
           for(int i=0; i < 5; i++){
-            color[j] += lineWidth*float(i*i) / abs(fract(t - 0.01*float(j)+float(i)*0.01)*5.0 - length(uv) + mod(uv.x+uv.y, 0.2));
+            layers[j] += lineWidth*float(i*i) / abs(fract(t - 0.01*float(j)+float(i)*0.01)*5.0 - length(uv) + mod(uv.x+uv.y, 0.2));
           }
         }
 
-        gl_FragColor = vec4(color[0],color[1],color[2],1.0);
+        // Map intensity onto the Kartar saffron palette: deep saffron core
+        // fading to a lighter amber on the brighter inner layers.
+        float glow = layers.r + layers.g + layers.b;
+        vec3 saffron = vec3(1.0, 0.368, 0.055);   // #FF5E0E
+        vec3 amber   = vec3(1.0, 0.620, 0.345);   // #FF9E58
+        vec3 color = mix(saffron, amber, clamp(layers.g * 1.6, 0.0, 1.0)) * glow;
+
+        gl_FragColor = vec4(color, 1.0);
       }
     `;
 
@@ -67,6 +76,7 @@ export function ShaderAnimation({ className = "w-full h-full" }) {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
+
     container.appendChild(renderer.domElement);
 
     const onWindowResize = () => {
@@ -108,7 +118,9 @@ export function ShaderAnimation({ className = "w-full h-full" }) {
     <div
       ref={containerRef}
       className={className}
-      style={{ overflow: "hidden" }}
+      style={{ background: "#000", overflow: "hidden" }}
     />
   );
 }
+
+export default ShaderAnimation;

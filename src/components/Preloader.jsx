@@ -51,13 +51,14 @@ export default function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-void"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-void"
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: EASE_IN_OUT }}
         >
-          {/* Animated GLSL shader behind the loader content */}
-          <ShaderAnimation className="absolute inset-0 w-full h-full opacity-60" />
+          {/* Animated saffron shader backdrop */}
+          <ShaderAnimation className="absolute inset-0 w-full h-full" />
+          {/* Scrim for text legibility */}
           <div className="absolute inset-0 bg-void/40" />
           <div className="relative z-10 flex flex-col items-center gap-6">
             <motion.div

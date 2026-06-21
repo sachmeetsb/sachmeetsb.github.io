@@ -5,7 +5,7 @@ import { useLenis } from "../lib/SmoothScroll";
 
 const navLinks = [
   { to: "services", label: "Services" },
-  { to: "case-studies", label: "Case Studies" },
+  { to: "portfolio", label: "Portfolio" },
   { to: "process", label: "Process" },
   { to: "team", label: "Team" },
   { to: "contact", label: "Contact" },

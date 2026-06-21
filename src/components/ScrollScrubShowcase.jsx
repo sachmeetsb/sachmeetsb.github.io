@@ -120,6 +120,7 @@ export default function ScrollScrubShowcase() {
     const traceEl = root.querySelector(".trace");
     const svg = root.querySelector(".graph svg");
     const wrap = root.querySelector(".scroll-wrap");
+    const stage = root.querySelector(".stage");
     const pctEl = root.querySelector(".pct");
     const fillEl = root.querySelector(".rail-fill");
     const nodeEls = [...root.querySelectorAll(".nodes .node")];
@@ -215,8 +216,16 @@ export default function ScrollScrubShowcase() {
     }
 
     const onScroll = () => {
-      const total = wrap.offsetHeight - window.innerHeight;
-      const p = Math.min(1, Math.max(0, -wrap.getBoundingClientRect().top / total));
+      // The stage sticks below the navbar, so it is shorter than the viewport.
+      // stickyTop is the gap between the viewport top and the stuck stage (the
+      // navbar height); total is the scroll distance over which the stage stays
+      // pinned. Progress runs 0 → 1 across that pinned range.
+      const stickyTop = window.innerHeight - stage.offsetHeight;
+      const total = wrap.offsetHeight - stage.offsetHeight;
+      const p = Math.min(
+        1,
+        Math.max(0, (stickyTop - wrap.getBoundingClientRect().top) / total)
+      );
       render(p);
     };
 
