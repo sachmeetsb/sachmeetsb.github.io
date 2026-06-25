@@ -46,7 +46,12 @@ function OrbFallback() {
   );
 }
 
-export default function Hero() {
+export default function Hero({
+  callActive = false,
+  connecting = false,
+  speaking = false,
+  onOrbClick,
+}) {
   const reduced = useReducedMotion();
   const [useCanvas, setUseCanvas] = useState(false);
 
@@ -78,8 +83,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Orb — WebGL canvas with CSS fallback */}
-      <div className="absolute right-[6%] top-1/2 -translate-y-1/2 hidden lg:block w-[480px] h-[480px]">
+      {/* Orb — WebGL canvas with CSS fallback. Click it to toggle a page-wide
+          background orb that follows you as you scroll. */}
+      <div className="absolute right-[12%] top-1/2 -translate-y-1/2 hidden lg:block w-[480px] h-[480px]">
         {useCanvas ? (
           <Suspense
             fallback={
@@ -95,9 +101,44 @@ export default function Hero() {
             <OrbFallback />
           </div>
         )}
+
+        {/* Oversized invisible hit target — extends well beyond the orb,
+            with ~40% more reach on the left, so it's easy to click. */}
+        <button
+          type="button"
+          onClick={onOrbClick}
+          aria-label={callActive ? "End voice call" : "Talk to the AI — start a voice call"}
+          title={callActive ? "Click to end the call" : "Click to talk to me"}
+          className="absolute -top-28 -bottom-28 -right-28 -left-72 z-20 rounded-full bg-transparent border-0 cursor-pointer"
+        />
+
+        {/* Label to the right of the orb — invites a call when idle, and shows
+            the live status (with tap-to-end) while a call is running. */}
+        <button
+          type="button"
+          onClick={onOrbClick}
+          className="group absolute left-full top-1/2 -translate-y-1/2 ml-5 w-[160px] text-left bg-transparent border-0 cursor-pointer z-20"
+        >
+          <span className="block font-mono text-[12px] tracking-[0.18em] uppercase leading-relaxed text-white/70 group-hover:text-white transition-colors">
+            {callActive ? (
+              <>
+                {connecting
+                  ? "Connecting…"
+                  : speaking
+                  ? "Speaking…"
+                  : "Listening…"}
+                <span className="block mt-1 text-white/40 normal-case tracking-normal text-[11px]">
+                  tap the orb to end
+                </span>
+              </>
+            ) : (
+              "← Click here for your virtual receptionist"
+            )}
+          </span>
+        </button>
       </div>
 
-      <div className="relative z-10 max-w-container mx-auto px-8 lg:px-16 py-36 md:py-44">
+      <div className="relative z-10 max-w-container mx-auto px-8 lg:pl-8 lg:pr-16 py-36 md:py-44">
         {/* Animated tagline */}
         <motion.div
           className="mb-12"
@@ -106,22 +147,22 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 0.1 }}
         >
           <h2 className="font-display font-extrabold text-white text-[56px] md:text-[84px] tracking-[-2px]">
-            All Is. <span className="autonomous-gradient">Now</span>
+            AI Is. <span className="autonomous-gradient">Now</span>
           </h2>
         </motion.div>
 
         {/* Main headline */}
         <h1
-          className="font-display font-extrabold text-white text-[clamp(38px,5vw,64px)] leading-[1.1] max-w-[800px] mb-6"
+          className="font-display font-extrabold text-white text-[clamp(38px,5vw,64px)] leading-[1.1] max-w-[480px] mb-6"
           style={{ letterSpacing: "-1.5px" }}
         >
           <SplitText
-            text="Some industries haven't changed in 30 years."
+            text="You are just in time for the next era"
             stagger={0.03}
             delay={0.25}
           />{" "}
           <SplitText
-            text="We're changing them now."
+            text="Stay up front with Kartar"
             className="autonomous-gradient"
             stagger={0.03}
             delay={0.7}
@@ -130,13 +171,12 @@ export default function Hero() {
 
         {/* Subtitle */}
         <motion.p
-          className="text-[19px] text-white/[0.58] max-w-[580px] mb-12 leading-relaxed"
+          className="text-[19px] text-white/[0.58] max-w-[400px] mb-12 leading-relaxed"
           initial={reduced ? false : { opacity: 0, y: 16 }}
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.0 }}
         >
-          Agentic AI systems and AI-native products, built for how India
-          actually works.
+          Agentic AI systems and AI-native products, built for the speed of  Indian business
         </motion.p>
 
         {/* CTAs */}
@@ -155,13 +195,13 @@ export default function Hero() {
           >
             Book a Call
           </MagneticButton>
-          <MagneticButton
+          {/* <MagneticButton
             as="a"
             href="#process"
             className="inline-block px-8 py-4 border-2 border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display font-semibold text-[17px] rounded-pill transition-colors"
           >
             See how we work
-          </MagneticButton>
+          </MagneticButton> */}
         </motion.div>
 
         {/* Trust bar */}
@@ -174,7 +214,7 @@ export default function Hero() {
           {[
             { label: "Timeline", value: "Pilot to production in weeks" },
             { label: "What we build", value: "Services + Products" },
-            { label: "Approach", value: "Indian-first, not localised" },
+            // { label: "Approach", value: "Indian-first, not localised" },
           ].map((item) => (
             <div key={item.label}>
               <span className="block font-display font-semibold text-[16px] text-white/[0.88] mb-1">
