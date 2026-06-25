@@ -163,15 +163,28 @@ const team = [
   },
 ];
 
-function initials(name) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-}
+// A hand-picked emoji per person, used as the avatar fallback when a photo
+// isn't available — themed loosely to each person's role/specialty.
+const EMOJI = {
+  "sachmeet-singh-bhatia": "🚀",
+  "priyank-verma": "⚡",
+  "astha-porwal": "🛠️",
+  "shovan-mohapatra": "🧩",
+  "karuna-patil": "🎨",
+  "abhimanyu-kaundal": "🌟",
+  "anshul-bharti": "🔭",
+  "akansha-sarkar": "💎",
+  "aditya-gupta": "⚙️",
+  "rishi-mehta": "🚢",
+  "rakshit-baveja": "🪙",
+  "poonam-pandey": "💻",
+  "shubh-bharadwaj": "🏗️",
+  "shubhankar-anuragi": "🛡️",
+  "rahul-tiwari": "🧪",
+  "sakshi-joshi": "🎙️",
+  "nipun-katyal": "🧠",
+  "yugpratap-singh-pawar": "🔧",
+};
 
 function TeamCard({ member }) {
   const style = ROLE_STYLES[member.category] || ROLE_STYLES.Builder;
@@ -200,8 +213,8 @@ function TeamCard({ member }) {
               onError={() => setImgFailed(true)}
             />
           ) : (
-            <span className="font-display font-bold text-[32px] text-white/80">
-              {initials(member.name)}
+            <span className="text-[44px] leading-none" role="img" aria-label={member.name}>
+              {EMOJI[member.slug] || "✨"}
             </span>
           )}
         </div>

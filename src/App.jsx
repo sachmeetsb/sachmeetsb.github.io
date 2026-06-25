@@ -1,7 +1,8 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import ScrollScrubShowcase from "./components/ScrollScrubShowcase";
+// CustomsIQ demo hidden for now
+// import ScrollScrubShowcase from "./components/ScrollScrubShowcase";
 import LogoBar from "./components/LogoBar";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
@@ -24,7 +25,8 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <ScrollScrubShowcase />
+        {/* CustomsIQ demo hidden for now */}
+        {/* <ScrollScrubShowcase /> */}
         <LogoBar />
         <Services />
         <Portfolio />

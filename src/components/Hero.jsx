@@ -135,9 +135,8 @@ export default function Hero() {
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.0 }}
         >
-          Agentic AI systems for Indian businesses. AI-native products for
-          industries ready to be rebuilt from scratch. Two modes. One team. No
-          fluff.
+          Agentic AI systems and AI-native products, built for how India
+          actually works.
         </motion.p>
 
         {/* CTAs */}

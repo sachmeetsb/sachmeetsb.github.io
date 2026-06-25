@@ -54,14 +54,14 @@ const variantStyles = {
 
 export default function Services() {
   return (
-    <Section id="services" className="pt-24 md:pt-32 pb-10 md:pb-14">
+    <Section id="services" className="pt-12 md:pt-16 pb-0">
       <SectionHeader label="Services">
         Here's what we actually build. Agentic workflows, vertical products, and
         AI systems designed for how your business actually runs -not how a slide
         deck says it should.
       </SectionHeader>
 
-      <StickyStack className="max-w-3xl mx-auto">
+      <StickyStack className="max-w-3xl mx-auto" gap="9vh" topStep={12}>
         {services.map((service, i) => {
           const s = variantStyles[service.variant];
           return (
@@ -69,22 +69,22 @@ export default function Services() {
               key={i}
               beam={s.beam}
               glowColor={s.glow}
-              className={`${s.card} p-10 md:p-14 flex flex-col justify-between min-h-[340px]`}
+              className={`${s.card} p-7 md:p-9 flex flex-col justify-between min-h-[220px]`}
             >
               <div>
-                <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-white/40 mb-6 block">
+                <span className="font-mono text-[12px] tracking-[0.14em] uppercase text-white/40 mb-4 block">
                   {String(i + 1).padStart(2, "0")} / {String(services.length).padStart(2, "0")}
                 </span>
                 <h3
-                  className={`font-display font-bold text-[28px] md:text-[34px] mb-4 ${s.title}`}
+                  className={`font-display font-bold text-[26px] md:text-[32px] mb-3 ${s.title}`}
                 >
                   {service.title}
                 </h3>
-                <p className={`text-[17px] leading-relaxed ${s.desc}`}>
+                <p className={`text-[16px] leading-relaxed ${s.desc}`}>
                   {service.description}
                 </p>
               </div>
-              <div className="mt-10">
+              <div className="mt-6">
                 <a
                   href="#contact"
                   className={`inline-flex items-center gap-2 font-display font-semibold text-[16px] ${s.arrow} hover:gap-3 transition-all`}

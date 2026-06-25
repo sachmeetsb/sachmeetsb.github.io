@@ -235,6 +235,7 @@ export default function IndustrySolutions() {
       <div
         ref={trackRef}
         onScroll={updateState}
+        data-lenis-prevent
         className="flex gap-7 overflow-x-auto snap-x snap-mandatory pb-2 -mx-8 px-8 lg:-mx-16 lg:px-16 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {agents.map((agent, i) => {

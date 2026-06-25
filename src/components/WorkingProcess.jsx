@@ -68,7 +68,7 @@ export default function WorkingProcess() {
     <section
       ref={sectionRef}
       id="process"
-      className="relative min-h-screen flex flex-col justify-center pt-10 md:pt-14 pb-24 md:pb-32"
+      className="relative min-h-screen flex flex-col justify-center pt-8 md:pt-10 pb-12 md:pb-16"
     >
       <div className="relative z-10 max-w-container mx-auto w-full px-8 lg:px-16">
         <SectionHeader label="Our Process">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Logo from "./Logo";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { useLenis } from "../lib/SmoothScroll";
+import { useReducedMotion } from "../lib/useReducedMotion";
 
 const navLinks = [
   { to: "services", label: "Services" },
@@ -15,7 +15,23 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("");
+  const [heroVisible, setHeroVisible] = useState(true);
   const lenis = useLenis();
+  const reduced = useReducedMotion();
+
+  // The Preloader flies its own wordmark onto this spot, so keep our copy
+  // hidden until the handoff fires — otherwise both are visible at once
+  // once the loader backdrop fades. Reduced-motion skips the loader entirely.
+  const [logoVisible, setLogoVisible] = useState(reduced);
+  useEffect(() => {
+    if (reduced) {
+      setLogoVisible(true);
+      return;
+    }
+    const onDone = () => setLogoVisible(true);
+    window.addEventListener("preloader:done", onDone);
+    return () => window.removeEventListener("preloader:done", onDone);
+  }, [reduced]);
 
   // Scrolled state — prefer Lenis' scroll event, fall back to window scroll.
   useEffect(() => {
@@ -49,6 +65,19 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  // Hide the navbar "Book a Call" CTA while the Hero is on screen — the Hero
+  // carries its own prominent call to action, so the nav one is redundant there.
+  useEffect(() => {
+    const hero = document.getElementById("hero");
+    if (!hero) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
   const scrollTo = (target) => {
     const el =
       target === "hero"
@@ -78,12 +107,21 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-[80px]">
           {/* Logo */}
           <button
+            id="nav-logo-target"
             type="button"
             onClick={() => scrollTo("hero")}
             className="cursor-pointer bg-transparent border-0 p-0"
             aria-label="Back to top"
           >
-            <Logo size="md" variant="on-dark" />
+            {/* Hidden until the Preloader hands off (kept in layout via
+                `invisible` so it still defines the flight's target rect). */}
+            <span
+              className={`font-display font-extrabold text-white text-[26px] tracking-tight leading-none ${
+                logoVisible ? "" : "invisible"
+              }`}
+            >
+              kartar<span className="autonomous-gradient">AI</span>
+            </span>
           </button>
 
           {/* Desktop nav */}
@@ -104,12 +142,17 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA — hidden while the Hero (its own CTA) is on screen */}
           <a
             href="https://calendly.com/sachmeet-kartar/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex px-7 py-3 bg-saffron hover:bg-saffron-light text-white font-display text-[15px] font-semibold rounded-pill transition-colors"
+            aria-hidden={heroVisible}
+            className={`hidden md:inline-flex px-7 py-3 bg-saffron hover:bg-saffron-light text-white font-display text-[15px] font-semibold rounded-pill transition-all duration-300 ${
+              heroVisible
+                ? "opacity-0 pointer-events-none"
+                : "opacity-100"
+            }`}
           >
             Book a Call
           </a>
