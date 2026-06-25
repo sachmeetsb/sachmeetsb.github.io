@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FollowOrb from "./components/FollowOrb";
@@ -22,9 +22,8 @@ import CustomCursor from "./components/CustomCursor";
 function App() {
   // The orb starts/stops a Vapi voice call. While active, the FollowOrb is the
   // live indicator that follows you across the page.
-  const { status, speaking, start, stop, sendContext } = useVapiCall();
+  const { status, speaking, start, stop } = useVapiCall();
   const callActive = status === "active" || status === "connecting";
-  const lastSectionRef = useRef(null);
 
   // The follower orb appears only once the hero is scrolled out of view — in
   // the hero, the hero blob itself represents the call.
@@ -46,35 +45,11 @@ function App() {
       return;
     }
     const view = getCurrentView();
-    lastSectionRef.current = view.id;
     start({
       pageContent: getPageText(),
       currentSection: `${view.label} (${view.scrollPct}% down the page)`,
     });
   }, [callActive, start, stop]);
-
-  // While a call is live, tell the agent when the user scrolls to a new section.
-  useEffect(() => {
-    if (status !== "active") return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const view = getCurrentView();
-        if (view.id && view.id !== lastSectionRef.current) {
-          lastSectionRef.current = view.id;
-          sendContext(
-            `The user just scrolled to the "${view.label}" section (${view.scrollPct}% down the page).`
-          );
-        }
-      });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(raf);
-    };
-  }, [status, sendContext]);
 
   return (
     <div className="App relative min-h-screen bg-void">
