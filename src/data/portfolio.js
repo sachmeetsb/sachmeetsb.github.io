@@ -11,10 +11,12 @@ export const products = [
       "Turns any EPUB into a narrated audiobook — figures surface in sync as you listen, voice notes drop straight onto the page, and an AI companion discusses the book with you using its own content.",
     demo: {
       orientation: "portrait",
+      video: "/media/demos/vimarsha.mp4",
+      poster: "/media/demos/vimarsha.jpg",
       stops: [
-        { t: 4, tip: "Figures surface in sync as the narration plays." },
-        { t: 10, tip: "Drop voice notes straight onto the page." },
-        { t: 16, tip: "An AI companion discusses the book with you." },
+        { t: 14, tip: "Any EPUB, read aloud — the words highlight in sync." },
+        { t: 22, tip: "Drop voice notes straight onto the page." },
+        { t: 28, tip: "An AI companion discusses the book with you." },
       ],
     },
   },
@@ -56,10 +58,12 @@ export const products = [
       "An agent that assembles valid multi-SKU configurations in seconds, enforcing every compatibility rule along the way. For any industry where parts combine — no spec sheets, no costly mistakes.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/instantconfig.mp4",
+      poster: "/media/demos/instantconfig.jpg",
       stops: [
         { t: 4, tip: "Pick your requirements in plain language." },
         { t: 10, tip: "The agent assembles valid multi-SKU configs in seconds." },
-        { t: 16, tip: "Every compatibility rule enforced — no costly mistakes." },
+        { t: 24, tip: "Every compatibility rule enforced — no costly mistakes." },
       ],
     },
   },
@@ -71,10 +75,12 @@ export const products = [
       "A data analyst that runs entirely on your machine. Ask your Excel files anything in plain language and get answers, charts and insight back — your data never leaves your laptop.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/datamind.mp4",
+      poster: "/media/demos/datamind.jpg",
       stops: [
-        { t: 4, tip: "Load any Excel file — it stays on your machine." },
-        { t: 10, tip: "Ask it anything in plain language." },
-        { t: 16, tip: "Get answers, charts and insight back instantly." },
+        { t: 3, tip: "Load any Excel file — it stays on your machine." },
+        { t: 7, tip: "Ask it anything in plain language." },
+        { t: 12, tip: "Get answers, charts and insight back instantly." },
       ],
     },
   },
