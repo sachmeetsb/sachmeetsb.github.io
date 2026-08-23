@@ -7,8 +7,13 @@ import { products } from "../data/portfolio";
 import ProjectList from "./portfolio/ProjectList";
 import PhoneSimulator from "./portfolio/PhoneSimulator";
 
-const PER_PAGE = 4;
-const pageCount = Math.ceil(products.length / PER_PAGE);
+/** Page 1 is five consumer apps; page 2 is four B2B / remaining products. */
+const PAGE_SIZES = [5, 4];
+const pageStarts = PAGE_SIZES.reduce((acc, size, i) => {
+  acc.push(i === 0 ? 0 : acc[i - 1] + PAGE_SIZES[i - 1]);
+  return acc;
+}, []);
+const pageCount = PAGE_SIZES.length;
 const H2_MARGIN_BOTTOM = 40; // matches `mb-10` on the heading
 
 /**
@@ -70,7 +75,8 @@ export default function Portfolio() {
             page={page}
             pageCount={pageCount}
             onPage={changePage}
-            perPage={PER_PAGE}
+            pageStart={pageStarts[page]}
+            pageSize={PAGE_SIZES[page]}
           />
         </div>
 

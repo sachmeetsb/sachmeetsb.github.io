@@ -193,8 +193,10 @@ for (const p of products) {
     join(DIST, "products", "index.html"),
     chrome({
       title: "Products | Kartar AI Labs — Agentic AI & AI-Native Apps",
-      description:
-        "Explore Kartar AI Labs products: Vimarsha, Speko, Rezt, InstantConfig, DataMind, LawyerBoss, Satya Social, ProdVTON and VR Real Estate Tour.",
+      description: `Explore Kartar AI Labs products: ${products
+        .map((p) => p.name)
+        .join(", ")
+        .replace(/, ([^,]*)$/, " and $1")}.`,
       canonical: url,
       ogImage: `${SITE}/og-image.png`,
       body,

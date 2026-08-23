@@ -30,10 +30,12 @@ export const products = [
       "Log expenses just by saying them. An AI spending coach reads your habits back to you and nudges sharper money decisions in the moment — not in a monthly report.",
     demo: {
       orientation: "portrait",
+      video: "/media/demos/speko.mp4",
+      poster: "/media/demos/speko.jpg",
       stops: [
-        { t: 4, tip: "Log an expense just by saying it." },
-        { t: 10, tip: "An AI coach reads your habits back to you." },
-        { t: 16, tip: "Sharper nudges in the moment — not next month." },
+        { t: 4, tip: "Say it once — Speko extracts the amount, category, merchant and date." },
+        { t: 13.5, tip: "Your dashboard and spending insights update instantly." },
+        { t: 25, tip: "Ask your money anything — the answer is grounded in your own spending." },
       ],
     },
   },
@@ -50,6 +52,40 @@ export const products = [
         { t: 4, tip: "Syncs straight with your Apple Watch." },
         { t: 10, tip: "Recovery science becomes a daily score." },
         { t: 16, tip: "Know when to push and when to back off." },
+      ],
+    },
+  },
+  {
+    slug: "satya-social",
+    name: "Satya Social",
+    tagline: "Human-first. Aadhaar-gated.",
+    category: "Social Network",
+    description:
+      "A social network for modern India where every voice is a real, verified person. Aadhaar-gated and free of AI-generated content — authenticity by design, not by moderation.",
+    demo: {
+      orientation: "portrait",
+      stops: [
+        { t: 4, tip: "Open the feed — real people, not bots." },
+        { t: 10, tip: "Compose a post in the moment." },
+        { t: 16, tip: "Profile and social graph, built in." },
+      ],
+    },
+  },
+  {
+    slug: "lawyerboss",
+    name: "LawyerBoss",
+    tagline: "First-contact, in minutes",
+    category: "Legal Assistance",
+    description:
+      "Built for lawyers: draft first-contact legal notices in minutes instead of hours — researched, jurisdiction-aware and ready to send after a quick review.",
+    demo: {
+      orientation: "portrait",
+      video: "/media/demos/lawyerboss.mp4",
+      poster: "/media/demos/lawyerboss.jpg",
+      stops: [
+        { t: 10, tip: "Open a case and review the legal intake conversation." },
+        { t: 38, tip: "Record the request — LawyerBoss transcribes it into the case." },
+        { t: 60, tip: "Review the evidence and open the generated legal notice draft." },
       ],
     },
   },
@@ -90,34 +126,20 @@ export const products = [
     },
   },
   {
-    slug: "lawyerboss",
-    name: "LawyerBoss",
-    tagline: "First-contact, in minutes",
-    category: "Legal Assistance",
+    slug: "vr-real-estate-tour",
+    name: "VR Real Estate Walkthrough",
+    tagline: "Walk it before it's built",
+    category: "Architecture",
     description:
-      "Built for lawyers: draft first-contact legal notices in minutes instead of hours — researched, jurisdiction-aware and ready to send after a quick review.",
+      "Immersive VR walkthroughs that let buyers tour a property or design long before construction begins — so you sell the space before the first brick is laid.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/vr-walkthrough.mp4",
+      poster: "/media/demos/vr-walkthrough.jpg",
       stops: [
-        { t: 4, tip: "Enter the case details." },
-        { t: 10, tip: "A researched, jurisdiction-aware notice drafts itself." },
-        { t: 16, tip: "Ready to send after a quick review." },
-      ],
-    },
-  },
-  {
-    slug: "satya-social",
-    name: "Satya Social",
-    tagline: "Human-first. Aadhaar-gated.",
-    category: "Social Network",
-    description:
-      "A social network for modern India where every voice is a real, verified person. Aadhaar-gated and free of AI-generated content — authenticity by design, not by moderation.",
-    demo: {
-      orientation: "portrait",
-      stops: [
-        { t: 4, tip: "Every account is Aadhaar-gated." },
-        { t: 10, tip: "Every voice is a real, verified person." },
-        { t: 16, tip: "Free of AI-generated content — by design." },
+        { t: 4, tip: "Choose a property or unbuilt design." },
+        { t: 10, tip: "Walk through it in immersive VR." },
+        { t: 16, tip: "Sell the space before the first brick is laid." },
       ],
     },
   },
@@ -134,22 +156,6 @@ export const products = [
         { t: 4, tip: "Pick any product from the catalogue." },
         { t: 10, tip: "See it worn on lifelike models before buying." },
         { t: 16, tip: "Lift conversion and cut returns." },
-      ],
-    },
-  },
-  {
-    slug: "vr-real-estate-tour",
-    name: "VR Real Estate Tour",
-    tagline: "Walk it before it's built",
-    category: "Architecture",
-    description:
-      "Immersive VR walkthroughs that let buyers tour a property or design long before construction begins — so you sell the space before the first brick is laid.",
-    demo: {
-      orientation: "landscape",
-      stops: [
-        { t: 4, tip: "Choose a property or unbuilt design." },
-        { t: 10, tip: "Walk through it in immersive VR." },
-        { t: 16, tip: "Sell the space before the first brick is laid." },
       ],
     },
   },

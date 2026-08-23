@@ -13,10 +13,11 @@ export default function ProjectList({
   page,
   pageCount,
   onPage,
-  perPage,
+  pageStart,
+  pageSize,
 }) {
-  const start = page * perPage;
-  const slice = items.slice(start, start + perPage);
+  const start = pageStart;
+  const slice = items.slice(start, start + pageSize);
 
   return (
     <div className="flex flex-col">
