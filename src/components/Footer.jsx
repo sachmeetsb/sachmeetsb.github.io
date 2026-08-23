@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { FaLinkedin } from "react-icons/fa";
 import Logo from "./Logo";
 import { useLenis } from "../lib/SmoothScroll";
+import { products } from "../data/portfolio";
 
 const navLinks = [
   { to: "services", label: "Services" },
@@ -89,6 +90,25 @@ export default function Footer() {
                   >
                     {link.label}
                   </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Products — real URLs so crawlers (and people) can deep-link */}
+          <div>
+            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
+              Products
+            </h4>
+            <ul className="flex flex-col gap-3">
+              {products.map((p) => (
+                <li key={p.slug}>
+                  <a
+                    href={`/products/${p.slug}/`}
+                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
+                  >
+                    {p.name}
+                  </a>
                 </li>
               ))}
             </ul>

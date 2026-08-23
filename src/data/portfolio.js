@@ -4,6 +4,7 @@
 // are added, the same `stops` auto-pause the video at those times instead.
 export const products = [
   {
+    slug: "vimarsha",
     name: "Vimarsha",
     tagline: "EPUB reader, reimagined",
     category: "Monetised Apps",
@@ -21,6 +22,7 @@ export const products = [
     },
   },
   {
+    slug: "speko",
     name: "Speko",
     tagline: "Voice-first spend tracker",
     category: "Monetised Apps",
@@ -36,6 +38,7 @@ export const products = [
     },
   },
   {
+    slug: "rezt",
     name: "Rezt",
     tagline: "Rest & recovery, scored",
     category: "Monetised Apps",
@@ -51,6 +54,7 @@ export const products = [
     },
   },
   {
+    slug: "instantconfig",
     name: "InstantConfig",
     tagline: "Vendor Agnostic",
     category: "Agentic Commerce",
@@ -68,6 +72,7 @@ export const products = [
     },
   },
   {
+    slug: "datamind",
     name: "DataMind",
     tagline: "Local Data Analyst Agent for Excel",
     category: "SME Solution",
@@ -85,6 +90,7 @@ export const products = [
     },
   },
   {
+    slug: "lawyerboss",
     name: "LawyerBoss",
     tagline: "First-contact, in minutes",
     category: "Legal Assistance",
@@ -100,6 +106,7 @@ export const products = [
     },
   },
   {
+    slug: "satya-social",
     name: "Satya Social",
     tagline: "Human-first. Aadhaar-gated.",
     category: "Social Network",
@@ -115,6 +122,7 @@ export const products = [
     },
   },
   {
+    slug: "prodvton",
     name: "ProdVTON",
     tagline: "Virtual try-on for brands",
     category: "Fashion",
@@ -130,6 +138,7 @@ export const products = [
     },
   },
   {
+    slug: "vr-real-estate-tour",
     name: "VR Real Estate Tour",
     tagline: "Walk it before it's built",
     category: "Architecture",

@@ -1,9 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { useLenis } from "../lib/SmoothScroll";
 import { EASE_IN_OUT } from "../lib/motion";
-import { ShaderAnimation } from "./ui/ShaderAnimation";
+
+// Lazy-loaded so three.js stays out of the critical bundle; the void
+// backdrop shows instantly and the shader fades in when ready.
+const ShaderAnimation = lazy(() =>
+  import("./ui/ShaderAnimation").then((m) => ({ default: m.ShaderAnimation }))
+);
 
 /**
  * Branded intro loader: a counter races 0 → 100, then the wordmark flies up to
@@ -102,7 +107,9 @@ export default function Preloader() {
             animate={{ opacity: morphing ? 0 : 1 }}
             transition={{ duration: 0.6, ease: EASE_IN_OUT }}
           >
-            <ShaderAnimation className="absolute inset-0 w-full h-full" />
+            <Suspense fallback={null}>
+              <ShaderAnimation className="absolute inset-0 w-full h-full" />
+            </Suspense>
             <div className="absolute inset-0 bg-void/40" />
           </motion.div>
 
