@@ -48,10 +48,12 @@ export const products = [
       "Syncs with your Apple Watch and turns recovery science into daily guidance — when to push, when to back off, and how to train smarter for real results.",
     demo: {
       orientation: "portrait",
+      video: "/media/demos/rezt.mp4",
+      poster: "/media/demos/rezt.jpg",
       stops: [
-        { t: 4, tip: "Syncs straight with your Apple Watch." },
-        { t: 10, tip: "Recovery science becomes a daily score." },
-        { t: 16, tip: "Know when to push and when to back off." },
+        { t: 14, tip: "Recovery 92 — green light when your body can take a hard session." },
+        { t: 22, tip: "Stats from Apple Health: HRV, resting heart rate, and sleep." },
+        { t: 30, tip: "Second Wind — a wind-down so overnight HRV can recover." },
       ],
     },
   },
