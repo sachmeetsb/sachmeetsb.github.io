@@ -59,14 +59,14 @@ function DemoOverlay({ player }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 text-white text-[14px] leading-snug"
+            className="bg-void/85 backdrop-blur-md border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.45)] rounded-2xl px-4 py-3 text-white text-[14px] leading-snug"
           >
             {player.activeTip}
           </motion.div>
         )}
       </AnimatePresence>
       {showPrompt && (
-        <div className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] uppercase text-white/60 animate-pulse">
+        <div className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] uppercase text-white/80 drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] animate-pulse">
           {player.status === "ended" ? "Tap to replay" : "Tap to continue"}
         </div>
       )}
