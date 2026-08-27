@@ -6,7 +6,7 @@ import { useReducedMotion } from "../../lib/useReducedMotion";
 /**
  * Per-word (and per-char) headline reveal. Splits text into words that rise +
  * fade in with a stagger. Renders plain text when reduced-motion is preferred.
- * Pass JSX children for styled spans (e.g. .autonomous-gradient) — those are
+ * Pass JSX children for styled spans (e.g. .autonomous-gradient) ; those are
  * revealed as a single unit.
  */
 export default function SplitText({

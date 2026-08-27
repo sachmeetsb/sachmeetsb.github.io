@@ -10,14 +10,14 @@ const caseStudies = [
   {
     title: "First-Contact Agentic Legal Document Generator",
     description:
-      "An agentic system that researches jurisdiction-specific laws in real time, identifies relevant statutes and precedents, and drafts a first letter of conflict -ready for attorney review. What used to take a junior associate 4-6 hours now takes under 10 minutes.",
+      "An agentic system that researches jurisdiction-specific laws in real time, identifies relevant statutes and precedents, and drafts a first letter of conflict ; ready for attorney review. What could take a junior associate 4-6 hours could shrink to under 10 minutes.",
     agents:
       "Jurisdiction lookup, statute extraction, conflict analysis, letter drafting, citation formatting.",
   },
   {
     title: "Local Agentic AI-Based Data Analyst for SMEs",
     description:
-      "A self-serve AI analyst built for small and mid-size businesses that don't have a data team. Connects to existing tools -Tally, spreadsheets, POS systems -and answers business questions in plain language. Revenue trends, inventory gaps, customer patterns -without hiring an analyst or learning a dashboard.",
+      "A self-serve AI analyst built for small and mid-size businesses that don't have a data team. Connects to existing tools ; Tally, spreadsheets, POS systems ; and answers business questions in plain language. Revenue trends, inventory gaps, customer patterns ; without hiring an analyst or learning a dashboard.",
     agents:
       "Data ingestion, natural language querying, trend analysis, automated reporting, anomaly alerts.",
   },
@@ -35,7 +35,7 @@ function CaseStudyCard({ study, index, total }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  // Subtle, intentional drift — later cards travel a touch more for depth.
+  // Subtle, intentional drift ; later cards travel a touch more for depth.
   const drift = 48 + index * 22;
   const y = useTransform(scrollYProgress, [0, 1], [drift, -drift]);
 
@@ -103,7 +103,7 @@ export default function CaseStudies() {
       }}
       innerClassName="grid lg:grid-cols-[0.82fr_1.18fr] gap-14 lg:gap-24"
     >
-      {/* Intro — sticks alongside the cards on desktop */}
+      {/* Intro ; sticks alongside the cards on desktop */}
       <motion.div
         className="lg:sticky lg:top-32 lg:self-start"
         initial={reduced ? false : { opacity: 0, y: 28 }}
@@ -119,8 +119,8 @@ export default function CaseStudies() {
           <span className="autonomous-gradient">Problems we've solved.</span>
         </h2>
         <p className="text-white/50 text-[17px] leading-relaxed max-w-md">
-          Real agentic systems we shipped — each one quietly replacing hours of
-          manual work.
+          Sample agentic systems we engineer ; each one designed to quietly
+          replace hours of manual work.
         </p>
       </motion.div>
 

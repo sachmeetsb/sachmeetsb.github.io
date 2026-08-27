@@ -76,7 +76,7 @@ export default function Preloader() {
         transition: { duration: 0.9, ease: EASE_IN_OUT },
       })
       .then(() => {
-        // Flying logo has landed exactly on the navbar slot — reveal the
+        // Flying logo has landed exactly on the navbar slot ; reveal the
         // real logo there before we fade out, for a seamless handoff.
         window.dispatchEvent(new Event("preloader:done"));
         setDone(true);
@@ -101,7 +101,7 @@ export default function Preloader() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Backdrop: void, animated saffron shader, scrim — fades on handoff */}
+          {/* Backdrop: void, animated saffron shader, scrim ; fades on handoff */}
           <motion.div
             className="absolute inset-0 bg-void"
             animate={{ opacity: morphing ? 0 : 1 }}
@@ -115,7 +115,7 @@ export default function Preloader() {
 
           {/* Centered intro stack */}
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
-            {/* The flying wordmark — lands exactly on the navbar logo */}
+            {/* The flying wordmark ; lands exactly on the navbar logo */}
             <motion.div
               ref={logoRef}
               className="font-display font-extrabold text-white text-[40px] tracking-tight will-change-transform"
@@ -126,7 +126,7 @@ export default function Preloader() {
               kartar<span className="autonomous-gradient">AI</span>
             </motion.div>
 
-            {/* Counter + progress — fade away as the wordmark flies off */}
+            {/* Counter + progress ; fade away as the wordmark flies off */}
             <motion.div
               className="flex flex-col items-center gap-6"
               animate={{ opacity: morphing ? 0 : 1 }}

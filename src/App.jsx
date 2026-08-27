@@ -25,7 +25,7 @@ function App() {
   const { status, speaking, start, stop } = useVapiCall();
   const callActive = status === "active" || status === "connecting";
 
-  // The follower orb appears only once the hero is scrolled out of view — in
+  // The follower orb appears only once the hero is scrolled out of view ; in
   // the hero, the hero blob itself represents the call.
   const [heroInView, setHeroInView] = useState(true);
   useEffect(() => {
@@ -56,14 +56,14 @@ function App() {
       <Preloader />
       <CustomCursor />
       <div className="grain-overlay" aria-hidden="true" />
-      {/* Background follower — only while a call is active and past the hero */}
+      {/* Background follower ; only while a call is active and past the hero */}
       <FollowOrb
         active={callActive && !heroInView}
         speaking={speaking}
         onEnd={stop}
       />
 
-      {/* Mobile call button — the desktop hero orb is hidden on small screens,
+      {/* Mobile call button ; the desktop hero orb is hidden on small screens,
           so phones get a persistent floating orb to start/end the call. */}
       <button
         type="button"

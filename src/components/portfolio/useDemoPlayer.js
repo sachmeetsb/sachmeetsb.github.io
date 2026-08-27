@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
  *  - Video mode (demo.video set): plays the video and auto-pauses when
  *    currentTime reaches each stop's `t`, showing that stop's tooltip; a tap
  *    (advance) resumes. After the last stop the video plays to its end → 'ended'.
- *  - Placeholder mode (no video): a pure tap-through — the first tooltip shows
+ *  - Placeholder mode (no video): a pure tap-through ; the first tooltip shows
  *    immediately and each tap reveals the next, ending on 'ended'.
  */
 export function useDemoPlayer(demo, reduced) {

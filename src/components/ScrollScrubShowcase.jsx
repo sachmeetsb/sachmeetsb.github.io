@@ -23,7 +23,7 @@ const steps = [
     cap: [
       "Read",
       "The agent parses the invoice, packing list and prior filings.",
-      "It pulls descriptions, values, origin and quantities — no template, any format.",
+      "It pulls descriptions, values, origin and quantities ; no template, any format.",
     ],
   },
   {
@@ -78,7 +78,7 @@ const steps = [
     ],
     cap: [
       "Cite",
-      "Every decision ships with its source — the notification, the ruling, the chapter note.",
+      "Every decision ships with its source ; the notification, the ruling, the chapter note.",
       "Verifiable reasoning is the product. That is the moat.",
     ],
   },
@@ -244,7 +244,7 @@ export default function ScrollScrubShowcase() {
       <div className="scroll-wrap">
         <div className="stage">
           <div className="head">
-            <div className="eyebrow">CustomsIQ&nbsp;—&nbsp;Project Demo</div>
+            <div className="eyebrow">CustomsIQ&nbsp;;&nbsp;Project Demo</div>
           </div>
 
           <div className="pipe">

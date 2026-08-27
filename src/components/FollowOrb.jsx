@@ -4,7 +4,7 @@ import { useReducedMotion } from "../lib/useReducedMotion";
 
 /**
  * Big, soft background orb that follows the viewport (fixed) across the page
- * while a call is `active` — lives at z-0, behind the content, and is purely
+ * while a call is `active` ; lives at z-0, behind the content, and is purely
  * decorative (pointer-events off) so it never blocks clicks. Alongside it, a
  * small "End call" pill sits to its right on a higher layer so the call can be
  * ended from anywhere. Brightens a touch while the agent is `speaking`.

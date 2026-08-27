@@ -46,7 +46,7 @@ const team = [
   {
     name: "Sachmeet Singh Bhatia",
     category: "Founder",
-    specialty: "Founder & Builder",
+    specialty: "AI Engineering",
     slug: "sachmeet-singh-bhatia",
     linkedin: "https://www.linkedin.com/in/sachmeet/",
   },
@@ -164,7 +164,7 @@ const team = [
 ];
 
 // A hand-picked emoji per person, used as the avatar fallback when a photo
-// isn't available — themed loosely to each person's role/specialty.
+// isn't available ; themed loosely to each person's role/specialty.
 const EMOJI = {
   "sachmeet-singh-bhatia": "🚀",
   "priyank-verma": "⚡",
@@ -190,7 +190,7 @@ function TeamCard({ member }) {
   const style = ROLE_STYLES[member.category] || ROLE_STYLES.Builder;
   const [imgFailed, setImgFailed] = useState(false);
   const roleLabel = member.specialty
-    ? `${member.category} — ${member.specialty}`
+    ? `${member.category} ; ${member.specialty}`
     : member.category;
 
   return (

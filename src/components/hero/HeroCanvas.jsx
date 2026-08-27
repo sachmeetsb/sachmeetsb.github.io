@@ -8,7 +8,7 @@ import {
 } from "@react-three/drei";
 
 /**
- * The distorted saffron orb — a premium replacement for the CSS bouncing ball.
+ * The distorted saffron orb ; a premium replacement for the CSS bouncing ball.
  * Slowly rotates and leans toward the pointer.
  */
 function DistortOrb() {

@@ -143,7 +143,7 @@ export default function Contact() {
             <p className="text-white/[0.58] text-[17px] leading-relaxed mb-10">
               Whether you need an agentic workflow for your ops, a vertical
               product for your industry, or just want to know if AI is the right
-              move -we're here to have an honest conversation.
+              move ; we're here to have an honest conversation.
             </p>
 
             <div className="flex flex-col gap-5">

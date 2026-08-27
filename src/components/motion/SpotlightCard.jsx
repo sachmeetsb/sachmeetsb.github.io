@@ -46,7 +46,7 @@ export default function SpotlightCard({
   );
 }
 
-/** Plain dark glass surface (no cursor tracking) — for simpler panels. */
+/** Plain dark glass surface (no cursor tracking) ; for simpler panels. */
 export function GlassCard({ children, className = "", ...rest }) {
   return (
     <div

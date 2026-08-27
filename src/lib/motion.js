@@ -1,5 +1,5 @@
 /**
- * Shared motion tokens — keep easings/durations consistent across Framer Motion
+ * Shared motion tokens ; keep easings/durations consistent across Framer Motion
  * and GSAP so the whole site feels like one system.
  */
 
@@ -27,7 +27,7 @@ export const revealVariants = {
   },
 };
 
-/** Stagger container — children use `revealVariants`. */
+/** Stagger container ; children use `revealVariants`. */
 export const staggerContainer = (stagger = 0.08, delayChildren = 0) => ({
   hidden: {},
   show: {

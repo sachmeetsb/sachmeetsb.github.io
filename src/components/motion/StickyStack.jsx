@@ -36,7 +36,7 @@ export default function StickyStack({
         if (i === cards.length - 1) return;
         // Drive the recede from THIS card's own pin progress, not the next
         // card's top. Triggering on the next (sticky) card's "top top" never
-        // resolves — a sticky card can't reach y=0 — which froze the scrub.
+        // resolves ; a sticky card can't reach y=0 ; which froze the scrub.
         // Here: start when this card pins, end one gap of scroll later, i.e.
         // exactly while the next card rises up and covers it.
         const pin = topBase + i * topStep;

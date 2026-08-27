@@ -37,9 +37,8 @@ export default function CtaBanner() {
 
           {/* Subtitle */}
           <p className="text-white/[0.5] text-[17px] max-w-2xl mx-auto mb-10 leading-relaxed">
-            Join 25+ Indian enterprises running Kartar AI agents in production
-            - autonomous, intelligible, and delivering measurable ROI from day
-            one.
+            Built for India's most demanding industries ; autonomous,
+            intelligible, and engineered for measurable ROI from day one.
           </p>
 
           {/* CTA button -> scrolls to the newsletter signup in the footer */}
@@ -49,7 +48,7 @@ export default function CtaBanner() {
               onClick={scrollToNewsletter}
               className="cursor-pointer px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors border-0"
             >
-              Deploy Your First Agent
+              Pilot Your First Agent
             </button>
           </div>
 
@@ -58,7 +57,7 @@ export default function CtaBanner() {
             <div className="flex items-center gap-2 text-white/[0.35]">
               <HiShieldCheck className="text-[18px] text-teal" />
               <span className="font-mono text-[11px] tracking-[0.06em] uppercase">
-                Trusted by 25+ enterprises across India
+                Built for India's most demanding industries
               </span>
             </div>
             <div className="flex items-center gap-2 text-white/[0.35]">

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 /**
- * Full-bleed GLSL shader backdrop — concentric light-lines radiating from
+ * Full-bleed GLSL shader backdrop ; concentric light-lines radiating from
  * centre, tinted to the Kartar saffron palette and animated over time. Used
  * behind the Preloader intro. Fills its positioned parent (defaults to
  * absolute inset-0).

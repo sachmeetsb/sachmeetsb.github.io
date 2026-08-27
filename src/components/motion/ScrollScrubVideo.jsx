@@ -9,7 +9,7 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Scroll-scrubbed video — binds a muted <video>'s currentTime to scroll
+ * Scroll-scrubbed video ; binds a muted <video>'s currentTime to scroll
  * progress so it plays forward as you scroll down and reverses as you scroll
  * up. For real AI/product clips. (Image sequence is smoother for hero set
  * pieces; this is the lightweight option when you already have a clip.)

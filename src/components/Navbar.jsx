@@ -20,7 +20,7 @@ export default function Navbar() {
   const reduced = useReducedMotion();
 
   // The Preloader flies its own wordmark onto this spot, so keep our copy
-  // hidden until the handoff fires — otherwise both are visible at once
+  // hidden until the handoff fires ; otherwise both are visible at once
   // once the loader backdrop fades. Reduced-motion skips the loader entirely.
   const [logoVisible, setLogoVisible] = useState(reduced);
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function Navbar() {
     return () => window.removeEventListener("preloader:done", onDone);
   }, [reduced]);
 
-  // Scrolled state — prefer Lenis' scroll event, fall back to window scroll.
+  // Scrolled state ; prefer Lenis' scroll event, fall back to window scroll.
   useEffect(() => {
     if (lenis) {
       const onScroll = ({ scroll }) => setScrolled(scroll > 40);
@@ -65,7 +65,7 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  // Hide the navbar "Book a Call" CTA while the Hero is on screen — the Hero
+  // Hide the navbar "Book a Call" CTA while the Hero is on screen ; the Hero
   // carries its own prominent call to action, so the nav one is redundant there.
   useEffect(() => {
     const hero = document.getElementById("hero");
@@ -142,7 +142,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA — hidden while the Hero (its own CTA) is on screen */}
+          {/* CTA ; hidden while the Hero (its own CTA) is on screen */}
           <a
             href="https://calendly.com/sachmeet-kartar/30min"
             target="_blank"

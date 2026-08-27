@@ -4,17 +4,17 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 const testimonials = [
   {
     quote:
-      "They didn't just build us an AI tool -they understood our workflow first. The agent handles 70% of our triage now. We didn't expect it to work this fast.",
+      "If a vendor understood our workflow first and an agent handled 70% of our triage, we'd reinvest that time into the cases that actually matter.",
     role: "CTO, Fintech Startup",
   },
   {
     quote:
-      "Most vendors showed us slide decks. Kartar showed us a working prototype in the first meeting. That's when we knew they were different.",
+      "Most vendors show slide decks. If a partner walked in with a working prototype in the first meeting, we'd know they actually understand the work.",
     role: "Operations Head, Logistics Co.",
   },
   {
     quote:
-      "Honest about what AI can and can't do. They actually scoped our project down because the original ask didn't need AI. Saved us months.",
+      "If a partner told us the original ask didn't need AI and scoped it down, we'd save months. That kind of honesty is rarer than it should be.",
     role: "Founder, Legal Tech Startup",
   },
 ];
@@ -41,7 +41,7 @@ export default function Testimonials() {
             Testimonials
           </span>
           <p className="text-white/[0.5] text-[18px] max-w-2xl leading-relaxed">
-            From the people who've shipped with us.
+            From the teams shaping what we build.
           </p>
         </div>
 

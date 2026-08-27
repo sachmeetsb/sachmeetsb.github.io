@@ -9,7 +9,7 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Scroll-scrubbed image sequence — the "seek front and back" pattern.
+ * Scroll-scrubbed image sequence ; the "seek front and back" pattern.
  * Pins a sticky canvas and draws a frame whose index is tied to scroll
  * progress (scroll down → forward, up → reverse).
  *

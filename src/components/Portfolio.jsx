@@ -48,7 +48,7 @@ export default function Portfolio() {
 
   return (
     <Section id="portfolio" className="pt-14 md:pt-20 pb-4">
-      {/* Pill in its own row — the grid below starts flush with its bottom, so
+      {/* Pill in its own row ; the grid below starts flush with its bottom, so
           a portrait phone's top lands exactly at the pill's ending. */}
       <Reveal className="mb-6">
         <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] shadow-glow-saffron">
@@ -64,8 +64,8 @@ export default function Portfolio() {
             className="font-display font-extrabold text-[32px] md:text-[40px] text-white leading-tight mb-10"
             style={{ letterSpacing: "-1px" }}
           >
-            Products we've{" "}
-            <span className="autonomous-gradient">actually shipped</span>
+            Products we're{" "}
+            <span className="autonomous-gradient">actually building</span>
           </h2>
 
           <ProjectList

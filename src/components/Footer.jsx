@@ -70,7 +70,7 @@ export default function Footer() {
           <div className="max-w-sm">
             <Logo size="md" variant="on-dark" />
             <p className="mt-5 text-white/[0.4] text-[16px] leading-relaxed">
-              Empowering businesses with Agentic AI and Software 3.0 -at
+              Empowering businesses with Agentic AI and Software 3.0 ; at
               lightning speed.
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Products — real URLs so crawlers (and people) can deep-link */}
+          {/* Products ; real URLs so crawlers (and people) can deep-link */}
           <div>
             <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
               Products

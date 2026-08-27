@@ -2,7 +2,7 @@ import React from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 /**
- * Paginated list of products — Title + small subtitle only. The active item is
+ * Paginated list of products ; Title + small subtitle only. The active item is
  * highlighted; clicking one selects it. A small pager (prev/next + segment bar)
  * sits directly below the items. Page changes do not change the selection.
  */

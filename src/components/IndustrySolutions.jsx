@@ -192,8 +192,12 @@ export default function IndustrySolutions() {
       <Reveal className="mb-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
-            <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6 shadow-glow-saffron">
+            <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-4 shadow-glow-saffron">
               Industry Solutions
+            </span>
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.1em] uppercase text-saffron-core/85 border border-saffron-core/30 bg-saffron/[0.06] rounded-pill px-3 py-1 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-saffron-core" />
+              Design vision ; not yet deployed
             </span>
             <h2
               className="font-display font-extrabold text-[36px] md:text-[48px] text-white leading-tight max-w-2xl mb-5"
@@ -204,8 +208,8 @@ export default function IndustrySolutions() {
             </h2>
             <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
               Purpose-built autonomous agents for India's most complex
-              industries - each delivering measurable, explainable outcomes
-              from day one.
+              industries ; each engineered for measurable, explainable
+              outcomes you can validate with us before we build.
             </p>
           </div>
 
@@ -290,7 +294,7 @@ export default function IndustrySolutions() {
                 {/* After */}
                 <div>
                   <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-white/35 block mb-2">
-                    After Kartar AI
+                    Ideal Outcome
                   </span>
                   <p
                     className={`font-display font-bold text-[18px] mb-2 ${style.resultText}`}

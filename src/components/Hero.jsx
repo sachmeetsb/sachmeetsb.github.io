@@ -22,7 +22,7 @@ function supportsWebGL() {
   }
 }
 
-/** CSS orb — fallback when WebGL is unavailable / reduced-motion / mobile. */
+/** CSS orb ; fallback when WebGL is unavailable / reduced-motion / mobile. */
 function OrbFallback() {
   return (
     <div className="relative animate-orb-float">
@@ -83,7 +83,7 @@ export default function Hero({
         }}
       />
 
-      {/* Orb — WebGL canvas with CSS fallback. Click it to toggle a page-wide
+      {/* Orb ; WebGL canvas with CSS fallback. Click it to toggle a page-wide
           background orb that follows you as you scroll. */}
       <div className="absolute right-[12%] top-1/2 -translate-y-1/2 hidden lg:block w-[480px] h-[480px]">
         {useCanvas ? (
@@ -102,17 +102,17 @@ export default function Hero({
           </div>
         )}
 
-        {/* Oversized invisible hit target — extends well beyond the orb,
+        {/* Oversized invisible hit target ; extends well beyond the orb,
             with ~40% more reach on the left, so it's easy to click. */}
         <button
           type="button"
           onClick={onOrbClick}
-          aria-label={callActive ? "End voice call" : "Talk to the AI — start a voice call"}
+          aria-label={callActive ? "End voice call" : "Talk to the AI ; start a voice call"}
           title={callActive ? "Click to end the call" : "Click to talk to me"}
           className="absolute -top-28 -bottom-28 -right-28 -left-72 z-20 rounded-full bg-transparent border-0 cursor-pointer"
         />
 
-        {/* Label to the right of the orb — invites a call when idle, and shows
+        {/* Label to the right of the orb ; invites a call when idle, and shows
             the live status (with tap-to-end) while a call is running. */}
         <button
           type="button"

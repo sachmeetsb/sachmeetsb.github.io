@@ -117,7 +117,7 @@ export default function PhoneSimulator({ product }) {
     return () => ro.disconnect();
   }, [desktop]);
 
-  // Mobile: no frame — full-width screen with an aspect ratio matched to the
+  // Mobile: no frame ; full-width screen with an aspect ratio matched to the
   // orientation; the title is rendered by Portfolio above.
   if (!desktop) {
     return (

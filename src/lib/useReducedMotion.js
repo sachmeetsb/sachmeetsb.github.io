@@ -27,7 +27,7 @@ export function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/** Coarse pointer (touch) — used to disable custom cursor / magnetic hover. */
+/** Coarse pointer (touch) ; used to disable custom cursor / magnetic hover. */
 export function isCoarsePointer() {
   if (typeof window === "undefined" || !window.matchMedia) return false;
   return window.matchMedia("(pointer: coarse)").matches;

@@ -21,11 +21,11 @@ const steps = [
     num: "02",
     title: "Build Complete",
     description:
-      "We finish the whole implementation. Not a sprint slice. Not a demo. The actual working system. A half-shipped feature tells you nothing.",
+      "We finish the whole implementation. Not a sprint slice. Not a demo. The actual working system. A half-built feature tells you nothing.",
   },
   {
     num: "03",
-    title: "Ship & Measure",
+    title: "Pilot & Measure",
     description:
       "Every release is a question, not a statement. We put it in front of real users, real workflows, real edge cases. Then we watch what happens.",
   },
@@ -33,7 +33,7 @@ const steps = [
     num: "04",
     title: "Feedback & Iterate",
     description:
-      "Everything ships with a feedback window. Good feedback tells us what to keep. Bad feedback tells us what to kill. Both are gifts. We act on them fast.",
+      "Every build comes with a feedback window. Good feedback tells us what to keep. Bad feedback tells us what to kill. Both are gifts. We act on them fast.",
   },
 ];
 

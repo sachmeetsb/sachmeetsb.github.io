@@ -14,7 +14,7 @@ const services = [
   {
     title: "Vertical SaaS Products",
     description:
-      "AI-native software for industries that haven't been touched -logistics, legal, healthcare, agri, finance. Built ground-up for how India actually works.",
+      "AI-native software for industries that haven't been touched ; logistics, legal, healthcare, agri, finance. Built from the ground up for how India actually works.",
     variant: "indigo",
   },
   {
@@ -57,7 +57,7 @@ export default function Services() {
     <Section id="services" className="pt-12 md:pt-16 pb-0">
       <SectionHeader label="Services">
         Here's what we actually build. Agentic workflows, vertical products, and
-        AI systems designed for how your business actually runs -not how a slide
+        AI systems designed for how your business actually runs ; not how a slide
         deck says it should.
       </SectionHeader>
 

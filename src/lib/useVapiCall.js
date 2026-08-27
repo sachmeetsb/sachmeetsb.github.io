@@ -22,7 +22,7 @@ export function useVapiCall() {
   const ensureClient = useCallback(async () => {
     if (vapiRef.current) return vapiRef.current;
     if (!PUBLIC_KEY) {
-      console.warn("[vapi] Missing VITE_VAPI_PUBLIC_KEY — set it in .env");
+      console.warn("[vapi] Missing VITE_VAPI_PUBLIC_KEY ; set it in .env");
       return null;
     }
     const { default: Vapi } = await import("@vapi-ai/web");
@@ -48,7 +48,7 @@ export function useVapiCall() {
       const vapi = await ensureClient();
       if (!vapi) return;
       if (!ASSISTANT_ID) {
-        console.warn("[vapi] Missing VITE_VAPI_ASSISTANT_ID — set it in .env");
+        console.warn("[vapi] Missing VITE_VAPI_ASSISTANT_ID ; set it in .env");
         return;
       }
       setStatus("connecting");
@@ -78,7 +78,7 @@ export function useVapiCall() {
         message: { role: "system", content: text },
       });
     } catch {
-      /* not connected yet — ignore */
+      /* not connected yet ; ignore */
     }
   }, []);
 

@@ -47,7 +47,7 @@ export function Reveal({
   );
 }
 
-/** Stagger container — wrap a list; each child should be a <StaggerItem>. */
+/** Stagger container ; wrap a list; each child should be a <StaggerItem>. */
 export function Stagger({
   children,
   as = "div",
