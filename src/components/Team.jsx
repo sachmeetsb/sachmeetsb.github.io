@@ -5,9 +5,9 @@ import { Stagger, StaggerItem } from "./motion/Reveal";
 
 const ROLE_STYLES = {
   Founder: {
-    badge: "bg-saffron/15 text-saffron-core border-saffron/30",
-    ring: "ring-saffron/40",
-    accent: "from-saffron/25 to-transparent",
+    badge: "bg-red-500/15 text-red-300 border-red-500/30",
+    ring: "ring-red-500/40",
+    accent: "from-red-500/25 to-transparent",
   },
   Builder: {
     badge: "bg-blue-500/15 text-blue-300 border-blue-500/30",
