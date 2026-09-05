@@ -7,8 +7,24 @@ import { products } from "../data/portfolio";
 import ProjectList from "./portfolio/ProjectList";
 import PhoneSimulator from "./portfolio/PhoneSimulator";
 
-/** Page 1 is five consumer apps; page 2 is four B2B / remaining products. */
-const PAGE_SIZES = [5, 4];
+/** Page 1 is five consumer apps; page 2 is four B2B; later pages take the rest. */
+function pageSizesFor(count) {
+  const sizes = [];
+  let remaining = count;
+  for (const preferred of [5, 4]) {
+    if (remaining <= 0) break;
+    const take = Math.min(preferred, remaining);
+    sizes.push(take);
+    remaining -= take;
+  }
+  while (remaining > 0) {
+    const take = Math.min(5, remaining);
+    sizes.push(take);
+    remaining -= take;
+  }
+  return sizes.length ? sizes : [count];
+}
+const PAGE_SIZES = pageSizesFor(products.length);
 const pageStarts = PAGE_SIZES.reduce((acc, size, i) => {
   acc.push(i === 0 ? 0 : acc[i - 1] + PAGE_SIZES[i - 1]);
   return acc;
@@ -99,6 +115,16 @@ export default function Portfolio() {
             <p className="font-display text-[15px] text-saffron-core">
               {active.tagline}
             </p>
+            {active.frontendUrl && (
+              <a
+                href={active.frontendUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 mt-2 font-mono text-[11px] tracking-[0.12em] uppercase text-saffron-core"
+              >
+                Open app ↗
+              </a>
+            )}
           </div>
           <PhoneSimulator product={active} />
         </div>

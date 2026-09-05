@@ -1,5 +1,5 @@
 import React from "react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiChevronLeft, HiChevronRight, HiExternalLink } from "react-icons/hi";
 
 /**
  * Paginated list of products ; Title + small subtitle only. The active item is
@@ -26,30 +26,50 @@ export default function ProjectList({
           const idx = start + i;
           const active = idx === activeIndex;
           return (
-            <button
-              key={p.name}
-              onClick={() => onSelect(idx)}
-              className={`text-left py-4 pl-5 border-l-2 transition-all bg-transparent ${
+            <div
+              key={p.slug}
+              className={`py-4 pl-5 border-l-2 transition-all ${
                 active
                   ? "border-saffron"
                   : "border-white/10 hover:border-white/30"
               }`}
             >
-              <h3
-                className={`font-display font-bold text-[26px] md:text-[32px] leading-[1.05] transition-colors ${
-                  active ? "text-white" : "text-white/55"
-                }`}
+              <button
+                type="button"
+                onClick={() => onSelect(idx)}
+                className="text-left bg-transparent w-full p-0"
               >
-                {p.name}
-              </h3>
-              <p
-                className={`font-display text-[14px] mt-0.5 transition-colors ${
-                  active ? "text-saffron-core" : "text-white/35"
-                }`}
-              >
-                {p.tagline}
-              </p>
-            </button>
+                <h3
+                  className={`font-display font-bold text-[26px] md:text-[32px] leading-[1.05] transition-colors ${
+                    active ? "text-white" : "text-white/55"
+                  }`}
+                >
+                  {p.name}
+                </h3>
+                <p
+                  className={`font-display text-[14px] mt-0.5 transition-colors ${
+                    active ? "text-saffron-core" : "text-white/35"
+                  }`}
+                >
+                  {p.tagline}
+                </p>
+              </button>
+              {p.frontendUrl && (
+                <a
+                  href={p.frontendUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1 mt-1.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors ${
+                    active
+                      ? "text-saffron-core hover:text-white"
+                      : "text-white/30 hover:text-white/60"
+                  }`}
+                >
+                  Open app
+                  <HiExternalLink aria-hidden className="text-[13px]" />
+                </a>
+              )}
+            </div>
           );
         })}
       </div>
@@ -70,7 +90,7 @@ export default function ProjectList({
                 key={i}
                 onClick={() => onPage(i)}
                 aria-label={`Go to page ${i + 1}`}
-                aria-current={i === page}
+                aria-current={i === page ? "true" : undefined}
                 className={`flex-1 h-1.5 rounded-full transition-colors ${
                   i === page ? "bg-saffron" : "bg-white/15 hover:bg-white/30"
                 }`}

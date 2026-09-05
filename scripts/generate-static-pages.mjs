@@ -136,7 +136,8 @@ for (const p of products) {
       ${features.length ? `<ul class="feat">${features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : ""}
       ${video}
       <div class="cta">
-        <a class="pill" href="https://calendly.com/sachmeet-kartar/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>
+        ${p.frontendUrl ? `<a class="pill" href="${esc(p.frontendUrl)}" target="_blank" rel="noopener noreferrer">Open app</a>` : `<a class="pill" href="https://calendly.com/sachmeet-kartar/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>`}
+        ${p.frontendUrl ? `<a class="ghost" href="https://calendly.com/sachmeet-kartar/30min" target="_blank" rel="noopener noreferrer">Book a Call</a>` : ""}
         <a class="ghost" href="/#portfolio">See the interactive demo</a>
         <a class="ghost" href="/products/">All products</a>
       </div>
@@ -174,12 +175,15 @@ for (const p of products) {
       <div class="grid">
         ${products
           .map(
-            (p) => `<a class="card" href="/products/${p.slug}/">
+            (p) => `<div class="card">
+          <a href="/products/${p.slug}/" style="color:inherit;text-decoration:none">
           <span class="cat">${esc(p.category)}</span>
           <h2>${esc(p.name)}</h2>
           <div class="tl">${esc(p.tagline)}</div>
           <p>${esc(p.description)}</p>
-        </a>`
+          </a>
+          ${p.frontendUrl ? `<p style="margin-top:12px"><a href="${esc(p.frontendUrl)}" target="_blank" rel="noopener noreferrer">Open app ↗</a></p>` : ""}
+        </div>`
           )
           .join("\n")}
       </div>
