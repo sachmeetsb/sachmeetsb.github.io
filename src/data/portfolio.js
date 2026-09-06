@@ -186,7 +186,6 @@ export const products = [
     name: "TableTennis",
     tagline: "AI coach on every rally",
     category: "Sports",
-    frontendUrl: "https://kartar-tabletennis.exe.xyz",
     description:
       "Upload match footage and get professional coaching back: rally detection, pose tracking, comparison against a pro database, and drills aimed at the stroke you actually missed.",
     demo: {
