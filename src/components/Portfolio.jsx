@@ -80,8 +80,7 @@ export default function Portfolio() {
             className="font-display font-extrabold text-[32px] md:text-[40px] text-white leading-tight mb-10"
             style={{ letterSpacing: "-1px" }}
           >
-            Products we're{" "}
-            <span className="autonomous-gradient">actually building</span>
+            Ideation -&gt; Engineering -&gt; Product
           </h2>
 
           <ProjectList
