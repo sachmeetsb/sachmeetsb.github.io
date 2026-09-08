@@ -43,16 +43,18 @@ const people = [
   {
     name: "Vikas Kumar",
     category: "Project Partner",
-    label: "Project Partner",
+    label: "Project Partner - VR Architecture",
     initials: "VK",
-    description: "Delhi-based architect.",
+    description:
+      "Delhi-based architect and project partner for VR Architecture.",
   },
   {
     name: "Manas Joshi",
     category: "Project Partner",
-    label: "Project Partner",
+    label: "Project Partner - VR Architecture",
     initials: "MJ",
-    description: "Ahmedabad-based 3D developer.",
+    description:
+      "Ahmedabad-based 3D developer and project partner for VR Architecture.",
   },
 ];
 
