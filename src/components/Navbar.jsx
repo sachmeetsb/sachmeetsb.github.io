@@ -144,9 +144,7 @@ export default function Navbar() {
 
           {/* CTA ; hidden while the Hero (its own CTA) is on screen */}
           <a
-            href="https://calendly.com/sachmeet-kartar/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+          href="#contact"
             aria-hidden={heroVisible}
             className={`hidden md:inline-flex px-7 py-3 bg-saffron hover:bg-saffron-light text-white font-display text-[15px] font-semibold rounded-pill transition-all duration-300 ${
               heroVisible
@@ -186,9 +184,7 @@ export default function Navbar() {
               </button>
             ))}
             <a
-              href="https://calendly.com/sachmeet-kartar/30min"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="mt-2 px-5 py-3 bg-saffron text-white font-display text-[16px] font-semibold rounded-pill text-center transition-colors hover:bg-saffron-light"
             >
               Book a Call

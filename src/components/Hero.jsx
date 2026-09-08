@@ -188,9 +188,7 @@ export default function Hero({
         >
           <MagneticButton
             as="a"
-            href="https://calendly.com/sachmeet-kartar/30min"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             className="inline-block px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-semibold text-[17px] rounded-pill transition-all hover:shadow-glow-saffron"
           >
             Book a Call

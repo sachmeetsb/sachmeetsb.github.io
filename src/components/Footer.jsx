@@ -130,9 +130,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://calendly.com/sachmeet-kartar/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact"
                   className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
                 >
                   Book a Call
