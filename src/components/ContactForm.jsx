@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 const EMAILJS_SERVICE_ID = "service_gtn59h8";
@@ -6,25 +6,160 @@ const EMAILJS_TEMPLATE_ID = "template_2l3bp6f";
 const EMAILJS_PUBLIC_KEY = "kmCIQtGGQzq1RfE0w";
 const CALENDLY_URL = "https://calendly.com/sachmeet-kartar/30min";
 
-function Field({ label, children }) {
+function Field({ label, voiceField, activeVoiceField, onVoice, children }) {
   return (
-    <label className="block">
-      <span className="mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-white/[0.4]">
-        {label}
-      </span>
+    <div>
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/[0.4]">
+          {label}
+        </span>
+        {voiceField && (
+          <button
+            type="button"
+            onClick={() => onVoice(voiceField)}
+            className={`rounded-pill border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.08em] transition-colors ${
+              activeVoiceField === voiceField
+                ? "border-saffron bg-saffron text-white"
+                : "border-white/[0.18] text-white/[0.65] hover:border-saffron/60 hover:text-white"
+            }`}
+            aria-pressed={activeVoiceField === voiceField}
+          >
+            {activeVoiceField === voiceField ? "Stop" : "Speak"}
+          </button>
+        )}
+      </div>
       {children}
-    </label>
+    </div>
   );
 }
 
 const fieldClassName =
   "w-full rounded-xl border border-white/[0.12] bg-white/[0.08] px-5 py-3.5 text-[16px] text-white transition-colors placeholder:text-white/[0.25] focus:border-saffron/50 focus:outline-none";
 
+const normalise = (value) =>
+  value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+function selectVoiceOption(fieldName, transcript, select) {
+  const spoken = normalise(transcript);
+  const direct = [...select.options].find(
+    (option) =>
+      option.value &&
+      (spoken === normalise(option.value) || spoken.includes(normalise(option.value)))
+  );
+  if (direct) return direct.value;
+
+  const matches = {
+    discussion: [
+      [/vr|architect|real estate|property/, "VR architecture or real estate"],
+      [/hardware|charging|electric vehicle|ev/, "Kartar Hardware"],
+      [/operation|workflow|automation/, "Agentic AI for operations"],
+      [/existing|improve|moderni[sz]/, "Improve an existing product or workflow"],
+      [/new|build|product/, "Build a new AI product"],
+    ],
+    decision_role: [
+      [/final|owner|founder|decide/, "Final decision-maker"],
+      [/team|stakeholder|part of/, "Part of the decision team"],
+      [/research|explor/, "Researching options"],
+    ],
+    timeline: [
+      [/this month|immediate|asap|now/, "Ready to start this month"],
+      [/one|two|three|1|2|3.*month/, "Starting in 1–3 months"],
+      [/quarter|later|next year/, "Planning for a later quarter"],
+      [/explor|unsure/, "Exploring the problem"],
+    ],
+    budget: [
+      [/15|fifteen|above|more/, "₹15 lakh+"],
+      [/5.*15|five.*fifteen|mid/, "₹5–15 lakh"],
+      [/under|up to|below|5|five/, "Up to ₹5 lakh"],
+      [/explor|unsure|not sure/, "Exploring fit"],
+    ],
+  };
+  const match = matches[fieldName]?.find(([pattern]) => pattern.test(spoken));
+  return match?.[1] || "";
+}
+
 export default function Contact() {
   const formRef = useRef();
+  const recognitionRef = useRef();
   const [sending, setSending] = useState(false);
   const [bookingUrl, setBookingUrl] = useState("");
   const [error, setError] = useState(false);
+  const [voiceField, setVoiceField] = useState("");
+  const [voiceStatus, setVoiceStatus] = useState("");
+
+  useEffect(
+    () => () => {
+      recognitionRef.current?.abort();
+    },
+    []
+  );
+
+  const startVoice = (fieldName) => {
+    if (voiceField === fieldName) {
+      recognitionRef.current?.stop();
+      return;
+    }
+
+    recognitionRef.current?.abort();
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) {
+      setVoiceStatus(
+        "Voice fill is not available in this browser. Use a current Chrome or Safari browser, or type your answer."
+      );
+      return;
+    }
+
+    const field = formRef.current?.elements[fieldName];
+    if (!field) return;
+    const originalValue = field.value || "";
+    let finalTranscript = "";
+    const recognition = new Recognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = "en-IN";
+
+    recognition.onstart = () => {
+      setVoiceField(fieldName);
+      setVoiceStatus("Listening — your words appear as you speak.");
+    };
+    recognition.onresult = (event) => {
+      let interimTranscript = "";
+      for (let index = event.resultIndex; index < event.results.length; index += 1) {
+        const transcript = event.results[index][0].transcript;
+        if (event.results[index].isFinal) finalTranscript += `${transcript} `;
+        else interimTranscript += transcript;
+      }
+
+      const transcript = `${finalTranscript}${interimTranscript}`.trim();
+      if (field.tagName === "SELECT") {
+        const value = selectVoiceOption(fieldName, transcript, field);
+        if (value) field.value = value;
+      } else {
+        field.value = [originalValue, transcript].filter(Boolean).join(" ");
+      }
+    };
+    recognition.onerror = (event) => {
+      if (event.error !== "aborted" && event.error !== "no-speech") {
+        setVoiceStatus("We could not hear that. Check microphone permission and try again.");
+      }
+    };
+    recognition.onend = () => {
+      setVoiceField("");
+      recognitionRef.current = undefined;
+    };
+
+    recognitionRef.current = recognition;
+    try {
+      recognition.start();
+    } catch {
+      setVoiceStatus("Voice fill is already starting. Please try again in a moment.");
+    }
+  };
+
+  const voiceProps = {
+    activeVoiceField: voiceField,
+    onVoice: startVoice,
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,7 +212,8 @@ export default function Contact() {
           </span>
           <p className="max-w-2xl text-[18px] leading-relaxed text-white/50">
             Share the context first. We use it to arrive prepared and make the
-            conversation useful from minute one.
+            conversation useful from minute one. Use Speak to fill any project
+            field by voice; name and email stay typed for booking accuracy.
           </p>
         </div>
 
@@ -91,6 +227,12 @@ export default function Contact() {
         >
           <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
             <input type="hidden" name="message" />
+
+            {voiceStatus && (
+              <p role="status" className="rounded-xl border border-white/[0.12] bg-white/[0.05] px-4 py-3 text-[14px] leading-relaxed text-white/[0.68]">
+                {voiceStatus}
+              </p>
+            )}
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <Field label="Name">
@@ -114,16 +256,16 @@ export default function Contact() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <Field label="Company or organisation">
+              <Field label="Company or organisation" voiceField="company" {...voiceProps}>
                 <input name="company" required className={fieldClassName} placeholder="Company name" />
               </Field>
-              <Field label="Your role">
+              <Field label="Your role" voiceField="role" {...voiceProps}>
                 <input name="role" required className={fieldClassName} placeholder="Founder, operator, product lead..." />
               </Field>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <Field label="What would you like to discuss?">
+              <Field label="What would you like to discuss?" voiceField="discussion" {...voiceProps}>
                 <select name="discussion" required defaultValue="" className={fieldClassName}>
                   <option value="" disabled>Choose a starting point</option>
                   <option>Build a new AI product</option>
@@ -134,7 +276,7 @@ export default function Contact() {
                   <option>Other</option>
                 </select>
               </Field>
-              <Field label="Your role in the decision">
+              <Field label="Your role in the decision" voiceField="decision_role" {...voiceProps}>
                 <select name="decision_role" required defaultValue="" className={fieldClassName}>
                   <option value="" disabled>Choose one</option>
                   <option>Final decision-maker</option>
@@ -144,7 +286,7 @@ export default function Contact() {
               </Field>
             </div>
 
-            <Field label="What outcome would make this conversation worthwhile?">
+            <Field label="What outcome would make this conversation worthwhile?" voiceField="outcome" {...voiceProps}>
               <textarea
                 name="outcome"
                 required
@@ -154,7 +296,7 @@ export default function Contact() {
               />
             </Field>
 
-            <Field label="What have you already tried or built?">
+            <Field label="What have you already tried or built?" voiceField="current_state" {...voiceProps}>
               <textarea
                 name="current_state"
                 rows={3}
@@ -164,7 +306,7 @@ export default function Contact() {
             </Field>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <Field label="Target timeline">
+              <Field label="Target timeline" voiceField="timeline" {...voiceProps}>
                 <select name="timeline" required defaultValue="" className={fieldClassName}>
                   <option value="" disabled>Choose one</option>
                   <option>Exploring the problem</option>
@@ -173,7 +315,7 @@ export default function Contact() {
                   <option>Planning for a later quarter</option>
                 </select>
               </Field>
-              <Field label="Indicative budget">
+              <Field label="Indicative budget" voiceField="budget" {...voiceProps}>
                 <select name="budget" required defaultValue="" className={fieldClassName}>
                   <option value="" disabled>Choose one</option>
                   <option>Exploring fit</option>
@@ -185,15 +327,15 @@ export default function Contact() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <Field label="Phone (optional)">
+              <Field label="Phone (optional)" voiceField="from_phone" {...voiceProps}>
                 <input type="tel" name="from_phone" className={fieldClassName} placeholder="+91..." />
               </Field>
-              <Field label="Who else will join? (optional)">
+              <Field label="Who else will join? (optional)" voiceField="attendees" {...voiceProps}>
                 <input name="attendees" className={fieldClassName} placeholder="Names and roles" />
               </Field>
             </div>
 
-            <Field label="Relevant links (optional)">
+            <Field label="Relevant links (optional)" voiceField="links" {...voiceProps}>
               <input name="links" className={fieldClassName} placeholder="Website, product, brief, or deck" />
             </Field>
 
