@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import React from "react";
 import Section, { SectionHeader } from "./motion/Section";
 import { Stagger, StaggerItem } from "./motion/Reveal";
 
@@ -9,262 +8,104 @@ const ROLE_STYLES = {
     ring: "ring-red-500/40",
     accent: "from-red-500/25 to-transparent",
   },
-  Builder: {
-    badge: "bg-blue-500/15 text-blue-300 border-blue-500/30",
-    ring: "ring-blue-500/40",
-    accent: "from-blue-500/25 to-transparent",
-  },
-  Patron: {
+  "Project Partner": {
     badge: "bg-orange-500/15 text-orange-300 border-orange-500/30",
     ring: "ring-orange-500/40",
     accent: "from-orange-500/25 to-transparent",
   },
-  "Domain Expert": {
-    badge: "bg-purple-500/15 text-purple-300 border-purple-500/30",
-    ring: "ring-purple-500/40",
-    accent: "from-purple-500/25 to-transparent",
-  },
-  "Technical Expert": {
-    badge: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-    ring: "ring-emerald-500/40",
-    accent: "from-emerald-500/25 to-transparent",
-  },
-  Research: {
-    badge: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
-    ring: "ring-cyan-500/40",
-    accent: "from-cyan-500/25 to-transparent",
-  },
-  SRE: {
-    badge: "bg-rose-500/15 text-rose-300 border-rose-500/30",
-    ring: "ring-rose-500/40",
-    accent: "from-rose-500/25 to-transparent",
-  },
 };
 
-// Order: Founder → Builders → Patrons → Domain Experts → Technical Experts → Research → SREs
-const team = [
+const people = [
   {
     name: "Sachmeet Singh Bhatia",
     category: "Founder",
-    specialty: "AI Engineering",
-    slug: "sachmeet-singh-bhatia",
-    linkedin: "https://www.linkedin.com/in/sachmeet/",
+    label: "Founder & AI Engineer",
+    initials: "SB",
+    description:
+      "Builds AI-native products and agentic workflows end to end, from research and prototypes through production systems.",
   },
   {
-    name: "Priyank Verma",
-    category: "Builder",
-    slug: "priyank-verma",
-    linkedin: "https://www.linkedin.com/in/heypriyank/",
+    name: "Bhupendra Bhatore",
+    category: "Project Partner",
+    label: "Project Partner - Khoj",
+    initials: "BB",
+    description:
+      "Brings education-sector experience in Indore to Khoj's learning work.",
   },
   {
-    name: "Astha Porwal",
-    category: "Builder",
-    slug: "astha-porwal",
-    linkedin: "https://www.linkedin.com/in/astha-porwal-899679132/",
+    name: "Swetank Vaidya",
+    category: "Project Partner",
+    label: "Project Partner - Kartar Hardware",
+    initials: "SV",
+    description:
+      "Five years of experience in EV charging infrastructure.",
   },
   {
-    name: "Shovan Mohapatra",
-    category: "Builder",
-    slug: "shovan-mohapatra",
-    linkedin: "https://www.linkedin.com/in/shovan-mohapatra-03/",
+    name: "Vikas Kumar",
+    category: "Project Partner",
+    label: "Project Partner",
+    initials: "VK",
+    description: "Delhi-based architect.",
   },
   {
-    name: "Karuna Patil",
-    category: "Builder",
-    slug: "karuna-patil",
-    linkedin: "https://www.linkedin.com/in/karuna-patil20/",
-  },
-  {
-    name: "Abhimanyu Kaundal",
-    category: "Patron",
-    slug: "abhimanyu-kaundal",
-    linkedin: "https://www.linkedin.com/in/abhimanyukaundal/",
-  },
-  {
-    name: "Anshul Bharti",
-    category: "Patron",
-    slug: "anshul-bharti",
-    linkedin: "https://www.linkedin.com/in/anshul-bharti-97528b185/",
-  },
-  {
-    name: "Akansha Sarkar",
-    category: "Patron",
-    slug: "akansha-sarkar",
-    linkedin: "https://www.linkedin.com/in/akansha-sarkar-86b822173/",
-  },
-  {
-    name: "Aditya Gupta",
-    category: "Domain Expert",
-    specialty: "Operations",
-    slug: "aditya-gupta",
-    linkedin: "https://www.linkedin.com/in/aditya-g98/",
-  },
-  {
-    name: "Rishi Mehta",
-    category: "Domain Expert",
-    specialty: "Logistics & Customs",
-    slug: "rishi-mehta",
-    linkedin: "https://www.linkedin.com/in/rishi-mehta18/",
-  },
-  {
-    name: "Rakshit Baveja",
-    category: "Domain Expert",
-    specialty: "Cryptocurrency",
-    slug: "rakshit-baveja",
-    linkedin: "https://www.linkedin.com/in/rakshit-baveja-8a32861b1/",
-  },
-  {
-    name: "Poonam Pandey",
-    category: "Technical Expert",
-    specialty: "Software Engineering",
-    slug: "poonam-pandey",
-    linkedin: "https://www.linkedin.com/in/poonam-pandey-3a5509180/",
-  },
-  {
-    name: "Shubh Bharadwaj",
-    category: "Technical Expert",
-    specialty: "Low Level Design",
-    slug: "shubh-bharadwaj",
-    linkedin: "https://www.linkedin.com/in/shubh-bhardwaj-207b1517b/",
-  },
-  {
-    name: "Shubhankar Anuragi",
-    category: "Technical Expert",
-    specialty: "Cybersecurity",
-    slug: "shubhankar-anuragi",
-    linkedin: "https://www.linkedin.com/in/shubhankaranuragi/",
-  },
-  {
-    name: "Rahul Tiwari",
-    category: "Research",
-    specialty: "AI Safety",
-    slug: "rahul-tiwari",
-    linkedin: "https://www.linkedin.com/in/ba11b0y/",
-  },
-  {
-    name: "Sakshi Joshi",
-    category: "Research",
-    specialty: "Voice AI & Local AI",
-    slug: "sakshi-joshi",
-    linkedin: "https://www.linkedin.com/in/joshisakshi/",
-  },
-  {
-    name: "Nipun Katyal",
-    category: "Research",
-    specialty: "Context Engineering",
-    slug: "nipun-katyal",
-    linkedin: "https://www.linkedin.com/in/nipun-katyal/",
-  },
-  {
-    name: "Yugpratap Singh Pawar",
-    category: "SRE",
-    slug: "yugpratap-singh-pawar",
-    linkedin: "https://www.linkedin.com/in/yugpratap-singh-pawar/",
+    name: "Manas Joshi",
+    category: "Project Partner",
+    label: "Project Partner",
+    initials: "MJ",
+    description: "Ahmedabad-based 3D developer.",
   },
 ];
 
-// A hand-picked emoji per person, used as the avatar fallback when a photo
-// isn't available ; themed loosely to each person's role/specialty.
-const EMOJI = {
-  "sachmeet-singh-bhatia": "🚀",
-  "priyank-verma": "⚡",
-  "astha-porwal": "🛠️",
-  "shovan-mohapatra": "🧩",
-  "karuna-patil": "🎨",
-  "abhimanyu-kaundal": "🌟",
-  "anshul-bharti": "🔭",
-  "akansha-sarkar": "💎",
-  "aditya-gupta": "⚙️",
-  "rishi-mehta": "🚢",
-  "rakshit-baveja": "🪙",
-  "poonam-pandey": "💻",
-  "shubh-bharadwaj": "🏗️",
-  "shubhankar-anuragi": "🛡️",
-  "rahul-tiwari": "🧪",
-  "sakshi-joshi": "🎙️",
-  "nipun-katyal": "🧠",
-  "yugpratap-singh-pawar": "🔧",
-};
-
-function TeamCard({ member }) {
-  const style = ROLE_STYLES[member.category] || ROLE_STYLES.Builder;
-  const [imgFailed, setImgFailed] = useState(false);
-  const roleLabel = member.specialty
-    ? `${member.category} ; ${member.specialty}`
-    : member.category;
+function PersonCard({ person }) {
+  const style = ROLE_STYLES[person.category];
 
   return (
-    <div className="group relative h-full border border-white/10 rounded-card bg-white/[0.04] backdrop-blur-sm hover:border-white/20 hover:shadow-card-dark hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-      {/* Color accent gradient at top */}
+    <article className="group relative h-full overflow-hidden rounded-card border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-card-dark">
       <div
-        className={`absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${style.accent} pointer-events-none`}
+        className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${style.accent}`}
       />
 
-      <div className="relative p-8 flex flex-col items-center text-center">
-        {/* Avatar */}
+      <div className="relative flex h-full flex-col p-8">
         <div
-          className={`w-[110px] h-[110px] rounded-full bg-surface-mid ring-4 ${style.ring} flex items-center justify-center mb-5 overflow-hidden shadow-md`}
+          className={`mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-surface-mid font-display text-[18px] font-bold text-white ring-4 ${style.ring}`}
+          aria-hidden="true"
         >
-          {!imgFailed ? (
-            <img
-              src={`/team/${member.slug}.jpg`}
-              alt={member.name}
-              className="w-full h-full object-cover"
-              onError={() => setImgFailed(true)}
-            />
-          ) : (
-            <span className="text-[44px] leading-none" role="img" aria-label={member.name}>
-              {EMOJI[member.slug] || "✨"}
-            </span>
-          )}
+          {person.initials}
         </div>
 
-        {/* Name */}
-        <h3 className="font-display font-bold text-[20px] text-white mb-3 leading-tight">
-          {member.name}
+        <h3 className="mb-3 font-display text-[22px] font-bold leading-tight text-white">
+          {person.name}
         </h3>
 
-        {/* Role badge */}
         <span
-          className={`inline-block border ${style.badge} rounded-pill px-3 py-1 font-mono text-[11px] tracking-[0.06em] uppercase mb-6`}
+          className={`mb-6 inline-block w-fit rounded-pill border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.06em] ${style.badge}`}
         >
-          {roleLabel}
+          {person.label}
         </span>
 
-        {/* LinkedIn */}
-        <a
-          href={member.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${member.name} on LinkedIn`}
-          className="inline-flex items-center gap-2 text-white/50 hover:text-[#4aa3ff] transition-colors"
-        >
-          <FaLinkedin size={22} />
-          <span className="font-mono text-[12px] tracking-[0.08em] uppercase">
-            LinkedIn
-          </span>
-        </a>
+        <p className="text-[16px] leading-relaxed text-white/[0.58]">
+          {person.description}
+        </p>
       </div>
-    </div>
+    </article>
   );
 }
 
 export default function Team() {
   return (
     <Section id="team" className="py-24 md:py-32">
-      <SectionHeader label="Team">
-        Small, intentional, no sales layer. When you work with Kartar AI, you
-        work with the people who write the code.
+      <SectionHeader label="About Kartar">
+        Kartar is an independent AI studio led by Sachmeet Singh Bhatia, working
+        with focused project partners where deep domain expertise matters.
       </SectionHeader>
 
-      {/* Team grid */}
       <Stagger
         stagger={0.05}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {team.map((member) => (
-          <StaggerItem key={member.slug} className="h-full">
-            <TeamCard member={member} />
+        {people.map((person) => (
+          <StaggerItem key={person.name} className="h-full">
+            <PersonCard person={person} />
           </StaggerItem>
         ))}
       </Stagger>

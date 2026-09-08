@@ -7,7 +7,7 @@ const SECTION_LABELS = {
   portfolio: "Portfolio",
   "industry-solutions": "Industry Solutions",
   process: "Our Process",
-  team: "Team",
+  team: "About",
   testimonials: "Testimonials",
   contact: "Contact",
 };
