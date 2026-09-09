@@ -89,7 +89,7 @@ export default function Services() {
                   href="#contact"
                   className={`inline-flex items-center gap-2 font-display font-semibold text-[16px] ${s.arrow} hover:gap-3 transition-all`}
                 >
-                  Learn more <HiArrowRight />
+                  Book a Call <HiArrowRight />
                 </a>
               </div>
             </SpotlightCard>

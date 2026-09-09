@@ -1,14 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { HiPlus, HiMinus } from "react-icons/hi";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionHeader } from "./motion/Section";
-import {
-  prefersReducedMotion,
-  isMobileViewport,
-} from "../lib/useReducedMotion";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
@@ -39,36 +31,11 @@ const steps = [
 
 export default function WorkingProcess() {
   const [openIndex, setOpenIndex] = useState(0);
-  const sectionRef = useRef(null);
-
-  // Pinned scrollytelling: scroll advances the active stage. Falls back to a
-  // plain clickable accordion on reduced-motion / mobile.
-  useEffect(() => {
-    if (prefersReducedMotion() || isMobileViewport()) return;
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: `+=${window.innerHeight * (steps.length - 1)}`,
-        pin: true,
-        scrub: true,
-        onUpdate: (self) => {
-          const idx = Math.min(
-            steps.length - 1,
-            Math.floor(self.progress * steps.length)
-          );
-          setOpenIndex(idx);
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
-      ref={sectionRef}
       id="process"
-      className="relative min-h-screen flex flex-col justify-center pt-8 md:pt-10 pb-12 md:pb-16"
+      className="relative flex flex-col justify-center pt-8 md:pt-10 pb-12 md:pb-16"
     >
       <div className="relative z-10 max-w-container mx-auto w-full px-8 lg:px-16">
         <SectionHeader label="Our Process">
@@ -89,6 +56,9 @@ export default function WorkingProcess() {
                 }`}
               >
                 <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`process-step-${i}`}
                   onClick={() => setOpenIndex(isOpen ? -1 : i)}
                   className="w-full flex items-center justify-between gap-6"
                 >
@@ -111,11 +81,9 @@ export default function WorkingProcess() {
 
                 {/* Expandable content */}
                 <div
-                  className={`overflow-hidden transition-all duration-500 ${
-                    isOpen
-                      ? "max-h-40 mt-7 pt-7 border-t border-white/10"
-                      : "max-h-0"
-                  }`}
+                  id={`process-step-${i}`}
+                  hidden={!isOpen}
+                  className="mt-7 pt-7 border-t border-white/10"
                 >
                   <p className="text-white/65 text-[17px] leading-relaxed max-w-3xl">
                     {step.description}

@@ -15,117 +15,17 @@ import {
 import Section from "./motion/Section";
 import Reveal from "./motion/Reveal";
 import SpotlightCard from "./motion/SpotlightCard";
-import CountUp from "./motion/CountUp";
 
 const agents = [
-  {
-    stat: "98% QC accuracy",
-    industry: "Manufacturing",
-    subtitle: "Autonomous quality, predictive operations",
-    icon: HiEye,
-    before:
-      "Manual QC, reactive maintenance and siloed production planning causing costly downtime",
-    result: "98% defect-free output",
-    after:
-      "Agentic vision agents run 24/7 inspection loops with zero human intervention",
-    accent: "saffron",
-  },
-  {
-    stat: "10x throughput",
-    industry: "Legal Services",
-    subtitle: "AI agents that read, reason, and file",
-    icon: HiScale,
-    before:
-      "Lawyers spending 60%+ of time on document review, notice drafting and compliance checks",
-    result: "87% cost reduction",
-    after:
-      "Agents autonomously draft, review and file legal documents with explainable reasoning trails",
-    accent: "indigo",
-  },
-  {
-    stat: "99.3% classification accuracy",
-    industry: "Customs Broking",
-    subtitle: "End-to-end autonomous clearance",
-    icon: HiGlobe,
-    before:
-      "Manual HS code classification, duty calculation and document preparation causing clearance delays",
-    result: "72% faster clearance",
-    after:
-      "Agentic classifiers determine duty, prepare documentation and track shipments autonomously",
-    accent: "teal",
-  },
-  {
-    stat: "Real-time fraud detection",
-    industry: "Financial Technology",
-    subtitle: "Autonomous reconciliation and risk intelligence",
-    icon: HiCurrencyDollar,
-    before:
-      "Finance teams spending days on reconciliation, with rule-based fraud detection missing novel patterns",
-    result: "94% reduction in manual reconciliation",
-    after:
-      "Agents reconcile in real time, flag anomalies and generate audit-ready reports autonomously",
-    accent: "saffron",
-  },
-  {
-    stat: "60+ processes automated",
-    industry: "Enterprise Management Transformation",
-    subtitle: "Every process, made autonomous",
-    icon: HiCog,
-    before:
-      "Complex cross-departmental workflows locked in legacy systems with fragmented data and slow decision cycles",
-    result: "3.2x operational efficiency",
-    after:
-      "End-to-end process agents that understand context, orchestrate systems and self-improve over time",
-    accent: "indigo",
-  },
-  {
-    stat: "240% listing exposure increase",
-    industry: "Real Estate Marketing",
-    subtitle: "Autonomous listing exposure and lead generation",
-    icon: HiHome,
-    before:
-      "Listings buried in portals with generic copy, low visibility and a slow manual follow-up pipeline losing warm buyers",
-    result: "3.8x inbound lead uplift",
-    after:
-      "Agents auto-distribute listings, personalise outreach and maximise portal ranking - 24/7 without an agency retainer",
-    accent: "teal",
-  },
-  {
-    stat: "90% screening automation",
-    industry: "HR Tech - First Hires",
-    subtitle: "Agentic recruiting for early-stage teams",
-    icon: HiUserGroup,
-    before:
-      "Founders spending weeks screening CVs and scheduling calls to make the first 10 critical hires with no dedicated HR",
-    result: "74% faster time-to-hire",
-    after:
-      "Agents screen, score and shortlist candidates, draft offer letters and run onboarding flows end-to-end",
-    accent: "saffron",
-  },
-  {
-    stat: "Full migration documentation",
-    industry: "Codebase Migration Assistant",
-    subtitle: "Modernise your stack, eliminate technical debt",
-    icon: HiCode,
-    before:
-      "Legacy codebases creating bottlenecks with outdated dependencies, poor documentation and mounting technical debt blocking product velocity",
-    result: "80% technical debt reduction",
-    after:
-      "Agents audit, refactor and migrate entire codebases to modern stacks with complete documentation generated automatically at each step",
-    accent: "indigo",
-  },
-  {
-    stat: "92% task automation rate",
-    industry: "VIP Assistance",
-    subtitle: "An autonomous chief-of-staff for every executive",
-    icon: HiStar,
-    before:
-      "Senior leaders losing 4-6 hours daily to calendar management, document filing and project status chasing",
-    result: "5.5hrs/day reclaimed per exec",
-    after:
-      "Agents handle scheduling, file organisation, project dashboards and meeting prep - proactively, not on request",
-    accent: "teal",
-  },
+  {stat:"Visual inspection",industry:"Manufacturing",subtitle:"Review-assisted quality checks",icon:HiEye,before:"Inspection records and production data spread across tools.",result:"Flag defects for review",after:"Explore image-based checks, trace flagged examples and route uncertain cases to an operator. Agree evaluation data before a pilot.",accent:"saffron"},
+  {stat:"Document workflows",industry:"Legal Services",subtitle:"Preparation with professional oversight",icon:HiScale,before:"Time spent finding relevant documents and preparing first drafts.",result:"Support the lawyer’s review",after:"Organise documents and prepare draft material with source references. A qualified lawyer reviews advice and approves any filing.",accent:"indigo"},
+  {stat:"Classification support",industry:"Customs Broking",subtitle:"Evidence for a broker’s decision",icon:HiGlobe,before:"Product details, tariff references and supporting documents need to be checked together.",result:"Prepare a reviewable case",after:"Explore suggested classifications and document checks. A broker verifies codes, duties and submissions against current requirements.",accent:"teal"},
+  {stat:"Reconciliation support",industry:"Financial Technology",subtitle:"Make exceptions easier to inspect",icon:HiCurrencyDollar,before:"Transactions and supporting records need manual comparison.",result:"Surface unmatched records",after:"Explore matching rules and exception queues with an audit trail. Finance staff approve adjustments and reporting.",accent:"saffron"},
+  {stat:"Connected workflows",industry:"Enterprise Operations",subtitle:"Connect tools with clear approval points",icon:HiCog,before:"Teams re-enter information and chase approvals across disconnected systems.",result:"Reduce repetitive handoffs",after:"Map a specific workflow, integrate the relevant tools and keep owners in control of consequential actions.",accent:"indigo"},
+  {stat:"Property experiences",industry:"Real Estate",subtitle:"Help people explore a space",icon:HiHome,before:"Static material can make layouts and spatial decisions difficult to understand.",result:"Walk through a proposal",after:"Use architectural walkthroughs and structured enquiries to support discussions with buyers, designers and project teams.",accent:"teal"},
+  {stat:"Hiring coordination",industry:"HR Tech",subtitle:"Organise applications and interviews",icon:HiUserGroup,before:"Small teams coordinate candidate information and interviews manually.",result:"Support human hiring decisions",after:"Explore application organisation, interview scheduling and preparation. People set criteria and make selection decisions.",accent:"saffron"},
+  {stat:"Codebase review",industry:"Codebase Migration",subtitle:"Plan and test a modernisation",icon:HiCode,before:"Legacy dependencies, missing tests and incomplete documentation complicate changes.",result:"Migrate in verifiable steps",after:"Audit dependencies, document risks and propose staged changes. Validate behavior and rollback options before release.",accent:"indigo"},
+  {stat:"Meeting preparation",industry:"Executive Assistance",subtitle:"A clearer view of commitments",icon:HiStar,before:"Meeting context and follow-up tasks are scattered across tools.",result:"Prepare useful briefs",after:"Explore agenda preparation and follow-up tracking. Calendar changes and external messages require the owner’s approval.",accent:"teal"},
 ];
 
 const accentStyles = {
@@ -197,7 +97,7 @@ export default function IndustrySolutions() {
             </span>
             <span className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.1em] uppercase text-saffron-core/85 border border-saffron-core/30 bg-saffron/[0.06] rounded-pill px-3 py-1 mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-saffron-core" />
-              Design vision ; not yet deployed
+              Workflow ideas — not measured results
             </span>
             <h2
               className="font-display font-extrabold text-[36px] md:text-[48px] text-white leading-tight max-w-2xl mb-5"
@@ -207,9 +107,7 @@ export default function IndustrySolutions() {
               <span className="autonomous-gradient">every vertical</span>
             </h2>
             <p className="text-white/50 text-[18px] max-w-2xl leading-relaxed">
-              Purpose-built autonomous agents for India's most complex
-              industries ; each engineered for measurable, explainable
-              outcomes you can validate with us before we build.
+              Examples of workflows we can explore together. Scope, evaluation and human review are agreed for each project; these are not customer results.
             </p>
           </div>
 
@@ -239,7 +137,6 @@ export default function IndustrySolutions() {
       <div
         ref={trackRef}
         onScroll={updateState}
-        data-lenis-prevent
         className="flex gap-7 overflow-x-auto snap-x snap-mandatory pb-2 -mx-8 px-8 lg:-mx-16 lg:px-16 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {agents.map((agent, i) => {
@@ -264,7 +161,7 @@ export default function IndustrySolutions() {
                   <span
                     className={`font-mono text-[11px] tracking-[0.06em] uppercase font-medium px-3 py-1.5 rounded-pill ${style.statBg}`}
                   >
-                    <CountUp value={agent.stat} />
+                    {agent.stat}
                   </span>
                 </div>
 
@@ -294,12 +191,12 @@ export default function IndustrySolutions() {
                 {/* After */}
                 <div>
                   <span className="font-mono text-[10px] tracking-[0.12em] uppercase text-white/35 block mb-2">
-                    Ideal Outcome
+                    Proposed workflow
                   </span>
                   <p
                     className={`font-display font-bold text-[18px] mb-2 ${style.resultText}`}
                   >
-                    <CountUp value={agent.result} />
+                    {agent.result}
                   </p>
                   <p className="text-white/65 text-[14px] leading-relaxed">
                     {agent.after}

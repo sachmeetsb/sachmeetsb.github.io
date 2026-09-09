@@ -121,15 +121,16 @@ export default function PhoneSimulator({ product }) {
   // orientation; the title is rendered by Portfolio above.
   if (!desktop) {
     return (
-      <div
+      <button
+        type="button"
         onClick={player.advance}
-        role="button"
-        aria-label="Tap to continue demo"
+        disabled={!player.hasVideo}
+        aria-label={`${product.name}: ${player.status === "ended" ? "replay" : player.status === "playing" ? "pause" : "play or continue"} demo`}
         className="relative w-full rounded-3xl overflow-hidden border border-white/15 bg-black cursor-pointer"
         style={{ aspectRatio: orientation === "landscape" ? "16 / 9" : "9 / 16" }}
       >
         <Screen player={player} demo={demo} product={product} />
-      </div>
+      </button>
     );
   }
 
@@ -138,17 +139,18 @@ export default function PhoneSimulator({ product }) {
 
   return (
     <div ref={boxRef} className="w-full flex justify-center">
-      <motion.div
+      <motion.button
+        type="button"
         onClick={player.advance}
-        role="button"
-        aria-label="Tap to continue demo"
+        disabled={!player.hasVideo}
+        aria-label={`${product.name}: ${player.status === "ended" ? "replay" : player.status === "playing" ? "pause" : "play or continue"} demo`}
         className="relative rounded-[52px] border-[8px] border-white/15 bg-black overflow-hidden shadow-2xl cursor-pointer"
         animate={{ width: renderW, height: renderH }}
         transition={reduced ? { duration: 0 } : { duration: 0.6, ease: EASE_IN_OUT }}
       >
         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-2 rounded-full bg-white/20 z-20" />
         <Screen player={player} demo={demo} product={product} />
-      </motion.div>
+      </motion.button>
     </div>
   );
 }

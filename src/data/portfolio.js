@@ -1,11 +1,31 @@
 // Portfolio products + interactive demo data.
-// `demo.video`/`poster` are optional ; until provided, the PhoneSimulator runs
-// a tap-through walkthrough of `stops`. When a real MP4 + real `t` timestamps
-// are added, the same `stops` auto-pause the video at those times instead.
-export const products = [
+// Products without a recording show a coming-soon placeholder, not simulated UI.
+// Real MP4 recordings use measured `stops` to pause at chapter boundaries.
+import { excludedProductSlugs, publicProduct } from './productContext.js';
+
+const catalogue = [
+  {
+    slug: "khoj-learning",
+    name: "Khoj Learning",
+    tagline: "Learning through curiosity",
+    category: "Education",
+    description: "Guided exploration and hands-on learning for learners and educators.",
+    frontendUrl: "https://khoj-learning.exe.xyz/",
+    demo: {
+      orientation: "landscape",
+      video: "/media/demos/khoj-learning.mp4",
+      poster: "/media/demos/khoj-learning.jpg",
+      stops: [
+        { t: 4, tip: "Explore an algebra question with Mira using fictional learner data." },
+        { t: 16, tip: "Connect the explanation to an interactive area model." },
+        { t: 27, tip: "Reveal why the two rectangles contribute 2ab." },
+      ],
+    },
+  },
   {
     slug: "vimarsha",
     name: "Vimarsha",
+    frontendUrl: "https://kartar-vimarsha.exe.xyz/",
     tagline: "EPUB reader, reimagined",
     category: "Monetised Apps",
     description:
@@ -24,17 +44,19 @@ export const products = [
   {
     slug: "satya-social",
     name: "Satya Social",
-    tagline: "Human-first. Aadhaar-gated.",
+    tagline: "A human-first social network",
     category: "Social Network",
-    frontendUrl: "https://kartar-satya.exe.xyz",
+    frontendUrl: "https://pds.kartar.ai/",
     description:
       "A social network for modern India where every voice is a real, verified person. Aadhaar-gated and free of AI-generated content ; authenticity by design, not by moderation.",
     demo: {
-      orientation: "portrait",
+      orientation: "landscape",
+      video: "/media/demos/satya-social.mp4",
+      poster: "/media/demos/satya-social.jpg",
       stops: [
-        { t: 4, tip: "Open the feed ; real people, not bots." },
-        { t: 10, tip: "Compose a post in the moment." },
-        { t: 16, tip: "Profile and social graph, built in." },
+        { t: 5, tip: "Explore the Opinion feed with a clearly labeled demo post." },
+        { t: 12, tip: "Open the demo account’s profile." },
+        { t: 19, tip: "Preview the text composer. Nothing is published in this recording." },
       ],
     },
   },
@@ -157,10 +179,11 @@ export const products = [
       "An interactive lab for geometric algebra as the native language of quantum gates. Simulate Grover and Shor in real time, or describe a problem in plain language and watch it become a runnable experiment.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/quantumexp.mp4",
+      poster: "/media/demos/quantumexp.jpg",
       stops: [
-        { t: 4, tip: "Describe a quantum problem in plain language." },
-        { t: 10, tip: "Watch it compile into geometric-algebra math and a live circuit." },
-        { t: 16, tip: "Step through Grover or Shor with amplitudes on screen." },
+        { t: 4, tip: "Set up Grover search with three qubits and marked state 5." },
+        { t: 14, tip: "Inspect the completed simulation and its circuit." },
       ],
     },
   },
@@ -169,48 +192,54 @@ export const products = [
     name: "NyayaLegal",
     tagline: "Grounded legal AI",
     category: "Legal Assistance",
-    frontendUrl: "https://kartar-nyayalegal.exe.xyz",
+    frontendUrl: "https://yukti.kartar.ai/",
     description:
       "Legal answers that cite their sources. Built to reason over a grounded graph of Indian law instead of improvising from a chatbot's memory.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/nyayalegal.mp4",
+      poster: "/media/demos/nyayalegal.jpg",
       stops: [
-        { t: 4, tip: "Ask a legal question in plain language." },
-        { t: 10, tip: "Answers are grounded in a graph of statute and precedent." },
-        { t: 16, tip: "Every claim comes with a citation trail." },
+        { t: 4, tip: "Revisit a saved legal-research answer." },
+        { t: 14, tip: "Open the cited judgment and inspect its source passage." },
+        { t: 20, tip: "Select source text to collect it in research notes." },
       ],
     },
   },
   {
     slug: "tabletennis",
-    name: "TableTennis",
-    tagline: "AI coach on every rally",
+    name: "TT Coach",
+    tagline: "Review the rally. Understand the placement.",
     category: "Sports",
     description:
-      "Upload match footage and get professional coaching back: rally detection, pose tracking, comparison against a pro database, and drills aimed at the stroke you actually missed.",
+      "Review-assisted rally analysis with replay, bounce placement and evidence-linked practice feedback.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/tt-coach.mp4",
+      poster: "/media/demos/tt-coach.jpg",
       stops: [
-        { t: 4, tip: "Drop in a rally clip." },
-        { t: 10, tip: "Pose tracking reads the stroke frame by frame." },
-        { t: 16, tip: "Coaching notes and drills matched to what you actually did." },
+        { t: 10, tip: "Inspect five reviewed bounce locations, aligned with the camera." },
+        { t: 21, tip: "Compare a bounce with its original frame and table calibration." },
+        { t: 29, tip: "Feedback is based on three reviewed returns, not validated automatic coaching." },
       ],
     },
   },
   {
     slug: "newstime",
-    name: "NewsTime",
+    name: "Kartar Media",
     tagline: "AI-anchor newsroom",
     category: "Media",
-    frontendUrl: "https://kartar-newstime.exe.xyz",
+    frontendUrl: "https://kartar-media-production.up.railway.app/",
     description:
       "A multilingual newsroom where editorial teams ingest stories, approve scripts, generate AI-anchor video, and publish reels to a public feed ; the same feed the mobile app reads.",
     demo: {
       orientation: "landscape",
+      video: "/media/demos/kartar-media.mp4",
+      poster: "/media/demos/kartar-media.jpg",
       stops: [
-        { t: 4, tip: "Ingest a story and get a script for review." },
-        { t: 10, tip: "Queue AI-anchor video once editorial signs off." },
-        { t: 16, tip: "Publish to the public reel feed." },
+        { t: 21, tip: "Browse recorded editions in English, Hindi and Punjabi." },
+        { t: 29, tip: "Read the editorial script, sources and AI-presenter disclosure." },
+        { t: 34, tip: "Comments are preview-only; nothing is posted publicly." },
       ],
     },
   },
@@ -247,3 +276,5 @@ export const products = [
     },
   },
 ];
+
+export const products = catalogue.filter(product => !excludedProductSlugs.includes(product.slug)).map(publicProduct);

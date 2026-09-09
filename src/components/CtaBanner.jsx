@@ -1,20 +1,7 @@
 import React from "react";
 import { HiShieldCheck, HiLightBulb, HiLockOpen } from "react-icons/hi";
-import { useLenis } from "../lib/SmoothScroll";
 
 export default function CtaBanner() {
-  const lenis = useLenis();
-  const scrollToNewsletter = () => {
-    const el = document.getElementById("newsletter");
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset: -80 });
-    else
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: "smooth",
-      });
-  };
-
   return (
     <section className="py-8 md:py-12">
       <div className="max-w-container mx-auto px-8 lg:px-16">
@@ -37,19 +24,18 @@ export default function CtaBanner() {
 
           {/* Subtitle */}
           <p className="text-white/[0.5] text-[17px] max-w-2xl mx-auto mb-10 leading-relaxed">
-            Built for India's most demanding industries ; autonomous,
-            intelligible, and engineered for measurable ROI from day one.
+            Bring your current workflow or product idea. We’ll discuss the scope,
+            the constraints, and what a useful first version should do.
           </p>
 
-          {/* CTA button -> scrolls to the newsletter signup in the footer */}
+          {/* All booking links lead to the same intake. */}
           <div className="flex justify-center mb-10">
-            <button
-              type="button"
-              onClick={scrollToNewsletter}
+            <a
+              href="#contact"
               className="cursor-pointer px-8 py-4 bg-saffron hover:bg-saffron-light text-white font-display font-bold text-[16px] rounded-pill transition-colors border-0"
             >
-              Pilot Your First Agent
-            </button>
+              Book a Call
+            </a>
           </div>
 
           {/* Trust badges */}

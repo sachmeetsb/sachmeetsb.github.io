@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import Section from "./motion/Section";
 import Reveal from "./motion/Reveal";
-import { EASE_IN_OUT } from "../lib/motion";
 import { products } from "../data/portfolio";
 import ProjectList from "./portfolio/ProjectList";
 import PhoneSimulator from "./portfolio/PhoneSimulator";
@@ -46,7 +44,11 @@ export default function Portfolio() {
 
   const active = products[activeIndex];
   const isLandscape = active.demo?.orientation === "landscape";
-  const changePage = (p) => setPage(Math.max(0, Math.min(pageCount - 1, p)));
+  const changePage = (p) => {
+    const nextPage = Math.max(0, Math.min(pageCount - 1, p));
+    setPage(nextPage);
+    setActiveIndex(pageStarts[nextPage]);
+  };
 
   // Measure the heading so a landscape phone can drop to the first list item
   // (the list starts right below the heading).
@@ -80,8 +82,7 @@ export default function Portfolio() {
             className="font-display font-extrabold text-[32px] md:text-[40px] text-white leading-tight mb-10"
             style={{ letterSpacing: "-1px" }}
           >
-            Ideation -&gt; Engineering -&gt;{" "}
-            <span className="autonomous-gradient">Product</span>
+            Products & projects
           </h2>
 
           <ProjectList
@@ -96,19 +97,9 @@ export default function Portfolio() {
           />
         </div>
 
-        {/* Desktop: docked phone on the right. Portrait sits at the pill;
-            landscape drops to the first list item via animated padding. */}
-        <motion.div
-          className="hidden lg:block"
-          animate={{ paddingTop: isLandscape ? headingOffset : 0 }}
-          transition={{ duration: 0.6, ease: EASE_IN_OUT }}
-        >
-          <PhoneSimulator product={active} />
-        </motion.div>
-
-        {/* Mobile: title above, full-width demo below (no frame) */}
-        <div className="lg:hidden">
-          <div className="mb-4 pl-5">
+        {/* One player at every breakpoint: no hidden duplicate playback. */}
+        <div className="lg:pt-[var(--demo-offset)] min-w-0" style={{'--demo-offset':`${isLandscape ? headingOffset : 0}px`}}>
+          <div className="lg:hidden mb-4 pl-5">
             <h3 className="font-display font-bold text-[28px] text-white leading-tight">
               {active.name}
             </h3>

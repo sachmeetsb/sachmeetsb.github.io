@@ -52,6 +52,11 @@ export function useDemoPlayer(demo, reduced) {
   const handleEnded = useCallback(() => setStatus("ended"), []);
 
   const advance = useCallback(() => {
+    if (status === "playing" && hasVideo) {
+      videoRef.current?.pause();
+      setStatus("paused");
+      return;
+    }
     if (status === "ended") {
       setStopIndex(0);
       if (hasVideo) {
@@ -68,9 +73,12 @@ export function useDemoPlayer(demo, reduced) {
     }
     if (status !== "paused") return;
     if (hasVideo) {
-      setStopIndex((i) => i + 1);
       const v = videoRef.current;
       if (v) {
+        // A manual pause must not skip a walkthrough stop on resume.
+        if (stops[stopIndex] && v.currentTime >= stops[stopIndex].t) {
+          setStopIndex((i) => i + 1);
+        }
         v.play().catch(() => {});
         setStatus("playing");
       }

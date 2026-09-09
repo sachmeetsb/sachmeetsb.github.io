@@ -38,21 +38,28 @@ export default function Preloader() {
       return;
     }
     // Lock scroll while loading.
+    const previousOverflow = document.body.style.overflow;
     lenis?.stop();
     document.body.style.overflow = "hidden";
 
     const duration = 1500;
     const start = performance.now();
     let raf;
+    let morphTimer;
     const tick = (now) => {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - Math.pow(1 - t, 3);
       setCount(Math.round(eased * 100));
       if (t < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => runMorph(), 250);
+      else morphTimer = setTimeout(() => runMorph(), 250);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(morphTimer);
+      document.body.style.overflow = previousOverflow;
+      lenis?.start();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced, lenis]);
 

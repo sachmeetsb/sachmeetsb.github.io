@@ -91,7 +91,7 @@ export default function Navbar() {
         target === "hero"
           ? 0
           : el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: "smooth" });
+      window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
     }
   };
 
@@ -146,6 +146,7 @@ export default function Navbar() {
           <a
           href="#contact"
             aria-hidden={heroVisible}
+            tabIndex={heroVisible ? -1 : undefined}
             className={`hidden md:inline-flex px-7 py-3 bg-saffron hover:bg-saffron-light text-white font-display text-[15px] font-semibold rounded-pill transition-all duration-300 ${
               heroVisible
                 ? "opacity-0 pointer-events-none"
@@ -157,9 +158,13 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <button
+            id="mobile-menu-toggle"
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-2xl text-white"
+            className="md:hidden min-w-11 min-h-11 flex items-center justify-center text-2xl text-white"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileOpen ? <HiX /> : <HiMenuAlt3 />}
           </button>
@@ -168,7 +173,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-void/95 backdrop-blur-md border-t border-white/10 px-6 py-4">
+        <div id="mobile-navigation" onKeyDown={e=>{if(e.key==='Escape'){setMobileOpen(false);document.getElementById('mobile-menu-toggle')?.focus();}}} className="md:hidden bg-void/95 backdrop-blur-md border-t border-white/10 px-6 py-4">
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <button
@@ -185,6 +190,7 @@ export default function Navbar() {
             ))}
             <a
               href="#contact"
+              onClick={() => setMobileOpen(false)}
               className="mt-2 px-5 py-3 bg-saffron text-white font-display text-[16px] font-semibold rounded-pill text-center transition-colors hover:bg-saffron-light"
             >
               Book a Call

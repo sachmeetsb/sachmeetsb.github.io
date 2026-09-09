@@ -1,116 +1,43 @@
 import React from "react";
-import Section, { SectionHeader } from "./motion/Section";
+import Section from "./motion/Section";
 import { Stagger, StaggerItem } from "./motion/Reveal";
 
-const ROLE_STYLES = {
-  Founder: {
-    badge: "bg-red-500/15 text-red-300 border-red-500/30",
-    ring: "ring-red-500/40",
-    accent: "from-red-500/25 to-transparent",
-  },
-  "Project Partner": {
-    badge: "bg-orange-500/15 text-orange-300 border-orange-500/30",
-    ring: "ring-orange-500/40",
-    accent: "from-orange-500/25 to-transparent",
-  },
-};
-
-const people = [
-  {
-    name: "Sachmeet Singh Bhatia",
-    category: "Founder",
-    label: "Founder & AI Engineer",
-    initials: "SB",
-    description:
-      "Builds AI-native products and agentic workflows end to end, from research and prototypes through production systems.",
-  },
-  {
-    name: "Bhupendra Bhatore",
-    category: "Project Partner",
-    label: "Project Partner - Khoj",
-    initials: "BB",
-    description:
-      "Brings education-sector experience in Indore to Khoj's learning work.",
-  },
-  {
-    name: "Swetank Vaidya",
-    category: "Project Partner",
-    label: "Project Partner - Kartar Hardware",
-    initials: "SV",
-    description:
-      "Five years of experience in EV charging infrastructure.",
-  },
-  {
-    name: "Vikas Kumar",
-    category: "Project Partner",
-    label: "Project Partner - VR Architecture",
-    initials: "VK",
-    description:
-      "Delhi-based architect and project partner for VR Architecture.",
-  },
-  {
-    name: "Manas Joshi",
-    category: "Project Partner",
-    label: "Project Partner - VR Architecture",
-    initials: "MJ",
-    description:
-      "Ahmedabad-based 3D developer and project partner for VR Architecture.",
-  },
+const collaborations = [
+  {project:"Khoj", people:[{name:"Bhupendra Bhatore", detail:"Education-sector experience in Indore."}]},
+  {project:"Kartar Hardware", people:[{name:"Swetank Vaidya", detail:"Five years of experience in EV charging infrastructure."}]},
+  {project:"VR Architecture", href:"/products/vr-real-estate-tour/", people:[
+    {name:"Vikas Kumar",detail:"Delhi-based architect."},
+    {name:"Manas Joshi",detail:"Ahmedabad-based 3D developer."}
+  ]},
 ];
-
-function PersonCard({ person }) {
-  const style = ROLE_STYLES[person.category];
-
-  return (
-    <article className="group relative h-full overflow-hidden rounded-card border border-white/10 bg-white/[0.04] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-card-dark">
-      <div
-        className={`pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b ${style.accent}`}
-      />
-
-      <div className="relative flex h-full flex-col p-8">
-        <div
-          className={`mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-surface-mid font-display text-[18px] font-bold text-white ring-4 ${style.ring}`}
-          aria-hidden="true"
-        >
-          {person.initials}
-        </div>
-
-        <h3 className="mb-3 font-display text-[22px] font-bold leading-tight text-white">
-          {person.name}
-        </h3>
-
-        <span
-          className={`mb-6 inline-block w-fit rounded-pill border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.06em] ${style.badge}`}
-        >
-          {person.label}
-        </span>
-
-        <p className="text-[16px] leading-relaxed text-white/[0.58]">
-          {person.description}
-        </p>
-      </div>
-    </article>
-  );
-}
-
 export default function Team() {
-  return (
-    <Section id="team" className="py-24 md:py-32">
-      <SectionHeader label="About Kartar">
-        Kartar is an independent AI studio led by Sachmeet Singh Bhatia, working
-        with focused project partners where deep domain expertise matters.
-      </SectionHeader>
-
-      <Stagger
-        stagger={0.05}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      >
-        {people.map((person) => (
-          <StaggerItem key={person.name} className="h-full">
-            <PersonCard person={person} />
-          </StaggerItem>
-        ))}
-      </Stagger>
-    </Section>
-  );
+  return <Section id="team" className="py-24 md:py-32">
+    <div className="grid md:grid-cols-[minmax(240px,380px)_1fr] items-center gap-10 lg:gap-20 mb-16">
+      <img src="/sachmeet.jpg" alt="Sachmeet Singh Bhatia" width="640" height="640" loading="lazy" className="w-full max-w-[380px] aspect-square object-cover object-top rounded-card border border-white/15" />
+      <div>
+        <span className="inline-block bg-saffron text-white rounded-pill px-6 py-2 font-display font-bold text-[22px] mb-6">About Kartar</span>
+        <h2 className="font-display font-extrabold text-[32px] md:text-[44px] text-white leading-tight mb-6">I’m Sachmeet Singh Bhatia.</h2>
+        <p className="text-white/75 text-[18px] leading-relaxed mb-5">I founded Kartar AI Labs to build AI-native products and useful workflows. I work across research, prototyping and the engineering that turns an idea into a working product.</p>
+        <p className="text-white/75 text-[18px] leading-relaxed mb-6">When you bring a project to Kartar, you work directly with me. The products on this site show the problems I’m working on; for projects that need domain expertise, I work with the partners below.</p>
+        <div className="flex flex-wrap gap-x-6 gap-y-3 text-saffron-core font-display font-semibold">
+          <a href="mailto:sachmeet@kartar.ai">Email me</a>
+          <a href="#portfolio">Explore my products</a>
+          <a href="https://www.linkedin.com/company/kartar-ai/" target="_blank" rel="noopener noreferrer">Kartar on LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+    <h3 className="font-display text-[26px] text-white font-bold mb-7">Project partners</h3>
+    <Stagger className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {collaborations.map(group => <StaggerItem key={group.project}>
+        <article className="h-full rounded-card border border-white/10 bg-white/[0.04] p-8">
+          <h4 className="font-display text-[22px] text-saffron-core font-bold mb-6">{group.href ? <a href={group.href}>{group.project} ↗</a> : group.project}</h4>
+          {group.people.map(person => <div key={person.name} className="mb-6 last:mb-0">
+            <p className="font-display text-[20px] font-bold text-white">{person.name}</p>
+            <p className="text-[13px] text-white/65 mb-2">Project Partner — {group.project}</p>
+            <p className="text-white/70 text-[16px]">{person.detail}</p>
+          </div>)}
+        </article>
+      </StaggerItem>)}
+    </Stagger>
+  </Section>;
 }

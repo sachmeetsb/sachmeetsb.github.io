@@ -1,50 +1,9 @@
-import React, { Suspense, lazy, useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import SplitText from "./motion/SplitText";
 import MagneticButton from "./motion/MagneticButton";
-import {
-  useReducedMotion,
-  isMobileViewport,
-} from "../lib/useReducedMotion";
+import { useReducedMotion } from "../lib/useReducedMotion";
 import { EASE_OUT } from "../lib/motion";
-
-const HeroCanvas = lazy(() => import("./hero/HeroCanvas"));
-
-function supportsWebGL() {
-  try {
-    const canvas = document.createElement("canvas");
-    return !!(
-      window.WebGLRenderingContext &&
-      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
-    );
-  } catch {
-    return false;
-  }
-}
-
-/** CSS orb ; fallback when WebGL is unavailable / reduced-motion / mobile. */
-function OrbFallback() {
-  return (
-    <div className="relative animate-orb-float">
-      <div
-        className="w-[280px] h-[280px] rounded-full animate-pulse-slow"
-        style={{
-          background:
-            "radial-gradient(circle at 40% 38%, #FFAA70 0%, #FF7A35 40%, #FF5E0E 100%)",
-          boxShadow:
-            "0 0 80px rgba(255,94,14,0.4), 0 0 160px rgba(255,94,14,0.15), 0 0 240px rgba(255,94,14,0.05)",
-        }}
-      />
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 50%)",
-        }}
-      />
-    </div>
-  );
-}
 
 export default function Hero({
   callActive = false,
@@ -53,14 +12,6 @@ export default function Hero({
   onOrbClick,
 }) {
   const reduced = useReducedMotion();
-  const [useCanvas, setUseCanvas] = useState(false);
-
-  useEffect(() => {
-    if (!reduced && !isMobileViewport() && supportsWebGL()) {
-      setUseCanvas(true);
-    }
-  }, [reduced]);
-
   return (
     <section
       id="hero"
@@ -83,77 +34,34 @@ export default function Hero({
         }}
       />
 
-      {/* Orb ; WebGL canvas with CSS fallback. Click it to toggle a page-wide
-          background orb that follows you as you scroll. */}
-      <div className="absolute right-[12%] top-1/2 -translate-y-1/2 hidden lg:block w-[480px] h-[480px]">
-        {useCanvas ? (
-          <Suspense
-            fallback={
-              <div className="absolute inset-0 flex items-center justify-center">
-                <OrbFallback />
-              </div>
-            }
-          >
-            <HeroCanvas />
-          </Suspense>
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <OrbFallback />
-          </div>
-        )}
-
-        {/* Oversized invisible hit target ; extends well beyond the orb,
-            with ~40% more reach on the left, so it's easy to click. */}
-        <button
-          type="button"
-          onClick={onOrbClick}
-          aria-label={callActive ? "End voice call" : "Talk to the AI ; start a voice call"}
-          title={callActive ? "Click to end the call" : "Click to talk to me"}
-          className="absolute -top-28 -bottom-28 -right-28 -left-72 z-20 rounded-full bg-transparent border-0 cursor-pointer"
-        />
-
-        {/* Label to the right of the orb ; invites a call when idle, and shows
-            the live status (with tap-to-end) while a call is running. */}
-        <button
-          type="button"
-          onClick={onOrbClick}
-          className="group absolute left-full top-1/2 -translate-y-1/2 ml-5 w-[160px] text-left bg-transparent border-0 cursor-pointer z-20"
-        >
-          <span className="block font-mono text-[12px] tracking-[0.18em] uppercase leading-relaxed text-white/70 group-hover:text-white transition-colors">
-            {callActive ? (
-              <>
-                {connecting
-                  ? "Connecting…"
-                  : speaking
-                  ? "Speaking…"
-                  : "Listening…"}
-                <span className="block mt-1 text-white/40 normal-case tracking-normal text-[11px]">
-                  tap the orb to end
-                </span>
-              </>
-            ) : (
-              "← Click here for your virtual receptionist"
-            )}
-          </span>
+      <div className="hero-founder absolute right-[7%] top-1/2 -translate-y-1/2 hidden lg:block w-[330px] xl:w-[390px] z-20">
+        <a href="#team" className="block">
+          <img src="/sachmeet.jpg" alt="Sachmeet Singh Bhatia, founder of Kartar AI Labs" width="640" height="640" fetchPriority="high" className="w-full aspect-square object-cover object-top rounded-[45px] border border-white/20 shadow-glow-indigo" />
+          <span className="block mt-5 font-display text-[22px] font-bold text-white">I’m Sachmeet.</span>
+          <span className="block text-white/70 text-[16px]">Founder & AI Engineer. Meet the person building.</span>
+        </a>
+        <button type="button" onClick={onOrbClick} aria-label={callActive ? "End voice call" : "Talk to Naina, the AI assistant"} className="flex items-center gap-4 mt-6 text-white/80 text-left">
+          <span aria-hidden="true" className="block w-12 h-12 rounded-full shrink-0 animate-pulse-slow" style={{background:"radial-gradient(circle at 40% 38%, #FFAA70, #FF5E0E)",boxShadow:"0 0 36px rgba(255,94,14,0.4)"}} />
+          <span>{callActive ? (connecting ? "Connecting…" : speaking ? "Speaking… Tap to end" : "Listening… Tap to end") : "Talk to Naina, my AI receptionist"}</span>
         </button>
       </div>
 
-      <div className="relative z-10 max-w-container mx-auto px-8 lg:pl-8 lg:pr-16 py-36 md:py-44">
+      <div className="relative z-10 w-full max-w-container mx-auto px-8 lg:px-16 pt-28 pb-16">
         {/* Animated tagline */}
         <motion.div
-          className="mb-12"
+          className="mb-5"
           initial={reduced ? false : { opacity: 0, y: 24 }}
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 0.1 }}
         >
-          <h2 className="font-display font-extrabold text-white text-[56px] md:text-[84px] tracking-[-2px]">
+          <h2 className="font-display font-extrabold text-white text-[48px] md:text-[64px] leading-tight tracking-[-2px]">
             AI Is. <span className="autonomous-gradient">Now</span>
           </h2>
         </motion.div>
 
         {/* Main headline */}
         <h1
-          className="font-display font-extrabold text-white text-[clamp(38px,5vw,64px)] leading-[1.1] max-w-[480px] mb-6"
+          className="font-display font-extrabold text-white text-[clamp(34px,3.5vw,48px)] leading-[1.15] max-w-[540px] mb-6"
           style={{ letterSpacing: "-1.5px" }}
         >
           <SplitText
@@ -171,7 +79,7 @@ export default function Hero({
 
         {/* Subtitle */}
         <motion.p
-          className="text-[19px] text-white/[0.58] max-w-[400px] mb-12 leading-relaxed"
+          className="text-[18px] text-white/75 max-w-[480px] mb-6 leading-relaxed"
           initial={reduced ? false : { opacity: 0, y: 16 }}
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.0 }}
@@ -181,7 +89,7 @@ export default function Hero({
 
         {/* CTAs */}
         <motion.div
-          className="flex flex-wrap gap-4 mb-16"
+          className="flex flex-wrap gap-4 mb-5"
           initial={reduced ? false : { opacity: 0, y: 16 }}
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE_OUT, delay: 1.15 }}
@@ -193,15 +101,16 @@ export default function Hero({
           >
             Book a Call
           </MagneticButton>
-          {/* <MagneticButton
-            as="a"
-            href="#process"
-            className="inline-block px-8 py-4 border-2 border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display font-semibold text-[17px] rounded-pill transition-colors"
-          >
-            See how we work
-          </MagneticButton> */}
+          <MagneticButton as="a" href="#portfolio" className="inline-flex px-8 py-4 border-2 border-white/25 hover:border-white/50 text-white font-display font-semibold text-[17px] rounded-pill">Explore Products</MagneticButton>
         </motion.div>
 
+        <p className="font-display font-bold text-[20px] sm:text-[26px] text-white/90 mb-10 max-w-[520px] leading-relaxed">
+          Ideate <span aria-hidden="true">→</span> Engineering <span aria-hidden="true">→</span> <span className="autonomous-gradient">Product</span>
+        </p>
+        <a href="#team" className="lg:hidden flex items-center gap-5 mb-10">
+          <img src="/sachmeet.jpg" alt="Sachmeet Singh Bhatia" width="112" height="112" className="w-28 h-28 rounded-3xl object-cover object-top border border-white/20" />
+          <span><strong className="block font-display text-[22px] text-white">I’m Sachmeet.</strong><span className="text-white/70">Founder & AI Engineer</span></span>
+        </a>
         {/* Trust bar */}
         <motion.div
           className="flex gap-10 flex-wrap"

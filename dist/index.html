@@ -2,20 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Paint before external CSS/JS. Keep the static fallback available when
+         JavaScript is disabled or the application bundle fails to start. -->
+    <style>
+      html,body{margin:0;background:#0F0A1E;color:#fff}
+      #site-boot{display:none}
+      html.app-pending #root{visibility:hidden}
+      html.app-pending #site-boot{display:flex;position:fixed;inset:0;z-index:101;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:#0F0A1E;font-family:system-ui,sans-serif}
+      #site-boot strong{font-size:40px;letter-spacing:-1px}
+      #site-boot strong span{color:#FF7A35}
+      #site-boot p{margin:0;font-size:13px;color:#b9b4c5}
+    </style>
+    <script>
+      document.documentElement.classList.add('app-pending');
+      window.__kartarBootTimeout = setTimeout(function () {
+        document.documentElement.classList.remove('app-pending');
+      }, 10000);
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/kartar-logo-mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kartar AI Labs | Agentic AI Systems & AI-Native Products for Indian Business</title>
-    <meta name="description" content="Kartar AI Labs builds agentic AI workflows and AI-native products for Indian businesses ; from pilot to production in weeks. Voice agents, process automation, and vertical AI for legal, logistics, finance, manufacturing and more." />
+    <title>AI Product Development with Sachmeet | Kartar AI Labs</title>
+    <meta name="description" content="Explore AI products and workflow automation from Kartar AI Labs. Watch product demos and discuss your business workflow with founder Sachmeet." />
     <meta name="author" content="Kartar AI Labs" />
 
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kartar AI Labs" />
-    <meta property="og:title" content="Kartar AI Labs | Agentic AI for Indian Business" />
-    <meta property="og:description" content="Agentic AI systems and AI-native products, built for the speed of Indian business. Pilot to production in weeks." />
+    <meta property="og:title" content="AI Product Development with Sachmeet | Kartar AI Labs" />
+    <meta property="og:description" content="Work directly with Sachmeet to build an AI product or improve a business workflow. Explore real product demos and discuss your project." />
     <meta property="og:image" content="https://kartar.ai/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -23,8 +40,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kartar AI Labs | Agentic AI for Indian Business" />
-    <meta name="twitter:description" content="Agentic AI systems and AI-native products, built for the speed of Indian business. Pilot to production in weeks." />
+    <meta name="twitter:title" content="AI Product Development with Sachmeet | Kartar AI Labs" />
+    <meta name="twitter:description" content="Work directly with Sachmeet to build an AI product or improve a business workflow. Explore real product demos and discuss your project." />
     <meta name="twitter:image" content="https://kartar.ai/og-image.png" />
 
     <!-- Additional SEO Meta Tags -->
@@ -45,7 +62,7 @@
           "url": "https://kartar.ai/",
           "logo": "https://kartar.ai/kartar-logo-mark.png",
           "email": "hello@kartar.ai",
-          "description": "Kartar AI Labs builds agentic AI workflows and AI-native products for Indian businesses ; from pilot to production in weeks.",
+          "description": "Kartar AI Labs builds AI products and workflow automation for Indian businesses.",
           "areaServed": "IN",
           "sameAs": ["https://www.linkedin.com/company/kartar-ai/"]
         },
@@ -63,55 +80,37 @@
     <!-- Analytics: add your snippet here (Plausible / PostHog / Cloudflare Web
          Analytics). Intentionally left empty until an account is chosen. -->
 
-    <!-- Sender.net universal script (newsletter signup forms) -->
-    <script>
-      (function (s, e, n, d, er) {
-        s['Sender'] = er;
-        s[er] = s[er] || function () {
-          (s[er].q = s[er].q || []).push(arguments)
-        }, s[er].l = 1 * new Date();
-        s[er].on = function (event, callback) {
-          s[er].listeners = s[er].listeners || {};
-          (s[er].listeners[event] = s[er].listeners[event] || []).push(callback);
-        };
-        var a = e.createElement(n),
-          m = e.getElementsByTagName(n)[0];
-        a.async = 1;
-        a.src = d;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js?explicit=true', 'sender');
-      sender('08a8ce8a190275')
-    </script>
-    <script type="module" crossorigin src="/assets/index-5_BzZKA9.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/react-vendor-BwCPH1ty.js">
+    <script type="module" crossorigin src="/assets/index-EeNHxQX0.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-Yn3wAi4Q.js">
     <link rel="modulepreload" crossorigin href="/assets/gsap-vendor-a3sj5zmn.js">
-    <link rel="modulepreload" crossorigin href="/assets/three-vendor-CQh6_-qO.js">
-    <link rel="modulepreload" crossorigin href="/assets/motion-vendor-Bm7rSw9Z.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-DtM9HbuR.css">
+    <link rel="modulepreload" crossorigin href="/assets/motion-vendor-BPN_gMpK.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-ChYVA3BF.css">
   </head>
   <body>
+    <div id="site-boot" role="status" aria-live="polite">
+      <strong>kartar<span>AI</span></strong>
+      <p>Opening Kartar…</p>
+    </div>
     <div id="root"><div style="background:#0F0A1E;color:#fff;font-family:'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh;padding:48px 24px;max-width:880px;margin:0 auto">
-<h1 style="font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.15">You are just in time for the next era — Stay up front with Kartar</h1>
-<p style="font-size:18px;color:rgba(255,255,255,.65);margin:16px 0 28px;max-width:560px">Agentic AI systems and AI-native products, built for the speed of Indian business. Pilot to production in weeks.</p>
+<h1 style="font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1.15">I build AI products around real work.</h1>
+<p style="font-size:18px;color:#b6b0c5;margin:16px 0 28px;max-width:560px">I’m Sachmeet Singh Bhatia, founder of Kartar AI Labs. Work directly with me to build a product or improve a business workflow.</p>
 <h2 style="font-size:22px;font-weight:700;margin-bottom:8px">What we build</h2>
-<p style="color:rgba(255,255,255,.6);margin-bottom:16px">Agentic AI workflows — agents that triage, route, draft, and escalate inside your existing tools. Vertical AI-native products for logistics, legal, healthcare, agri and finance. Built ground-up for how India actually works.</p>
+<p style="color:#b6b0c5;margin-bottom:16px">Explore real product demos, current project stages and work in development.</p>
 <ul style="list-style:none;padding:0;margin:0 0 28px">
-<li style="margin-bottom:10px"><a href="/products/vimarsha/" style="color:#FFAA70;text-decoration:none;font-weight:600">Vimarsha</a> <span style="color:rgba(255,255,255,.55)">— EPUB reader, reimagined. Turns any EPUB into a narrated audiobook ; figures surface in sync as you listen, voice notes drop straight onto the page, and an AI companion discusses the book with you using its own content.</span></li>
-<li style="margin-bottom:10px"><a href="/products/satya-social/" style="color:#FFAA70;text-decoration:none;font-weight:600">Satya Social</a> <span style="color:rgba(255,255,255,.55)">— Human-first. Aadhaar-gated.. A social network for modern India where every voice is a real, verified person. Aadhaar-gated and free of AI-generated content ; authenticity by design, not by moderation.</span></li>
-<li style="margin-bottom:10px"><a href="/products/lawyerboss/" style="color:#FFAA70;text-decoration:none;font-weight:600">LawyerBoss</a> <span style="color:rgba(255,255,255,.55)">— First-contact, in minutes. Built for lawyers: draft first-contact legal notices in minutes instead of hours ; researched, jurisdiction-aware and ready to send after a quick review.</span></li>
-<li style="margin-bottom:10px"><a href="/products/instantconfig/" style="color:#FFAA70;text-decoration:none;font-weight:600">InstantConfig</a> <span style="color:rgba(255,255,255,.55)">— Vendor Agnostic. An agent that assembles valid multi-SKU configurations in seconds, enforcing every compatibility rule along the way. For any industry where parts combine ; no spec sheets, no costly mistakes.</span></li>
-<li style="margin-bottom:10px"><a href="/products/datamind/" style="color:#FFAA70;text-decoration:none;font-weight:600">DataMind</a> <span style="color:rgba(255,255,255,.55)">— Local Data Analyst Agent for Excel. A data analyst that runs entirely on your machine. Ask your Excel files anything in plain language and get answers, charts and insight back ; your data never leaves your laptop.</span></li>
-<li style="margin-bottom:10px"><a href="/products/vr-real-estate-tour/" style="color:#FFAA70;text-decoration:none;font-weight:600">VR Real Estate Walkthrough</a> <span style="color:rgba(255,255,255,.55)">— Walk it before it's built. Immersive VR walkthroughs that let buyers tour a property or design long before construction begins ; so you sell the space before the first brick is laid.</span></li>
-<li style="margin-bottom:10px"><a href="/products/prodvton/" style="color:#FFAA70;text-decoration:none;font-weight:600">ProdVTON</a> <span style="color:rgba(255,255,255,.55)">— Virtual try-on for brands. Let customers see your products worn on lifelike models before they buy. Built for fashion brands to lift conversion, cut returns and bring the fitting room online.</span></li>
-<li style="margin-bottom:10px"><a href="/products/wingmen/" style="color:#FFAA70;text-decoration:none;font-weight:600">Wingmen</a> <span style="color:rgba(255,255,255,.55)">— Your agent finds the date. You only talk to your own agent. A pool proposes matches, personal agents negotiate compatibility, photos unlock after a mutual yes, and the two agents set the date.</span></li>
-<li style="margin-bottom:10px"><a href="/products/quantumexp/" style="color:#FFAA70;text-decoration:none;font-weight:600">QuantumExp</a> <span style="color:rgba(255,255,255,.55)">— Geometric algebra, live. An interactive lab for geometric algebra as the native language of quantum gates. Simulate Grover and Shor in real time, or describe a problem in plain language and watch it become a runnable experiment.</span></li>
-<li style="margin-bottom:10px"><a href="/products/nyayalegal/" style="color:#FFAA70;text-decoration:none;font-weight:600">NyayaLegal</a> <span style="color:rgba(255,255,255,.55)">— Grounded legal AI. Legal answers that cite their sources. Built to reason over a grounded graph of Indian law instead of improvising from a chatbot's memory.</span></li>
-<li style="margin-bottom:10px"><a href="/products/tabletennis/" style="color:#FFAA70;text-decoration:none;font-weight:600">TableTennis</a> <span style="color:rgba(255,255,255,.55)">— AI coach on every rally. Upload match footage and get professional coaching back: rally detection, pose tracking, comparison against a pro database, and drills aimed at the stroke you actually missed.</span></li>
-<li style="margin-bottom:10px"><a href="/products/newstime/" style="color:#FFAA70;text-decoration:none;font-weight:600">NewsTime</a> <span style="color:rgba(255,255,255,.55)">— AI-anchor newsroom. A multilingual newsroom where editorial teams ingest stories, approve scripts, generate AI-anchor video, and publish reels to a public feed ; the same feed the mobile app reads.</span></li>
-<li style="margin-bottom:10px"><a href="/products/customsiq/" style="color:#FFAA70;text-decoration:none;font-weight:600">CustomsIQ</a> <span style="color:rgba(255,255,255,.55)">— Clearance, classified. Agentic HS-code classification, duty calculation and document prep for customs brokers ; built to cut clearance delays without a human re-keying every shipment.</span></li>
-<li style="margin-bottom:10px"><a href="/products/artrenamer/" style="color:#FFAA70;text-decoration:none;font-weight:600">ArtRenamer</a> <span style="color:rgba(255,255,255,.55)">— Files named from the work. A desktop tool that names artwork files from what they actually contain, so a gallery catalog is not a folder of IMG_4032s.</span></li>
+<li style="margin-bottom:10px"><a href="/products/khoj-learning/" style="color:#FFAA70;text-decoration:none;font-weight:600">Khoj Learning</a> <span style="color:#b6b0c5">— In development. Khoj Learning brings guided exploration and hands-on learning into one learning space.</span></li>
+<li style="margin-bottom:10px"><a href="/products/vimarsha/" style="color:#FFAA70;text-decoration:none;font-weight:600">Vimarsha</a> <span style="color:#b6b0c5">— Testing. Turns any EPUB into a narrated audiobook ; figures surface in sync as you listen, voice notes drop straight onto the page, and an AI companion discusses the book with you using its own content.</span></li>
+<li style="margin-bottom:10px"><a href="/products/satya-social/" style="color:#FFAA70;text-decoration:none;font-weight:600">Satya Social</a> <span style="color:#b6b0c5">— In progress. A social-network project for India, exploring verified identity and human-authored participation.</span></li>
+<li style="margin-bottom:10px"><a href="/products/lawyerboss/" style="color:#FFAA70;text-decoration:none;font-weight:600">LawyerBoss</a> <span style="color:#b6b0c5">— Testing. A legal intake and drafting assistant that organizes case context and evidence for a lawyer to review.</span></li>
+<li style="margin-bottom:10px"><a href="/products/instantconfig/" style="color:#FFAA70;text-decoration:none;font-weight:600">InstantConfig</a> <span style="color:#b6b0c5">— Testing. A compatibility-oriented product configurator, demonstrated through PC assembly.</span></li>
+<li style="margin-bottom:10px"><a href="/products/datamind/" style="color:#FFAA70;text-decoration:none;font-weight:600">DataMind</a> <span style="color:#b6b0c5">— LaunchPad. An AI spreadsheet analyst for questions, charts and exploration, with local and hosted deployment options.</span></li>
+<li style="margin-bottom:10px"><a href="/products/vr-real-estate-tour/" style="color:#FFAA70;text-decoration:none;font-weight:600">VR Real Estate Walkthrough</a> <span style="color:#b6b0c5">— Testing. Immersive VR walkthroughs that let buyers tour a property or design long before construction begins ; so you sell the space before the first brick is laid.</span></li>
+<li style="margin-bottom:10px"><a href="/products/quantumexp/" style="color:#FFAA70;text-decoration:none;font-weight:600">QuantumExp</a> <span style="color:#b6b0c5">— In development. An interactive quantum-computing lab with geometric-algebra explanations, amplitudes and circuit views.</span></li>
+<li style="margin-bottom:10px"><a href="/products/nyayalegal/" style="color:#FFAA70;text-decoration:none;font-weight:600">NyayaLegal</a> <span style="color:#b6b0c5">— In development. A legal-research workspace connecting questions, judgment sources and editable research notes.</span></li>
+<li style="margin-bottom:10px"><a href="/products/tabletennis/" style="color:#FFAA70;text-decoration:none;font-weight:600">TT Coach</a> <span style="color:#b6b0c5">— In development. TT Coach is a review-assisted rally analysis project, connecting replay, reviewed bounce placement and evidence-linked practice feedback.</span></li>
+<li style="margin-bottom:10px"><a href="/products/newstime/" style="color:#FFAA70;text-decoration:none;font-weight:600">Kartar Media</a> <span style="color:#b6b0c5">— In development. Kartar Media presents multilingual recorded news editions with editorial scripts, source links and clear AI-presenter disclosures.</span></li>
+<li style="margin-bottom:10px"><a href="/products/customsiq/" style="color:#FFAA70;text-decoration:none;font-weight:600">CustomsIQ</a> <span style="color:#b6b0c5">— In development. CustomsIQ is a logistics project in development.</span></li>
 </ul>
-<p style="color:rgba(255,255,255,.6)">Talk to us: <a href="mailto:hello@kartar.ai" style="color:#FFAA70">hello@kartar.ai</a> · <a href="https://calendly.com/sachmeet-kartar/30min" style="color:#FFAA70">Book a call</a> · <a href="https://www.linkedin.com/company/kartar-ai/" style="color:#FFAA70">LinkedIn</a></p>
+<p style="color:#b6b0c5">To discuss a project, email <a href="mailto:sachmeet@kartar.ai" style="color:#FFAA70">sachmeet@kartar.ai</a>. If this simplified page remains visible, JavaScript is unavailable; the product pages and email contact still work.</p>
 </div></div>
   </body>
 </html>

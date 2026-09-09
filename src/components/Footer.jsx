@@ -1,183 +1,35 @@
-import React, { useEffect } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import React from "react";
 import Logo from "./Logo";
-import { useLenis } from "../lib/SmoothScroll";
 import { products } from "../data/portfolio";
 
-const navLinks = [
-  { to: "services", label: "Services" },
-  { to: "case-studies", label: "Case Studies" },
-  { to: "process", label: "Process" },
-  { to: "team", label: "About" },
-  { to: "contact", label: "Contact" },
-];
-
-const socialLinks = [
-  {
-    href: "https://www.linkedin.com/company/kartar-ai/",
-    icon: FaLinkedin,
-    label: "LinkedIn",
-  },
-];
-
-const SENDER_FORM_ID = "axkAXn";
-
 export default function Footer() {
-  const lenis = useLenis();
-  const scrollTo = (target) => {
-    const el = document.getElementById(target);
-    if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset: -80 });
-    else
-      window.scrollTo({
-        top: el.getBoundingClientRect().top + window.scrollY - 80,
-        behavior: "smooth",
-      });
-  };
-
-  // Sender's universal script runs with ?explicit=true, so it does not
-  // auto-render forms on load (which fails in an SPA since the form div
-  // mounts after the scan). We render it manually once this component is
-  // mounted, polling until the Sender script has finished loading.
-  useEffect(() => {
-    let cancelled = false;
-
-    const tryRender = (attempt = 0) => {
-      if (cancelled) return;
-      if (window.senderForms && typeof window.senderForms.render === "function") {
-        window.senderForms.render(SENDER_FORM_ID);
-      } else if (attempt < 50) {
-        setTimeout(() => tryRender(attempt + 1), 100);
-      }
-    };
-
-    tryRender();
-
-    return () => {
-      cancelled = true;
-      if (window.senderForms && typeof window.senderForms.destroy === "function") {
-        window.senderForms.destroy(SENDER_FORM_ID);
-      }
-    };
-  }, []);
-
   return (
-    <footer className="bg-void pt-20 pb-10">
+    <footer id="footer" className="bg-void pt-20 pb-10 overflow-hidden">
       <div className="max-w-container mx-auto px-8 lg:px-16">
-        {/* Top section */}
-        <div className="flex flex-col md:flex-row justify-between gap-12 mb-16">
-          {/* Logo + tagline */}
-          <div className="max-w-sm">
-            <Logo size="md" variant="on-dark" />
-            <p className="mt-5 text-white/[0.4] text-[16px] leading-relaxed">
-              Empowering businesses with Agentic AI and Software 3.0 ; at
-              lightning speed.
-            </p>
-          </div>
-
-          {/* Nav links */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1.4fr_1fr] gap-12 mb-16">
           <div>
-            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
-              Navigation
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <li key={link.to}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo(link.to)}
-                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium cursor-pointer transition-colors bg-transparent border-0 p-0"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <Logo size="lg" variant="on-dark" />
+            <p className="mt-5 text-white/65 text-[16px] max-w-xs">AI products and engineering, built with Sachmeet Singh Bhatia.</p>
+            <a href="#contact" className="inline-flex mt-6 px-7 py-3 bg-saffron hover:bg-saffron-light text-white font-display font-semibold rounded-pill">Book a Call</a>
           </div>
-
-          {/* Products ; real URLs so crawlers (and people) can deep-link */}
+          <nav aria-label="Footer products">
+            <h2 className="font-mono text-[12px] tracking-[0.12em] uppercase text-white/60 mb-5">Products</h2>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+              {products.map(p => <li key={p.slug}><a href={`/products/${p.slug}/`} className="inline-flex items-center min-h-11 text-white/70 hover:text-white font-display text-[15px] leading-relaxed">{p.name}</a></li>)}
+            </ul>
+          </nav>
           <div>
-            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
-              Products
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {products.map((p) => (
-                <li key={p.slug}>
-                  <a
-                    href={`/products/${p.slug}/`}
-                    className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
-                  >
-                    {p.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
-              Contact
-            </h4>
-            <ul className="flex flex-col gap-3">
-              <li>
-                <a
-                  href="mailto:hello@kartar.ai"
-                  className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
-                >
-                  hello@kartar.ai
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-white/[0.55] hover:text-white font-display text-[16px] font-medium transition-colors"
-                >
-                  Book a Call
-                </a>
-              </li>
-            </ul>
-
-            {/* Social */}
-            <div className="flex gap-3 mt-6">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-full border border-white/[0.1] flex items-center justify-center text-white/[0.4] hover:text-white hover:border-white/[0.3] transition-colors"
-                >
-                  <social.icon size={16} />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div id="newsletter">
-            <h4 className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/[0.3] mb-5">
-              Updates
-            </h4>
-            <p className="text-white/[0.4] text-[15px] mb-4">
-              Get updates. No spam. Just builds.
-            </p>
-            {/* Sender.net embedded signup form */}
-            <div
-              style={{ textAlign: "left" }}
-              className="sender-form-field"
-              data-sender-form-id="axkAXn"
-            />
+            <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-3 mb-8">
+              <a href="#portfolio">Products</a><a href="#services">Services</a>
+              <a href="#process">Process</a><a href="#team">About</a>
+              <a href="#contact">Book a Call</a><a href="/privacy/">Privacy</a>
+            </nav>
+            <a className="block text-white/75 hover:text-white" href="mailto:sachmeet@kartar.ai">sachmeet@kartar.ai</a>
+            <a className="inline-flex min-h-11 items-center text-saffron-core" href="https://www.linkedin.com/company/kartar-ai/" target="_blank" rel="noopener noreferrer">Kartar on LinkedIn ↗</a>
           </div>
         </div>
-
-        {/* Divider */}
-        <div className="border-t border-white/[0.06] pt-7">
-          <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/[0.2] text-center">
-            &copy; 2026 Kartar AI Labs. All rights reserved.
-          </p>
-        </div>
+        <a href="#hero" aria-label="Kartar AI — back to top" className="footer-wordmark block border-t border-white/10 pt-10 pb-8 font-display font-extrabold leading-none text-white whitespace-nowrap" style={{fontSize:'clamp(60px, 18vw, 250px)',letterSpacing:'-0.06em'}}>kartar<span className="autonomous-gradient">AI</span></a>
+        <p className="border-t border-white/10 pt-7 text-[13px] text-white/60">© {new Date().getFullYear()} Kartar AI Labs. Built by Sachmeet Singh Bhatia.</p>
       </div>
     </footer>
   );

@@ -30,6 +30,10 @@ body {
   overflow-x: clip;
 }
 
+section[id] { scroll-margin-top: 96px; }
+:focus-visible { outline: 3px solid #FFAA70; outline-offset: 5px; }
+#contact select option { background: #2D1B69; color: white; }
+
 body {
   font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;

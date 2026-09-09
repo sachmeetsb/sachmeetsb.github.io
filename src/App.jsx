@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FollowOrb from "./components/FollowOrb";
@@ -13,13 +13,30 @@ import CtaBanner from "./components/CtaBanner";
 import IndustrySolutions from "./components/IndustrySolutions";
 import WorkingProcess from "./components/WorkingProcess";
 import Team from "./components/Team";
-import Testimonials from "./components/Testimonials";
 import Contact from "./components/ContactForm";
 import Footer from "./components/Footer";
 import Preloader from "./components/Preloader";
 import CustomCursor from "./components/CustomCursor";
 
 function App() {
+  // Remove the HTML boot shell only after React's own first frame is ready.
+  useLayoutEffect(() => {
+    clearTimeout(window.__kartarBootTimeout);
+    document.documentElement.classList.remove("app-pending");
+  }, []);
+
+  // Direct product-page booking links arrive before React mounts the target.
+  // Resolve the anchor again after the intro releases scrolling.
+  useEffect(() => {
+    const followHash = () => {
+      const target = document.getElementById(window.location.hash.slice(1));
+      target?.scrollIntoView({block:'start',behavior:'auto'});
+    };
+    window.addEventListener('preloader:done', followHash);
+    const frame = requestAnimationFrame(followHash);
+    return () => {window.removeEventListener('preloader:done', followHash);cancelAnimationFrame(frame);};
+  }, []);
+
   // The orb starts/stops a Vapi voice call. While active, the FollowOrb is the
   // live indicator that follows you across the page.
   const { status, speaking, start, stop } = useVapiCall();
@@ -100,14 +117,13 @@ function App() {
         />
         {/* CustomsIQ demo hidden for now */}
         {/* <ScrollScrubShowcase /> */}
+        <Portfolio />
         <LogoBar />
         <Services />
-        <Portfolio />
         <IndustrySolutions />
         <CtaBanner />
         <WorkingProcess />
         <Team />
-        <Testimonials />
         <Contact />
       </main>
       <div className="relative z-10">

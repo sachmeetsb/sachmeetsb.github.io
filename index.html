@@ -2,20 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Paint before external CSS/JS. Keep the static fallback available when
+         JavaScript is disabled or the application bundle fails to start. -->
+    <style>
+      html,body{margin:0;background:#0F0A1E;color:#fff}
+      #site-boot{display:none}
+      html.app-pending #root{visibility:hidden}
+      html.app-pending #site-boot{display:flex;position:fixed;inset:0;z-index:101;align-items:center;justify-content:center;flex-direction:column;gap:24px;background:#0F0A1E;font-family:system-ui,sans-serif}
+      #site-boot strong{font-size:40px;letter-spacing:-1px}
+      #site-boot strong span{color:#FF7A35}
+      #site-boot p{margin:0;font-size:13px;color:#b9b4c5}
+    </style>
+    <script>
+      document.documentElement.classList.add('app-pending');
+      window.__kartarBootTimeout = setTimeout(function () {
+        document.documentElement.classList.remove('app-pending');
+      }, 10000);
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/kartar-logo-mark.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kartar AI Labs | Agentic AI Systems & AI-Native Products for Indian Business</title>
-    <meta name="description" content="Kartar AI Labs builds agentic AI workflows and AI-native products for Indian businesses ; from pilot to production in weeks. Voice agents, process automation, and vertical AI for legal, logistics, finance, manufacturing and more." />
+    <title>AI Product Development with Sachmeet | Kartar AI Labs</title>
+    <meta name="description" content="Explore AI products and workflow automation from Kartar AI Labs. Watch product demos and discuss your business workflow with founder Sachmeet." />
     <meta name="author" content="Kartar AI Labs" />
 
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kartar AI Labs" />
-    <meta property="og:title" content="Kartar AI Labs | Agentic AI for Indian Business" />
-    <meta property="og:description" content="Agentic AI systems and AI-native products, built for the speed of Indian business. Pilot to production in weeks." />
+    <meta property="og:title" content="AI Product Development with Sachmeet | Kartar AI Labs" />
+    <meta property="og:description" content="Work directly with Sachmeet to build an AI product or improve a business workflow. Explore real product demos and discuss your project." />
     <meta property="og:image" content="https://kartar.ai/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -23,8 +40,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kartar AI Labs | Agentic AI for Indian Business" />
-    <meta name="twitter:description" content="Agentic AI systems and AI-native products, built for the speed of Indian business. Pilot to production in weeks." />
+    <meta name="twitter:title" content="AI Product Development with Sachmeet | Kartar AI Labs" />
+    <meta name="twitter:description" content="Work directly with Sachmeet to build an AI product or improve a business workflow. Explore real product demos and discuss your project." />
     <meta name="twitter:image" content="https://kartar.ai/og-image.png" />
 
     <!-- Additional SEO Meta Tags -->
@@ -45,7 +62,7 @@
           "url": "https://kartar.ai/",
           "logo": "https://kartar.ai/kartar-logo-mark.png",
           "email": "hello@kartar.ai",
-          "description": "Kartar AI Labs builds agentic AI workflows and AI-native products for Indian businesses ; from pilot to production in weeks.",
+          "description": "Kartar AI Labs builds AI products and workflow automation for Indian businesses.",
           "areaServed": "IN",
           "sameAs": ["https://www.linkedin.com/company/kartar-ai/"]
         },
@@ -63,27 +80,12 @@
     <!-- Analytics: add your snippet here (Plausible / PostHog / Cloudflare Web
          Analytics). Intentionally left empty until an account is chosen. -->
 
-    <!-- Sender.net universal script (newsletter signup forms) -->
-    <script>
-      (function (s, e, n, d, er) {
-        s['Sender'] = er;
-        s[er] = s[er] || function () {
-          (s[er].q = s[er].q || []).push(arguments)
-        }, s[er].l = 1 * new Date();
-        s[er].on = function (event, callback) {
-          s[er].listeners = s[er].listeners || {};
-          (s[er].listeners[event] = s[er].listeners[event] || []).push(callback);
-        };
-        var a = e.createElement(n),
-          m = e.getElementsByTagName(n)[0];
-        a.async = 1;
-        a.src = d;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js?explicit=true', 'sender');
-      sender('08a8ce8a190275')
-    </script>
   </head>
   <body>
+    <div id="site-boot" role="status" aria-live="polite">
+      <strong>kartar<span>AI</span></strong>
+      <p>Opening Kartar…</p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

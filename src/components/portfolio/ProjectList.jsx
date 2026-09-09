@@ -4,7 +4,7 @@ import { HiChevronLeft, HiChevronRight, HiExternalLink } from "react-icons/hi";
 /**
  * Paginated list of products ; Title + small subtitle only. The active item is
  * highlighted; clicking one selects it. A small pager (prev/next + segment bar)
- * sits directly below the items. Page changes do not change the selection.
+ * sits directly below the items. Page changes select the first visible product.
  */
 export default function ProjectList({
   items,
@@ -37,6 +37,8 @@ export default function ProjectList({
               <button
                 type="button"
                 onClick={() => onSelect(idx)}
+                aria-pressed={active}
+                aria-label={`Show ${p.name} demo`}
                 className="text-left bg-transparent w-full p-0"
               >
                 <h3
@@ -80,7 +82,7 @@ export default function ProjectList({
             onClick={() => onPage(page - 1)}
             disabled={page === 0}
             aria-label="Previous page"
-            className="text-white/50 hover:text-white disabled:opacity-30 disabled:hover:text-white/50 text-base bg-transparent shrink-0"
+            className="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white disabled:opacity-30 text-base bg-transparent shrink-0"
           >
             <HiChevronLeft />
           </button>
@@ -91,17 +93,15 @@ export default function ProjectList({
                 onClick={() => onPage(i)}
                 aria-label={`Go to page ${i + 1}`}
                 aria-current={i === page ? "true" : undefined}
-                className={`flex-1 h-1.5 rounded-full transition-colors ${
-                  i === page ? "bg-saffron" : "bg-white/15 hover:bg-white/30"
-                }`}
-              />
+                className="flex-1 min-h-11 flex items-center"
+              ><span aria-hidden="true" className={`w-full h-1.5 rounded-full ${i === page ? 'bg-saffron' : 'bg-white/25'}`} /></button>
             ))}
           </div>
           <button
             onClick={() => onPage(page + 1)}
             disabled={page === pageCount - 1}
             aria-label="Next page"
-            className="text-white/50 hover:text-white disabled:opacity-30 disabled:hover:text-white/50 text-base bg-transparent shrink-0"
+            className="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white disabled:opacity-30 text-base bg-transparent shrink-0"
           >
             <HiChevronRight />
           </button>
