@@ -1,6 +1,6 @@
 # Demo check — 9 September 2026
 
-Website changes are local, not deployed. **12 listed projects, 11 recorded demos.** Six recordings added; the five existing recordings preserved.
+**Published and verified at https://kartar.ai/ on 9 September 2026.** **12 listed projects, 11 recorded demos.** Six recordings added; the five existing recordings preserved. Release commit: `ad0db4c0`.
 
 ## Added recordings
 
@@ -35,6 +35,10 @@ User approved sequences and TT Coach broadcast footage before capture. TT Coach'
 - Encoded frames inspected for the model, language switches, sources, comments preview, notes and reviewed TT events.
 - Build passes, generating 12 product pages. All 16 startup, voice and website revision tests pass, including video/poster existence and ordered chapter times.
 - All six new videos loaded in the site player with readyState=4, advancing currentTime and no media error. TT Coach paused at its 10s chapter and continued with the Space key. At 390px viewport width the document had no horizontal overflow and its video remained within the page.
-- No deployment, Git commit or push. Unrelated dirty work preserved.
+- The earlier HTTP 403 was resolved after the user's access update. The configured CLI then authenticated as `sachmeetsb` with write access; no credentials were extracted or manually switched. Release `ad0db4c0` was pushed successfully to main.
+- GitHub workflow [34365968553](https://github.com/sachmeetsb/sachmeetsb.github.io/actions/runs/34365968553) and Pages run [34366022423](https://github.com/sachmeetsb/sachmeetsb.github.io/actions/runs/34366022423) both completed successfully. Published `gh-pages` revision: `c17c2b584df0241658262388947b703e2686e050`. Prior published revision/rollback reference: `af7378384046e46a78ec4a3345209634e549e17d`. Rollback was identified, not exercised against production.
+- `node scripts/verify-live-demos.mjs` passed against https://kartar.ai/: all 12 product pages returned 200; all 11 MP4s and 11 posters matched local SHA256 checksums; the catalogue and sitemap exclude the five withdrawn slugs and their routes return 404. The existing NewsTime URL correctly displays Kartar Media.
+- All 11 recordings were individually selected in the public homepage player: readyState=4, positive currentTime, no media error. CustomsIQ displays a disabled coming-soon preview. The live Vimarsha Open app link points to its verified web reader. Browser console reported no errors during these checks.
+- Unrelated booking-service and Studio drafts remain untouched and outside the release. The custom booking backend was not deployed; calendar-account setup and microphone end-to-end checks are separate from this demo release.
 
-No demo-access blockers remain for this batch. CustomsIQ deferred; ProdVTON hidden pending user footage.
+The approved demo batch is published with no remaining demo-release blockers. CustomsIQ is deferred; ProdVTON is hidden pending user footage.
