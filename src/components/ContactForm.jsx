@@ -106,8 +106,8 @@ export default function Contact() {
             <h4 className="font-bold text-white mb-3">Ready for Calendly</h4>
             <p className="text-white/85 break-words">{values.from_name} · {values.from_email}</p>
             <details className="mt-4"><summary className="min-h-11 cursor-pointer text-white">Review the full brief</summary><p className="whitespace-pre-wrap break-words text-white/80 text-[14px]">{handoff.brief}</p></details>
-            <a href={handoff.url} target="_blank" rel="noopener noreferrer" className="inline-flex mt-5 rounded-pill bg-white text-void font-display font-semibold px-5 py-3">Choose a time in Calendly ↗</a>
-            <p className="text-[14px] text-white/75 mt-4">Opens a new tab with your name, email and full brief. A call is booked only after you select a time and Calendly confirms it. Editing any answer here clears this link.</p>
+            <a href={handoff.url} className="inline-flex mt-5 rounded-pill bg-white text-void font-display font-semibold px-5 py-3">Choose a time in Calendly →</a>
+            <p className="text-[14px] text-white/75 mt-4">Continues to Calendly in this tab with your name, email and full brief. A call is booked only after you select a time and Calendly confirms it. Editing any answer here clears this link.</p>
           </div>}
           <p className="text-white/70 text-[15px] mb-7">Calendly handles current availability, time zones, invitations and rescheduling.</p>
           <a href="mailto:sachmeet@kartar.ai" className="text-saffron-core font-display font-semibold break-words">sachmeet@kartar.ai</a>

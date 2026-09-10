@@ -1,5 +1,14 @@
 # Calendly template update — awaiting account sign-in
 
+## Booking verification — 10 September 2026
+
+- Reproduced the new-tab handoff not opening in the Codex in-app browser. Changed the website link to ordinary same-tab navigation; verified the patched form reaches the real Calendly calendar and attendee form.
+- Verified synthetic name, email and complete preparation brief are prefilled in Calendly's attendee form. Stopped before **Schedule Event**: no appointment or invitation was created.
+- Removed the misleading microphone-stopped status during typed-only booking. All 18 startup, voice and website regression tests pass; production build passes.
+- Live account configuration still needs correction: the public event remains **Discovery and Initiative**, only 30 minutes, weekdays 9am–5pm IST, Saturdays unavailable. At approximately 2:31pm IST on 10 September it offered 9am on 11 September, violating the requested 24-hour notice.
+- Google sign-in for sachmeet@kartar.ai is required to edit the event. Connected calendar, conflict checking, 15-minute buffer, one-hour event, actual invitation, meeting link, rescheduling and cancellation remain unverified. Do not describe this as completed end-to-end booking.
+- Release rollback: revert only the booking-fix commit if the same-tab handoff fails on production; preceding main is `156b04b4bb16eb8128af7368478545ee2473d4bf`. No database or backend changes are included.
+
 Inspected the public event on 9 September 2026. No event was booked or submitted.
 
 Current verified URL: https://calendly.com/sachmeet-kartar/30min

@@ -5,6 +5,13 @@ import {bookingHandoff,intakeFields} from '../src/lib/calendly.js';
 import {products} from '../src/data/portfolio.js';
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 
+test('booking navigation does not depend on popup or new-tab support',()=>{
+  const form=read('src/components/ContactForm.jsx');
+  assert.match(form,/<a href=\{handoff.url\} className=/);
+  assert.doesNotMatch(form,/target="_blank"/);
+  assert.match(form,/Continues to Calendly in this tab/);
+});
+
 test('public catalogue includes Khoj and TT Coach and excludes withdrawn projects',()=>{
   for(const slug of ['speko','rezt','artrenamer','wingmen','prodvton']) assert.ok(!products.some(p=>p.slug===slug));
   assert.equal(products.find(p=>p.slug==='khoj-learning')?.name,'Khoj Learning');

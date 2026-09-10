@@ -18,7 +18,7 @@ export function createVoiceSession({ Recognition, onState, onTranscript }) {
     // Some engines throw when aborting a pending permission request or an
     // already-ended recognition session. Cleanup must not block form actions.
     try { previous?.abort(); } catch { /* Session is already invalidated. */ }
-    if (notify) onState({ field: '', status: 'Microphone stopped. Review your transcript before using it.' });
+    if (notify && previous) onState({ field: '', status: 'Microphone stopped. Review your transcript before using it.' });
   };
   return {
     stop,

@@ -2,6 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createVoiceSession, recognitionTranscript, suggestVoiceOption} from '../src/lib/voiceInput.js';
 
+test('typed-only booking and idle cleanup never announce a microphone session',()=>{
+  const states=[];
+  const voice=createVoiceSession({onState:s=>states.push(s),onTranscript:()=>{}});
+  voice.stop(); voice.stop();
+  assert.deepEqual(states,[]);
+});
+
 test('ambiguous and negated qualification statements never silently select an option', () => {
   const options = ['Up to ₹5 lakh', '₹5–15 lakh', '₹15 lakh+', 'Final decision-maker'];
   for (const text of ['five to fifteen lakh', 'under fifteen lakh', 'I am not the final decision maker']) {
