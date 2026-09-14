@@ -4,3 +4,7 @@ node_modules
 **/.DS_Store
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
+booking-service/data/

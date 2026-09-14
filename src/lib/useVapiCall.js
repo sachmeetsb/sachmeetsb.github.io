@@ -54,6 +54,9 @@ export function useVapiCall() {
       setStatus("connecting");
       try {
         await vapi.start(ASSISTANT_ID, {
+          // A fixed, short greeting; do not generate an opening sales pitch.
+          firstMessage: "Hi Welcome to Kartar AI Labs",
+          firstMessageMode: "assistant-speaks-first",
           variableValues: { pageContent, currentSection },
         });
       } catch (e) {

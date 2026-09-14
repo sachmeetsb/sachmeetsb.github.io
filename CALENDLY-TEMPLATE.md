@@ -1,4 +1,16 @@
-# Calendly template update — awaiting account sign-in
+# Calendly booking — configured; test invitation pending
+
+## Account changes verified — 10 September 2026, after sign-in
+
+- Active event: **Product Discovery with Sachmeet**, 30 minutes, https://calendly.com/sachmeet-kartar/30min . Replaced the old description with the founder-led copy below.
+- Saved Monday–Saturday 12:00–20:00 India Standard Time, 24-hour minimum notice, and a 15-minute **after-event** buffer (before-event buffer remains zero).
+- Verified the public calendar at approximately 14:55 IST: Friday 11 September starts at 15:00; Saturday 12 September offers 12:00 through 19:30; Sundays are unavailable.
+- Verified Google Calendar **sachmeet@kartar.ai** is selected both for busy-event conflict checks and as the destination for new meetings. Event location is Google Meet. Actual invitation creation and generated meeting URL remain untested.
+- Renamed the existing first custom multiline question to **Project brief — what would make this conversation useful?**; preserved its position (`a1`) and optional status. Verified the new question on the live attendee form.
+- Created **Product Deep Dive with Sachmeet**, 60 minutes, slug `60min`, with the shared schedule and copied 15-minute buffer. It is **inactive**: Calendly Free refused activation of a second event and requested a paid upgrade. No purchase made. Do not link this inactive event from the website.
+- Awaiting explicit approval and an attendee email for a labelled test on Saturday 12 September at 12:00 IST, followed by rescheduling and cancellation. Final submission also accepts Calendly Participant Terms. No test appointment has been created.
+
+## Earlier findings (resolved where noted above)
 
 ## Booking verification — 10 September 2026
 
@@ -13,7 +25,7 @@ Inspected the public event on 9 September 2026. No event was booked or submitted
 
 Current verified URL: https://calendly.com/sachmeet-kartar/30min
 
-Current title: Discovery and Initiative. Public description contains old agency-style copy and a spelling error. The inspected calendar offered 9am–5pm weekday times, including same-day availability; Saturdays were unavailable. Connected calendar and buffer settings cannot be verified from the public booking page.
+Previous title: Discovery and Initiative. The old public description contained agency-style copy and a spelling error. The earlier calendar offered 9am–5pm weekday times, including same-day availability; Saturdays were unavailable. These settings were corrected after sign-in as recorded above.
 
 ## Requested account-side changes
 
@@ -30,4 +42,4 @@ Current title: Discovery and Initiative. Public description contains old agency-
 
 The form collects 13 labelled controls, with name, email, discussion and outcome required. Remaining fields are optional. A reviewed, complete brief is passed into `a1`, with name/email passed separately. There is no preliminary EmailJS send, fake booking confirmation or stale saved booking link. Changes to any field invalidate the prepared handoff.
 
-Calendly documents this mapping at https://help.calendly.com/hc/en-us/articles/226766767-Pre-populate-invitee-information-in-the-booking-process and https://developer.calendly.com/api-docs/overview/embedding/recipes . The live event was inspected to verify its first custom field; account-side edits have not been made.
+Calendly documents this mapping at https://help.calendly.com/hc/en-us/articles/226766767-Pre-populate-invitee-information-in-the-booking-process and https://developer.calendly.com/api-docs/overview/embedding/recipes . The live event was inspected to verify its first custom field; account-side edits are recorded above.

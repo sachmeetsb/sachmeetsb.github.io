@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "./Logo";
 import { products } from "../data/portfolio";
+import EmailContact from './EmailContact';
 
 export default function Footer() {
   return (
@@ -24,7 +25,7 @@ export default function Footer() {
               <a href="#process">Process</a><a href="#team">About</a>
               <a href="#contact">Book a Call</a><a href="/privacy/">Privacy</a>
             </nav>
-            <a className="block text-white/75 hover:text-white" href="mailto:sachmeet@kartar.ai">sachmeet@kartar.ai</a>
+            <EmailContact className="text-white/75 hover:text-white" />
             <a className="inline-flex min-h-11 items-center text-saffron-core" href="https://www.linkedin.com/company/kartar-ai/" target="_blank" rel="noopener noreferrer">Kartar on LinkedIn ↗</a>
           </div>
         </div>

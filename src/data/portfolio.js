@@ -33,6 +33,7 @@ const catalogue = [
     demo: {
       orientation: "portrait",
       video: "/media/demos/vimarsha.mp4",
+      aspectRatio: 720 / 1566,
       poster: "/media/demos/vimarsha.jpg",
       stops: [
         { t: 14, tip: "Any EPUB, read aloud ; the words highlight in sync." },
@@ -70,12 +71,13 @@ const catalogue = [
       "Built for lawyers: draft first-contact legal notices in minutes instead of hours ; researched, jurisdiction-aware and ready to send after a quick review.",
     demo: {
       orientation: "portrait",
-      video: "/media/demos/lawyerboss.mp4",
-      poster: "/media/demos/lawyerboss.jpg",
+      video: "/media/demos/lawyerboss-trimmed.mp4",
+      poster: "/media/demos/lawyerboss-trimmed.jpg",
+      aspectRatio: 1206 / 2622,
       stops: [
-        { t: 10, tip: "Open a case and review the legal intake conversation." },
-        { t: 38, tip: "Record the request ; LawyerBoss transcribes it into the case." },
-        { t: 60, tip: "Review the evidence and open the generated legal notice draft." },
+        { t: 4, tip: "Review the legal intake conversation in an open case." },
+        { t: 26, tip: "Record the request ; LawyerBoss transcribes it into the case." },
+        { t: 48, tip: "Review the evidence and open the generated legal notice draft." },
       ],
     },
   },
@@ -89,8 +91,9 @@ const catalogue = [
       "An agent that assembles valid multi-SKU configurations in seconds, enforcing every compatibility rule along the way. For any industry where parts combine ; no spec sheets, no costly mistakes.",
     demo: {
       orientation: "landscape",
-      video: "/media/demos/instantconfig.mp4",
-      poster: "/media/demos/instantconfig.jpg",
+      video: "/media/demos/instantconfig-cropped.mp4",
+      poster: "/media/demos/instantconfig-cropped.jpg",
+      aspectRatio: 1008 / 720,
       stops: [
         { t: 4, tip: "Pick your requirements in plain language." },
         { t: 10, tip: "The agent assembles valid multi-SKU configs in seconds." },
@@ -108,8 +111,9 @@ const catalogue = [
       "A data analyst that runs entirely on your machine. Ask your Excel files anything in plain language and get answers, charts and insight back ; your data never leaves your laptop.",
     demo: {
       orientation: "landscape",
-      video: "/media/demos/datamind.mp4",
-      poster: "/media/demos/datamind.jpg",
+      video: "/media/demos/datamind-cropped.mp4",
+      poster: "/media/demos/datamind-cropped.jpg",
+      aspectRatio: 1044 / 720,
       stops: [
         { t: 3, tip: "Load any Excel file ; it stays on your machine." },
         { t: 7, tip: "Ask it anything in plain language." },

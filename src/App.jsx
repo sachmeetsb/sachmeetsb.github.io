@@ -6,11 +6,10 @@ import { useVapiCall } from "./lib/useVapiCall";
 import { getPageText, getCurrentView } from "./lib/pageContext";
 // CustomsIQ demo hidden for now
 // import ScrollScrubShowcase from "./components/ScrollScrubShowcase";
-import LogoBar from "./components/LogoBar";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
 import CtaBanner from "./components/CtaBanner";
-import IndustrySolutions from "./components/IndustrySolutions";
+import ProductCarousel from "./components/ProductCarousel";
 import WorkingProcess from "./components/WorkingProcess";
 import Team from "./components/Team";
 import Contact from "./components/ContactForm";
@@ -118,9 +117,8 @@ function App() {
         {/* CustomsIQ demo hidden for now */}
         {/* <ScrollScrubShowcase /> */}
         <Portfolio />
-        <LogoBar />
         <Services />
-        <IndustrySolutions />
+        <ProductCarousel />
         <CtaBanner />
         <WorkingProcess />
         <Team />

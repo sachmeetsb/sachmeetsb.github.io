@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {createVoiceSession, suggestVoiceOption} from "../lib/voiceInput";
 import {bookingHandoff, intakeFields} from "../lib/calendly";
 import {products} from "../data/portfolio";
+import EmailContact from './EmailContact';
 
 const fieldClassName = "w-full rounded-xl border border-white/30 bg-white/[0.08] px-5 py-3.5 text-[16px] text-white placeholder:text-white/60 focus:border-saffron-core";
 const actionClassName = "min-h-11 rounded-pill border border-white/40 px-4 py-2 text-[14px] text-white hover:border-saffron-core";
@@ -110,7 +111,7 @@ export default function Contact() {
             <p className="text-[14px] text-white/75 mt-4">Continues to Calendly in this tab with your name, email and full brief. A call is booked only after you select a time and Calendly confirms it. Editing any answer here clears this link.</p>
           </div>}
           <p className="text-white/70 text-[15px] mb-7">Calendly handles current availability, time zones, invitations and rescheduling.</p>
-          <a href="mailto:sachmeet@kartar.ai" className="text-saffron-core font-display font-semibold break-words">sachmeet@kartar.ai</a>
+          <EmailContact className="text-saffron-core font-display font-semibold break-words" />
           <a href="/privacy/" className="block mt-5 text-white/75 underline text-[14px]">Privacy and booking information</a>
         </aside>
       </div>

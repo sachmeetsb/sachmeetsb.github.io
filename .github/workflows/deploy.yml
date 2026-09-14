@@ -21,6 +21,9 @@ jobs:
         run: npm install
 
       - name: Build project 
+        env:
+          VITE_VAPI_PUBLIC_KEY: ${{ vars.VITE_VAPI_PUBLIC_KEY }}
+          VITE_VAPI_ASSISTANT_ID: ${{ vars.VITE_VAPI_ASSISTANT_ID }}
         run: npm run build
 
       - name: Upload production-ready build files

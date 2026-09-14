@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { EASE_IN_OUT } from "../../lib/motion";
 import { useReducedMotion } from "../../lib/useReducedMotion";
 import { useDemoPlayer } from "./useDemoPlayer";
 
 // Aspect ratios as height-per-width.
-const RATIO = { portrait: 840 / 400, landscape: 9 / 16 };
+const RATIO = { portrait: 1566 / 720, landscape: 9 / 16 };
 // Max rendered width: portrait stays phone-sized; landscape fills its column.
 const MAX_W = { portrait: 380, landscape: Infinity };
 
@@ -47,29 +47,13 @@ function PlaceholderScreen({ product }) {
   );
 }
 
-function DemoOverlay({ player }) {
-  const showPrompt = Boolean(player.activeTip) || player.status === "ended";
+function DemoControls({ player, product }) {
+  if (!player.hasVideo) return null;
+  const label = player.status === "ended" ? "Tap to replay" : player.status === "playing" ? "Pause demo" : "Tap to continue";
   return (
-    <div className="absolute inset-0 pointer-events-none flex flex-col justify-end p-5">
-      <AnimatePresence mode="wait">
-        {player.activeTip && (
-          <motion.div
-            key={player.stopIndex}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="bg-void/85 backdrop-blur-md border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.45)] rounded-2xl px-4 py-3 text-white text-[14px] leading-snug"
-          >
-            {player.activeTip}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {showPrompt && (
-        <div className="mt-3 text-center font-mono text-[11px] tracking-[0.2em] uppercase text-white/80 drop-shadow-[0_1px_8px_rgba(0,0,0,0.85)] animate-pulse">
-          {player.status === "ended" ? "Tap to replay" : "Tap to continue"}
-        </div>
-      )}
+    <div data-demo-controls className="mb-4 w-full rounded-2xl border border-white/15 bg-surface-mid px-4 py-3 flex flex-col sm:flex-row items-center gap-3 min-h-[92px]">
+      <p aria-live="polite" className="flex-1 text-white/85 text-sm leading-relaxed">{player.activeTip || (player.status === 'ended' ? 'Demo complete. Watch it again or explore another product.' : `Watch ${product.name}. Pause whenever you want a closer look.`)}</p>
+      <button type="button" onClick={player.advance} aria-label={`${label}: ${product.name}`} className="shrink-0 rounded-pill bg-saffron min-h-11 px-5 py-3 font-display font-bold text-white text-sm">{label}</button>
     </div>
   );
 }
@@ -79,10 +63,11 @@ function Screen({ player, demo, product }) {
     <>
       {player.hasVideo ? (
         <video
+          key={demo.video}
           ref={player.videoRef}
           src={demo.video}
           poster={demo.poster}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           muted
           playsInline
           onTimeUpdate={player.handleTimeUpdate}
@@ -91,7 +76,6 @@ function Screen({ player, demo, product }) {
       ) : (
         <PlaceholderScreen product={product} />
       )}
-      <DemoOverlay player={player} />
     </>
   );
 }
@@ -101,6 +85,7 @@ export default function PhoneSimulator({ product }) {
   const desktop = useDesktop();
   const demo = product?.demo ?? { stops: [] };
   const orientation = demo.orientation === "landscape" ? "landscape" : "portrait";
+  const aspectRatio = demo.aspectRatio || 1 / RATIO[orientation];
   const player = useDemoPlayer(demo, reduced);
 
   // Measure the available column width so the device can fill it (landscape)
@@ -121,24 +106,28 @@ export default function PhoneSimulator({ product }) {
   // orientation; the title is rendered by Portfolio above.
   if (!desktop) {
     return (
+      <div>
+      <DemoControls player={player} product={product} />
       <button
         type="button"
         onClick={player.advance}
         disabled={!player.hasVideo}
         aria-label={`${product.name}: ${player.status === "ended" ? "replay" : player.status === "playing" ? "pause" : "play or continue"} demo`}
         className="relative w-full rounded-3xl overflow-hidden border border-white/15 bg-black cursor-pointer"
-        style={{ aspectRatio: orientation === "landscape" ? "16 / 9" : "9 / 16" }}
+        style={{ aspectRatio }}
       >
         <Screen player={player} demo={demo} product={product} />
       </button>
+      </div>
     );
   }
 
   const renderW = Math.min(boxW || MAX_W.portrait, MAX_W[orientation]);
-  const renderH = renderW * RATIO[orientation];
+  const renderH = (renderW - 16) / aspectRatio + 16;
 
   return (
-    <div ref={boxRef} className="w-full flex justify-center">
+    <div ref={boxRef} className="w-full flex flex-col items-center">
+      <DemoControls player={player} product={product} />
       <motion.button
         type="button"
         onClick={player.advance}

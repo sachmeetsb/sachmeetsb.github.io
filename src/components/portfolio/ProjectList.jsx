@@ -1,4 +1,6 @@
 import React from "react";
+import {motion} from "framer-motion";
+import {useReducedMotion} from "../../lib/useReducedMotion";
 import { HiChevronLeft, HiChevronRight, HiExternalLink } from "react-icons/hi";
 
 /**
@@ -18,10 +20,12 @@ export default function ProjectList({
 }) {
   const start = pageStart;
   const slice = items.slice(start, start + pageSize);
+  const reduced = useReducedMotion();
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col">
+    <div className="flex flex-col overflow-hidden">
+      <p className="text-xs text-white/60 pl-5 mb-2">Swipe or drag to browse pages · {page + 1}/{pageCount}</p>
+      <motion.div key={page} initial={reduced ? false : {opacity:0,x:20}} animate={{opacity:1,x:0}} transition={{duration:0.2}} className="flex flex-col">
         {slice.map((p, i) => {
           const idx = start + i;
           const active = idx === activeIndex;
@@ -74,7 +78,7 @@ export default function ProjectList({
             </div>
           );
         })}
-      </div>
+      </motion.div>
 
       {pageCount > 1 && (
         <div className="flex items-center gap-3 pl-5 mt-4">

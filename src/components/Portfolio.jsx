@@ -4,6 +4,7 @@ import Reveal from "./motion/Reveal";
 import { products } from "../data/portfolio";
 import ProjectList from "./portfolio/ProjectList";
 import PhoneSimulator from "./portfolio/PhoneSimulator";
+import {pageForProduct, swipeDirection} from "../lib/productNavigation";
 
 /** Page 1 is five consumer apps; page 2 is four B2B; later pages take the rest. */
 function pageSizesFor(count) {
@@ -41,11 +42,30 @@ const H2_MARGIN_BOTTOM = 40; // matches `mb-10` on the heading
 export default function Portfolio() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [page, setPage] = useState(0);
+  const gesture = useRef(null);
+  const suppressClick = useRef(false);
+  const selectProduct = (index) => {
+    const next = (index + products.length) % products.length;
+    setActiveIndex(next);
+    setPage(pageForProduct(next, pageStarts));
+  };
+  useEffect(() => {
+    const select = event => {
+      const index = products.findIndex(product => product.slug === event.detail);
+      if (index < 0) return;
+      setActiveIndex(index);
+      setPage(pageForProduct(index, pageStarts));
+      document.getElementById('portfolio')?.scrollIntoView({behavior:'auto', block:'start'});
+    };
+    window.addEventListener('portfolio:select', select);
+    return () => window.removeEventListener('portfolio:select', select);
+  }, []);
 
   const active = products[activeIndex];
   const isLandscape = active.demo?.orientation === "landscape";
   const changePage = (p) => {
     const nextPage = Math.max(0, Math.min(pageCount - 1, p));
+    if (nextPage === page) return;
     setPage(nextPage);
     setActiveIndex(pageStarts[nextPage]);
   };
@@ -65,7 +85,30 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <Section id="portfolio" className="pt-14 md:pt-20 pb-4">
+    <Section id="portfolio" className="pt-14 md:pt-20 pb-4" style={{touchAction:'pan-y pinch-zoom'}}
+      onPointerDownCapture={event => {
+        suppressClick.current = false;
+        gesture.current = event.isPrimary && event.button === 0
+          ? {id:event.pointerId,x:event.clientX,y:event.clientY,list:Boolean(event.target.closest('[data-product-list]'))} : null;
+      }}
+      onPointerMoveCapture={event => {
+        if (gesture.current?.id === event.pointerId && swipeDirection(gesture.current,{x:event.clientX,y:event.clientY})) suppressClick.current = true;
+      }}
+      onPointerUpCapture={event => {
+        const start = gesture.current;
+        gesture.current = null;
+        if (start?.id !== event.pointerId) return;
+        const direction = swipeDirection(start,{x:event.clientX,y:event.clientY});
+        if (direction) {
+          suppressClick.current = true;
+          if (start.list) changePage(page + direction);
+          else selectProduct(activeIndex + direction);
+        }
+      }}
+      onPointerCancelCapture={() => {gesture.current = null; suppressClick.current = false;}}
+      onClickCapture={event => {
+        if (suppressClick.current && event.detail !== 0) {event.preventDefault();event.stopPropagation();suppressClick.current = false;}
+      }}>
       {/* Pill in its own row ; the grid below starts flush with its bottom, so
           a portrait phone's top lands exactly at the pill's ending. */}
       <Reveal className="mb-6">
@@ -76,7 +119,14 @@ export default function Portfolio() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-10 items-start">
         {/* Left: heading + paginated list */}
-        <div>
+        <div data-product-list role="region" aria-label="Product pages" tabIndex={0}
+          className="min-w-0 select-none"
+          onDragStart={event=>event.preventDefault()}
+          onKeyDown={event=>{
+            if(event.key==='ArrowLeft'||event.key==='ArrowRight') {
+              event.preventDefault();changePage(page+(event.key==='ArrowRight'?1:-1));
+            }
+          }}>
           <h2
             ref={headingRef}
             className="font-display font-extrabold text-[32px] md:text-[40px] text-white leading-tight mb-10"
@@ -88,7 +138,7 @@ export default function Portfolio() {
           <ProjectList
             items={products}
             activeIndex={activeIndex}
-            onSelect={setActiveIndex}
+            onSelect={selectProduct}
             page={page}
             pageCount={pageCount}
             onPage={changePage}
@@ -99,6 +149,11 @@ export default function Portfolio() {
 
         {/* One player at every breakpoint: no hidden duplicate playback. */}
         <div className="lg:pt-[var(--demo-offset)] min-w-0" style={{'--demo-offset':`${isLandscape ? headingOffset : 0}px`}}>
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <button type="button" onClick={()=>selectProduct(activeIndex-1)} aria-label="Previous product demo" className="min-w-11 min-h-11 rounded-full border border-white/25 text-white">←</button>
+            <p className="text-center text-white/70 text-sm" aria-live="polite">{active.name} · {activeIndex+1}/{products.length}<span className="block text-xs mt-1">Swipe anywhere in this product area</span></p>
+            <button type="button" onClick={()=>selectProduct(activeIndex+1)} aria-label="Next product demo" className="min-w-11 min-h-11 rounded-full border border-white/25 text-white">→</button>
+          </div>
           <div className="lg:hidden mb-4 pl-5">
             <h3 className="font-display font-bold text-[28px] text-white leading-tight">
               {active.name}
