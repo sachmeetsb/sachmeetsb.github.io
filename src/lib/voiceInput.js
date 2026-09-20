@@ -1,3 +1,12 @@
+export function supportsVoiceInput(field) {
+  return !field.options && ['outcome', 'role', 'current_state', 'attendees'].includes(field.name);
+}
+
+export function voiceAnswer(previous, transcript, limit) {
+  if (!transcript.trim()) return previous;
+  return [previous.trim(), transcript.trim()].filter(Boolean).join(' ').slice(0, limit);
+}
+
 // Deliberately conservative: a transcript is a proposal, never a selection.
 export function suggestVoiceOption(transcript, options) {
   const normalize = text => text.toLowerCase().replace(/₹/g, ' rupees ').replace(/[–—-]/g, ' ').replace(/[^a-z0-9+ ]/g, '').replace(/\s+/g, ' ').trim();
@@ -18,7 +27,7 @@ export function createVoiceSession({ Recognition, onState, onTranscript }) {
     // Some engines throw when aborting a pending permission request or an
     // already-ended recognition session. Cleanup must not block form actions.
     try { previous?.abort(); } catch { /* Session is already invalidated. */ }
-    if (notify && previous) onState({ field: '', status: 'Microphone stopped. Review your transcript before using it.' });
+    if (notify && previous) onState({ field: '', status: 'Microphone stopped.' });
   };
   return {
     stop,
@@ -35,7 +44,7 @@ export function createVoiceSession({ Recognition, onState, onTranscript }) {
       session.lang = 'en-IN';
       const owns = () => current === session;
       onState({field, status: 'Starting microphone…'});
-      session.onstart = () => owns() && onState({field, status: 'Listening. Your transcript is a draft until you confirm it.'});
+      session.onstart = () => owns() && onState({field, status: 'Listening. Your words appear in this field.'});
       session.onresult = event => owns() && onTranscript(field, recognitionTranscript(event.results));
       session.onerror = event => {
         if (!owns()) return;
@@ -48,7 +57,7 @@ export function createVoiceSession({ Recognition, onState, onTranscript }) {
       session.onend = () => {
         if (!owns()) return;
         current = undefined;
-        onState({field: '', status: 'Microphone stopped. Review your transcript before using it.'});
+        onState({field: '', status: 'Microphone stopped.'});
       };
       try { session.start(); } catch {
         if (owns()) {

@@ -1,6 +1,75 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {treeBudget,createForest,stepForest,drawForest,attachBranchingTree,FRAME_MS,CYCLE_SECONDS} from '../src/lib/branchingTree.js';
+import {treeBudget,canopyGap,createForest,stepForest,drawForest,attachBranchingTree,FRAME_MS,CYCLE_SECONDS} from '../src/lib/branchingTree.js';
+
+function seeded(seed) {
+  return () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 2 ** 32);
+}
+
+function bounds(tree) {
+  let left=Infinity, right=-Infinity;
+  for(let i=0;i<tree.branches.length;i+=5){
+    left=Math.min(left,tree.branches[i],tree.branches[i+2]);
+    right=Math.max(right,tree.branches[i],tree.branches[i+2]);
+  }
+  // The widest stroke has a 1.5px radius, including round caps.
+  return {left:left-1.5,right:right+1.5};
+}
+
+function assertSeparated(field) {
+  let previous;
+  for(const tree of field.trees){
+    const envelope=bounds(tree);
+    assert.ok(envelope.left>=0&&envelope.right<=field.width,'silhouette stays within canvas');
+    if(previous)assert.ok(envelope.left-previous.right>=canopyGap(field.width,field.trees.length)-0.01,'full canopies retain their gap');
+    previous=envelope;
+  }
+}
+
+test('canopies never touch across sizes, random extremes and independent regrowth',()=>{
+  for(const [width,height] of [[320,1800],[390,844],[390,1376],[767,900],[768,900],[1440,900],[2560,1440],[6000,3000]]){
+    for(let seed=0;seed<100;seed++){
+      const random=seeded(seed),field=createForest(width,height,random);
+      assertSeparated(field);
+      // Regenerate each tree individually against its existing neighbours.
+      for(const tree of field.trees){
+        tree.age=CYCLE_SECONDS;
+        stepForest(field,0,random);
+        assertSeparated(field);
+      }
+    }
+    for(const value of [0,0.5,0.999999])assertSeparated(createForest(width,height,()=>value));
+  }
+});
+
+test('randomness varies silhouettes without adding per-frame random work',()=>{
+  let calls=0;
+  const random=seeded(42);
+  const field=createForest(1440,900,()=>{calls++;return random();});
+  const callsAtBirth=calls;
+  const before=field.trees.map(tree=>tree.branches.slice());
+  stepForest(field,0.05,()=>{calls++;return random();});
+  assert.equal(calls,callsAtBirth);
+  field.trees.forEach((tree,i)=>assert.deepEqual(tree.branches,before[i]));
+  assert.notDeepEqual(field.trees[0].branches,createForest(1440,900,seeded(43)).trees[0].branches);
+  const b=field.trees[0].branches;
+  const children=[];
+  for(let i=0;i<b.length;i+=5)if(b[i+4]===1)children.push(Math.hypot(b[i+2]-b[i],b[i+3]-b[i+1]));
+  assert.notEqual(children[0],children[1],'siblings no longer mirror one another');
+  const lengths=field.trees.map(tree=>Math.hypot(tree.branches[2]-tree.branches[0],tree.branches[3]-tree.branches[1]));
+  assert.equal(new Set(lengths).size,field.trees.length,'trunk heights vary');
+});
+
+test('fully-grown forests keep the same branch and stroke budgets',()=>{
+  for(const width of [390,1440]){
+    const field=createForest(width,900,seeded(1));
+    field.trees.forEach(tree=>{tree.age=13;});
+    let lines=0,strokes=0;
+    drawForest({clearRect(){},beginPath(){},moveTo(){},lineTo(){lines++;},stroke(){strokes++;}},field);
+    assert.equal(lines,width<768?126:381);
+    assert.equal(strokes,width<768?12:21);
+  }
+});
 
 test('render resolution uses native CSS size up to a 777,000-pixel cap',()=>{
   for(const [w,h] of [[390,1376],[1440,1000],[6000,3000]]){

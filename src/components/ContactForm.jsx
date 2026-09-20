@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {createVoiceSession, suggestVoiceOption} from "../lib/voiceInput";
+import {createVoiceSession, supportsVoiceInput, voiceAnswer} from "../lib/voiceInput";
 import {bookingHandoff, intakeFields} from "../lib/calendly";
 import {products} from "../data/portfolio";
 import EmailContact from './EmailContact';
@@ -22,58 +22,69 @@ export default function Contact() {
     voice.current=createVoiceSession({
       Recognition:window.SpeechRecognition || window.webkitSpeechRecognition,
       onState:setVoiceState,
-      onTranscript:(field,text)=>setDraft(current=>current?.field===field ? {...current,text,selection:suggestVoiceOption(text,intakeFields.find(f=>f.name===field)?.options || [])} : current)
+      onTranscript:(field,text)=>{
+        const current=draftRef.current;
+        if(current?.field!==field) return;
+        const limit=intakeFields.find(f=>f.name===field)?.multiline?1000:250;
+        setValues(values=>({...values,[field]:voiceAnswer(current.previous,text,limit)}));
+        setHandoff(null);
+      }
     });
     const hide=()=>{if(document.hidden) voice.current?.stop();};
     document.addEventListener("visibilitychange",hide);
     return ()=>{document.removeEventListener("visibilitychange",hide);voice.current?.stop(false);};
   },[]);
   const update=(name,value)=>{
+    if(draftRef.current?.field===name) voice.current?.stop();
     setValues(v=>({...v,[name]:value}));
     setHandoff(null); setError("");
   };
+  const keepVoice=()=>{
+    voice.current?.stop();
+    const field=draftRef.current?.field;
+    draftRef.current=null; setDraft(null);
+    if(field) document.getElementById(`intake-${field}`)?.focus();
+  };
   const startVoice=(field)=>{
     if(voiceState.field===field){voice.current?.stop();return;}
-    if(draft && draft.field!==field){setError("Confirm or discard the current transcript before starting another field.");draftRef.current?.focus();return;}
-    setDraft({field,text:"",selection:""}); setError("");setHandoff(null);
+    voice.current?.stop(false);
+    const next={field,previous:values[field]};
+    draftRef.current=next; setDraft(next); setError("");setHandoff(null);
     voice.current?.start(field);
   };
-  const confirmVoice=()=>{
-    try {
-      if(!draft) return;
-      const field=intakeFields.find(f=>f.name===draft.field);
-      const answer=field.options ? draft.selection : draft.text.trim();
-      if(!answer) {setError('Choose the answer you want to use first.');return;}
-      update(field.name,answer);
-      setDraft(null);
-      voice.current?.stop();
-      document.getElementById(`intake-${field.name}`)?.focus();
-    } catch { setError('Could not apply the voice answer. Discard it and type the answer into the labelled field.'); }
-  };
   const discard=()=>{
-    const field=draft?.field; voice.current?.stop();setDraft(null);setError("");
-    document.getElementById(`intake-${field}`)?.focus();
+    voice.current?.stop();
+    const current=draftRef.current;
+    if(current) setValues(v=>({...v,[current.field]:current.previous}));
+    draftRef.current=null;setDraft(null);setError("");setHandoff(null);
+    document.getElementById(`intake-${current?.field}`)?.focus();
   };
   const submit=event=>{
     event.preventDefault();
-    voice.current?.stop();
-    if(draft){setError("Confirm or discard your voice transcript before continuing.");draftRef.current?.focus();return;}
+    keepVoice();
     try {setHandoff(bookingHandoff(values));setError("");requestAnimationFrame(()=>reviewRef.current?.focus());}
     catch(e){setError(e.message);}
   };
   const renderField=field=>{
     const id=`intake-${field.name}`;
-    const identity=["from_name","from_email"].includes(field.name);
+    const canSpeak=supportsVoiceInput(field);
+    const recording=voiceState.field===field.name;
+    const reviewing=draft?.field===field.name && !recording;
     const props={id,name:field.name,required:field.required,value:values[field.name],onChange:e=>update(field.name,e.target.value),className:fieldClassName,autoComplete:field.autoComplete,maxLength:field.multiline?1000:250};
     return <div key={field.name} className={field.multiline?"sm:col-span-2":""}>
-      <div className="flex items-center justify-between gap-3 mb-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
         <label htmlFor={id} className="text-[14px] text-white/85 font-medium">{field.label}{!field.required && <span className="text-white/65"> (optional)</span>}</label>
-        {!identity && <button type="button" onClick={()=>startVoice(field.name)} aria-label={`${voiceState.field===field.name?"Stop voice input":"Speak answer"} for ${field.label}`} aria-pressed={voiceState.field===field.name} className={actionClassName}>{voiceState.field===field.name?"Stop":"Speak"}</button>}
+        {canSpeak && <div className="flex shrink-0 gap-2">
+          {reviewing ? <>
+            <button type="button" onClick={discard} aria-label={`Discard voice answer for ${field.label}`} className={actionClassName}>Discard</button>
+            <button type="button" onClick={keepVoice} aria-label={`Keep voice answer for ${field.label}`} className={`${actionClassName} border-saffron-core bg-saffron-core/15`}>Keep</button>
+          </> : <button type="button" onClick={()=>startVoice(field.name)} aria-label={`${recording?"Stop voice input":"Speak answer"} for ${field.label}`} aria-pressed={recording} className={actionClassName}>{recording?"Stop":"Speak"}</button>}
+        </div>}
       </div>
       {field.options ? <select {...props}><option value="">Choose an option</option>{field.options.map(option=><option key={option}>{option}</option>)}</select> : field.multiline ? <textarea {...props} rows={3} /> : <input {...props} type={field.type||"text"} />}
+      {draft?.field===field.name && <p role="status" className="mt-2 text-white/75 text-[13px]">{recording ? voiceState.status : `${voiceState.status} Your answer is kept automatically; edit it here or discard to restore the previous answer.`}</p>}
     </div>;
   };
-  const draftField=draft && intakeFields.find(f=>f.name===draft.field);
   return <section id="contact" className="py-24 md:py-32">
     <div className="mx-auto max-w-container px-5 sm:px-8 lg:px-16">
       <div className="mb-14 flex flex-col gap-5 md:flex-row md:items-center md:gap-12">
@@ -87,15 +98,7 @@ export default function Contact() {
             <summary className="cursor-pointer min-h-11 py-2 text-white font-display font-semibold">Add preparation details (optional)</summary>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-5">{intakeFields.slice(4).map(renderField)}</div>
           </details>
-          <p className="text-[14px] text-white/75 mt-6">Voice is optional. Your browser may process audio through its speech provider; offline transcription is not guaranteed. Name and email stay typed. Review every transcript before using it.</p>
-          {voiceState.status && <p role="status" className="mt-4 text-white/85 text-[14px]">{voiceState.status}</p>}
-          {draft && <div ref={draftRef} tabIndex={-1} role="region" aria-label="Review voice answer" className="mt-6 p-5 border border-saffron-core rounded-2xl bg-void/30">
-            <h3 className="text-white font-display font-bold mb-4">Review answer: {draftField.label}</h3>
-            <label htmlFor="voice-transcript" className="block text-white/85 mb-2">Transcript (editable)</label>
-            <textarea id="voice-transcript" value={draft.text} rows={3} maxLength={draftField.multiline?1000:250} className={fieldClassName} onChange={e=>{const text=e.target.value;setDraft(d=>({...d,text,selection:suggestVoiceOption(text,draftField.options||[])}));}} />
-            {draftField.options && <><label htmlFor="voice-selection" className="block mt-4 mb-2 text-white/85">Select the answer you want to use</label><select id="voice-selection" className={fieldClassName} value={draft.selection} onChange={e=>{const selection=e.target.value;voice.current?.stop();setDraft(d=>({...d,selection}));}}><option value="">Choose explicitly</option>{draftField.options.map(option=><option key={option}>{option}</option>)}</select><p className="text-white/75 text-[14px] mt-2">The original field stays unchanged until you confirm.</p></>}
-            <div className="flex flex-wrap gap-3 mt-4"><button type="button" className={actionClassName} disabled={!(draftField.options?draft.selection:draft.text.trim())} onClick={confirmVoice}>Use this answer</button><button type="button" className={actionClassName} onClick={discard}>Discard</button></div>
-          </div>}
+          <p className="text-[14px] text-white/75 mt-6">Voice is optional. Your browser may process audio through its speech provider; offline transcription is not guaranteed. Spoken answers appear in their fields and are kept automatically. You can edit them or discard the latest recording.</p>
           {error && <p role="alert" className="mt-5 text-saffron-core">{error}</p>}
           <button type="submit" className="mt-7 rounded-pill bg-saffron px-7 py-4 font-display text-[17px] font-semibold text-white hover:bg-saffron-light">Review booking details</button>
           <p className="mt-4 text-[14px] text-white/75">Nothing is booked or sent to Sachmeet at this step. Your answers are passed to Calendly only when you open the booking link. Please avoid confidential information.</p>

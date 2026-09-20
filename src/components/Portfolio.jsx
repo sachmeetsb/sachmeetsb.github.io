@@ -6,7 +6,7 @@ import ProjectList from "./portfolio/ProjectList";
 import PhoneSimulator from "./portfolio/PhoneSimulator";
 import {pageForProduct, swipeDirection} from "../lib/productNavigation";
 
-/** Page 1 is five consumer apps; page 2 is four B2B; later pages take the rest. */
+/** Follow catalogue order: five products on page 1, four on page 2, then the rest. */
 function pageSizesFor(count) {
   const sizes = [];
   let remaining = count;

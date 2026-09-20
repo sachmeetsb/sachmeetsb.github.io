@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createVoiceSession, recognitionTranscript, suggestVoiceOption} from '../src/lib/voiceInput.js';
+import {createVoiceSession, recognitionTranscript, suggestVoiceOption, supportsVoiceInput, voiceAnswer} from '../src/lib/voiceInput.js';
 
 test('typed-only booking and idle cleanup never announce a microphone session',()=>{
   const states=[];
@@ -59,4 +59,18 @@ test('a browser abort exception cannot block confirmation or cleanup',()=>{
   assert.doesNotThrow(()=>voice.stop());
   assert.equal(latest.field,'');
   assert.doesNotThrow(()=>voice.stop());
+});
+
+
+test('voice is limited to descriptive fields and never offered for choices', () => {
+  for (const name of ['outcome','role','current_state','attendees']) assert.equal(supportsVoiceInput({name}), true);
+  for (const name of ['from_name','from_email','company','from_phone','links','budget','timeline','discussion','decision_role']) assert.equal(supportsVoiceInput({name}), false);
+  assert.equal(supportsVoiceInput({name:'role',options:['Founder']}), false);
+});
+
+test('dictation preserves earlier text and replaces cumulative interim words', () => {
+  assert.equal(voiceAnswer('Existing context', 'new words', 1000), 'Existing context new words');
+  assert.equal(voiceAnswer('Existing context', 'new words completed', 1000), 'Existing context new words completed');
+  assert.equal(voiceAnswer(' Existing context ', '', 1000), ' Existing context ');
+  assert.equal(voiceAnswer('', 'a'.repeat(300), 250).length, 250);
 });

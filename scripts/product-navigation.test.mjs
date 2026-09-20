@@ -32,7 +32,7 @@ test('edited recordings use matching dimensions and rebased chapter timings',()=
 
 test('industry blocks contain the requested products exactly once',()=>{
   assert.deepEqual(productIndustries.map(group=>[group.name,group.slugs]),[
-    ['Legal',['lawyerboss','nyayalegal']],
+    ['Legal',['lawyerboss','nyayalegal','nyayabox']],
     ['Academics',['khoj-learning','vimarsha','quantumexp']],
     ['Enterprise',['instantconfig','vr-real-estate-tour','customsiq','datamind']],
     ['Media',['satya-social','newstime','tabletennis']],
@@ -53,4 +53,30 @@ test('horizontal swipes navigate, without treating scrolls or taps as swipes',()
 test('selected product remains on its matching page, including boundaries',()=>{
   const starts=[0,5,9];
   assert.deepEqual(Array.from({length:12},(_,i)=>pageForProduct(i,starts)),[0,0,0,0,0,1,1,1,1,2,2,2]);
+});
+
+test('NyayaBox is on the first product page without replacing NyayaLegal',()=>{
+  const boxIndex=products.findIndex(p=>p.slug==='nyayabox');
+  assert.ok(boxIndex>=0&&boxIndex<5);
+  assert.equal(pageForProduct(boxIndex,[0,5,9]),0);
+  const box=products[boxIndex];
+  assert.equal(box.name,'NyayaBox');
+  assert.match(box.description,/local-first deployment of NyayaLegal/);
+  assert.equal(box.hasRecording,false);
+  assert.equal(box.frontendUrl,undefined);
+  const legal=products.find(p=>p.slug==='nyayalegal');
+  assert.equal(legal.name,'NyayaLegal');
+  assert.equal(legal.frontendUrl,'https://yukti.kartar.ai/');
+  assert.equal(legal.demo.video,'/media/demos/nyayalegal.mp4');
+});
+
+test('first-page order is preserved and Vimarsha exchanges positions with QuantumExp',()=>{
+  assert.deepEqual(products.slice(0,5).map(p=>p.slug),[
+    'khoj-learning','satya-social','lawyerboss','nyayalegal','nyayabox',
+  ]);
+  assert.equal(products[8].slug,'vimarsha');
+  assert.equal(products[9].slug,'quantumexp');
+  assert.equal(pageForProduct(3,[0,5,9]),0);
+  assert.equal(pageForProduct(8,[0,5,9]),1);
+  assert.equal(pageForProduct(9,[0,5,9]),2);
 });

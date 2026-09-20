@@ -23,26 +23,6 @@ const catalogue = [
     },
   },
   {
-    slug: "vimarsha",
-    name: "Vimarsha",
-    frontendUrl: "https://kartar-vimarsha.exe.xyz/",
-    tagline: "EPUB reader, reimagined",
-    category: "Monetised Apps",
-    description:
-      "Turns any EPUB into a narrated audiobook ; figures surface in sync as you listen, voice notes drop straight onto the page, and an AI companion discusses the book with you using its own content.",
-    demo: {
-      orientation: "portrait",
-      video: "/media/demos/vimarsha.mp4",
-      aspectRatio: 720 / 1566,
-      poster: "/media/demos/vimarsha.jpg",
-      stops: [
-        { t: 14, tip: "Any EPUB, read aloud ; the words highlight in sync." },
-        { t: 22, tip: "Drop voice notes straight onto the page." },
-        { t: 28, tip: "An AI companion discusses the book with you." },
-      ],
-    },
-  },
-  {
     slug: "satya-social",
     name: "Satya Social",
     tagline: "A human-first social network",
@@ -80,6 +60,32 @@ const catalogue = [
         { t: 48, tip: "Review the evidence and open the generated legal notice draft." },
       ],
     },
+  },
+  {
+    slug: "nyayalegal",
+    name: "NyayaLegal",
+    tagline: "Grounded legal AI",
+    category: "Legal Assistance",
+    frontendUrl: "https://yukti.kartar.ai/",
+    description:
+      "Legal answers that cite their sources. Built to reason over a grounded graph of Indian law instead of improvising from a chatbot's memory.",
+    demo: {
+      orientation: "landscape",
+      video: "/media/demos/nyayalegal.mp4",
+      poster: "/media/demos/nyayalegal.jpg",
+      stops: [
+        { t: 4, tip: "Revisit a saved legal-research answer." },
+        { t: 14, tip: "Open the cited judgment and inspect its source passage." },
+        { t: 20, tip: "Select source text to collect it in research notes." },
+      ],
+    },
+  },
+  {
+    slug: "nyayabox",
+    name: "NyayaBox",
+    tagline: "NyayaLegal, local-first",
+    category: "Legal Assistance",
+    description: "A local-first deployment of NyayaLegal for legal research.",
   },
   {
     slug: "instantconfig",
@@ -174,6 +180,26 @@ const catalogue = [
     },
   },
   {
+    slug: "vimarsha",
+    name: "Vimarsha",
+    frontendUrl: "https://kartar-vimarsha.exe.xyz/",
+    tagline: "EPUB reader, reimagined",
+    category: "Monetised Apps",
+    description:
+      "Turns any EPUB into a narrated audiobook ; figures surface in sync as you listen, voice notes drop straight onto the page, and an AI companion discusses the book with you using its own content.",
+    demo: {
+      orientation: "portrait",
+      video: "/media/demos/vimarsha.mp4",
+      aspectRatio: 720 / 1566,
+      poster: "/media/demos/vimarsha.jpg",
+      stops: [
+        { t: 14, tip: "Any EPUB, read aloud ; the words highlight in sync." },
+        { t: 22, tip: "Drop voice notes straight onto the page." },
+        { t: 28, tip: "An AI companion discusses the book with you." },
+      ],
+    },
+  },
+  {
     slug: "quantumexp",
     name: "QuantumExp",
     tagline: "Geometric algebra, live",
@@ -188,25 +214,6 @@ const catalogue = [
       stops: [
         { t: 4, tip: "Set up Grover search with three qubits and marked state 5." },
         { t: 14, tip: "Inspect the completed simulation and its circuit." },
-      ],
-    },
-  },
-  {
-    slug: "nyayalegal",
-    name: "NyayaLegal",
-    tagline: "Grounded legal AI",
-    category: "Legal Assistance",
-    frontendUrl: "https://yukti.kartar.ai/",
-    description:
-      "Legal answers that cite their sources. Built to reason over a grounded graph of Indian law instead of improvising from a chatbot's memory.",
-    demo: {
-      orientation: "landscape",
-      video: "/media/demos/nyayalegal.mp4",
-      poster: "/media/demos/nyayalegal.jpg",
-      stops: [
-        { t: 4, tip: "Revisit a saved legal-research answer." },
-        { t: 14, tip: "Open the cited judgment and inspect its source passage." },
-        { t: 20, tip: "Select source text to collect it in research notes." },
       ],
     },
   },

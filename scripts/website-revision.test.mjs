@@ -20,7 +20,7 @@ test('public catalogue includes Khoj and TT Coach and excludes withdrawn project
   assert.equal(tt.stage,'In development');
   assert.equal(tt.frontendUrl,undefined);
   assert.equal(tt.demo.video,'/media/demos/tt-coach.mp4');
-  assert.equal(products.length,12);
+  assert.equal(products.length,13);
   assert.equal(products.filter(p=>p.hasRecording).length,11);
   assert.equal(products.find(p=>p.slug==='newstime').name,'Kartar Media');
 });
@@ -76,6 +76,7 @@ test('industry copy contains no fabricated quantitative proof or absolute automa
 test('intake retains thirteen distinct controls and labels; voice changes are explicit',()=>{
   assert.equal(intakeFields.length,13);assert.equal(new Set(intakeFields.map(f=>f.name)).size,13);
   const form=read('src/components/ContactForm.jsx');assert.match(form,/label htmlFor=\{id\}/);
-  assert.match(form,/Use this answer/);assert.match(form,/Confirm or discard/);
+  assert.match(form,/>Keep</);assert.match(form,/>Discard</);
+  assert.doesNotMatch(form,/Review voice answer|voice-transcript|Confirm or discard/);
   assert.doesNotMatch(form,/spoken.includes|selectVoiceOption|emailjs/);
 });

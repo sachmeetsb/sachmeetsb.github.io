@@ -4,7 +4,7 @@ import SplitText from "./motion/SplitText";
 import MagneticButton from "./motion/MagneticButton";
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { EASE_OUT } from "../lib/motion";
-import HeroBranchingTree from './HeroBranchingTree';
+import HeroMengerSponge from './HeroMengerSponge';
 
 export default function Hero({
   callActive = false,
@@ -16,7 +16,7 @@ export default function Hero({
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden select-none"
       style={{
         background: "#2D1B69",
         backgroundImage: [
@@ -35,7 +35,7 @@ export default function Hero({
         }}
       />
 
-      <HeroBranchingTree />
+      <HeroMengerSponge />
 
       <div className="hero-founder absolute right-[7%] top-1/2 -translate-y-1/2 hidden lg:block w-[330px] xl:w-[390px] z-20">
         <a href="#team" className="block">

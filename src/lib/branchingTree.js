@@ -1,6 +1,14 @@
 export const FRAME_MS = 1000 / 20;
 export const CYCLE_SECONDS = 18;
 const STRIDE = 5; // start x/y, end x/y, depth
+const MAX_LINE_WIDTH = 3;
+
+// Separate full-grown envelopes, not just trunks. Geometry only changes on
+// resize/regrowth, so canopies stay apart even while neighbours grow out of phase.
+export function canopyGap(width, roots) {
+  const lane = width / roots;
+  return Math.min(lane * 0.3, Math.max(24, Math.min(72, lane * 0.12)));
+}
 
 export function treeBudget(width, height) {
   return {
@@ -12,20 +20,41 @@ export function treeBudget(width, height) {
 
 function growTree(tree, field, index, random) {
   let cursor = 0;
+  let minX = Infinity, maxX = -Infinity;
+  const forkStyle = 0.34 + random() * 0.16;
+  const shrinkStyle = 0.67 + random() * 0.06;
   const add = (x, y, angle, length, depth) => {
     const endX = x + Math.cos(angle) * length;
     const endY = y + Math.sin(angle) * length;
     tree.branches.set([x, y, endX, endY, depth], cursor * STRIDE);
+    minX = Math.min(minX, x, endX);
+    maxX = Math.max(maxX, x, endX);
     cursor++;
     if (depth >= field.depth) return;
-    const fork = 0.35 + random() * 0.22;
-    const shrink = 0.70 + random() * 0.07;
-    add(endX, endY, angle - fork, length * shrink, depth + 1);
-    add(endX, endY, angle + fork, length * shrink, depth + 1);
+    // Independent siblings break mirror symmetry without jittering during growth.
+    const leftFork = forkStyle + (random() - 0.5) * 0.16;
+    const rightFork = forkStyle + (random() - 0.5) * 0.16;
+    const leftShrink = shrinkStyle + (random() - 0.5) * 0.06;
+    const rightShrink = shrinkStyle + (random() - 0.5) * 0.06;
+    add(endX, endY, angle - leftFork, length * leftShrink, depth + 1);
+    add(endX, endY, angle + rightFork, length * rightShrink, depth + 1);
   };
-  const x = field.width * ((index + 0.5) / field.trees.length);
-  const length = field.height * 0.25;
-  add(x, field.height * 1.02, -Math.PI / 2 + (random() - 0.5) * 0.16, length, 0);
+  const lane = field.width / field.trees.length;
+  const length = field.height * (0.22 + random() * 0.05);
+  add(0, field.height * 1.02, -Math.PI / 2 + (random() - 0.5) * 0.28, length, 0);
+
+  // Fit the whole silhouette into its lane once. A little width/position variation
+  // keeps the forest irregular; the gap includes stroke caps and rounding slack.
+  const available = Math.max(1, lane - canopyGap(field.width, field.trees.length) - MAX_LINE_WIDTH - 2);
+  const scaleX = Math.min(1, available * (0.86 + random() * 0.12) / Math.max(1, maxX - minX));
+  const span = (maxX - minX) * scaleX;
+  const center = lane * (index + 0.5) + (random() - 0.5) * (available - span) * 0.6;
+  const midpoint = (minX + maxX) / 2;
+  const b = tree.branches;
+  for (let i = 0; i < b.length; i += STRIDE) {
+    b[i] = center + (b[i] - midpoint) * scaleX;
+    b[i + 2] = center + (b[i + 2] - midpoint) * scaleX;
+  }
 }
 
 export function createForest(width, height, random = Math.random) {
@@ -64,7 +93,7 @@ export function drawForest(ctx, field) {
     for (let depth = 0; depth <= field.depth; depth++) {
       const progress = Math.max(0, Math.min(1, (tree.age - depth * 1.3) / 1.3));
       if (!progress) continue;
-      ctx.lineWidth = Math.max(1.4, 3 - depth * 0.24);
+      ctx.lineWidth = Math.max(1.4, MAX_LINE_WIDTH - depth * 0.24);
       ctx.beginPath();
       const b = tree.branches;
       for (let i = 0; i < b.length; i += STRIDE) {
